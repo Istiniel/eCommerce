@@ -1,0 +1,15 @@
+.container {
+  @extend %flexcolumn;
+
+  gap: 2rem;
+}
+
+.link {
+  font-family: $font-sans;
+  @include font($font-size-base, 1.5rem, $font-weight-bold);
+
+  transition: $fast-transition;
+  @include onHover() {
+    color: $c-green;
+  }
+}

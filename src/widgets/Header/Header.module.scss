@@ -1,0 +1,10 @@
+.header {
+  background-color: $c-gray;
+}
+
+.container {
+  padding: 2rem 1rem;
+
+  @extend %aligncenter;
+  gap: 1rem;
+}

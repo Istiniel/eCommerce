@@ -1,0 +1,9 @@
+{
+  "id": "ID",
+  "title": "Title",
+  "body": "Description",
+  "prev": "Previous",
+  "next": "Next",
+  "noMatches": "No matches",
+  "noPage": "Page is not found"
+}
