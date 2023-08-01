@@ -41,6 +41,6 @@ If the changes introduce any visual modifications, please include screenshots de
 
 ### ✔️ Reviewers
 
-- [ ] @rIstiniel
+- [ ] @Istiniel
 - [ ] @shoxakrshn
 - [ ] @dkon70
