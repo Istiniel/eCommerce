@@ -31,9 +31,7 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: [
-      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
-    ],
+    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }],
   },
   css: {
     preprocessorOptions: {
@@ -42,4 +40,4 @@ export default defineConfig({
       },
     },
   },
-})
+});
