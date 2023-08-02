@@ -61,6 +61,6 @@ This command will start dev server and you can access the app at [http://localho
 
 # <a name="developed-by"></a> Developed by
 
-* [https://github.com/Istiniel](Istiniel)
-* [https://github.com/dkon70](dkon70)
-* [https://github.com/shoxakrshn](shoxakrshn)
+* [Istiniel](https://github.com/Istiniel)
+* [dkon70](https://github.com/dkon70)
+* [shoxakrshn](https://github.com/shoxakrshn)
