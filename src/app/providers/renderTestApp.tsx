@@ -1,45 +1,37 @@
-// import { PreloadedState, configureStore } from '@reduxjs/toolkit';
-// import { RenderOptions, render } from '@testing-library/react';
-// import React, { PropsWithChildren } from 'react';
-// import { Provider } from 'react-redux';
-// import { MemoryRouter } from 'react-router-dom';
-// import AppRouter from '../components/AppRouter';
-// import { animeAPI } from '../redux/API/animeAPI';
-// import animeReducer from '../redux/features/anime/anime';
-// import { AppStore, RootState } from '../redux/store';
+import { PreloadedState } from '@reduxjs/toolkit';
+import { RenderOptions, render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { RouterProvider, createMemoryRouter, createRoutesFromElements } from 'react-router-dom';
+import { Routes } from '../../pages';
+import { AppStore, RootState, setupStore } from '../redux/store';
 
-// interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-//   initialRoute?: string;
-//   preloadedState?: PreloadedState<RootState>;
-//   store?: AppStore;
-// }
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  initialRoute?: string;
+  preloadedState?: PreloadedState<RootState>;
+  store?: AppStore;
+}
 
-// export const renderTestApp = (
-//   component: React.ReactElement,
-//   {
-//     initialRoute = '/',
-//     preloadedState = {},
-//     store = configureStore({
-//       reducer: {
-//         anime: animeReducer,
-//         [animeAPI.reducerPath]: animeAPI.reducer,
-//       },
-//       middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animeAPI.middleware),
-//       preloadedState,
-//     }),
-//     ...RenderOptions
-//   }: ExtendedRenderOptions = {},
-// ) => {
-//   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
-//     return (
-//       <Provider store={store}>
-//         <MemoryRouter initialEntries={[initialRoute]}>
-//           <AppRouter />
-//           {children}
-//         </MemoryRouter>
-//       </Provider>
-//     );
-//   }
+function renderTestApp({
+  initialRoute = '/',
+  preloadedState = {},
+  store = setupStore(preloadedState),
+  ...RenderingOptions
+}: ExtendedRenderOptions = {}) {
+  const routes = createRoutesFromElements(<Routes />);
+  const router = createMemoryRouter(routes, {
+    initialEntries: [initialRoute],
+    initialIndex: 0,
+  });
 
-//   return { store, ...render(component, { wrapper: Wrapper, ...RenderOptions }) };
-// };
+  function testApp() {
+    return (
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
+  }
+
+  return { store, ...render(testApp(), { wrapper: undefined, ...RenderingOptions }) };
+}
+
+export default renderTestApp;
