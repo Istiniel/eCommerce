@@ -1,13 +1,15 @@
-import { Action, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
-import AuthSlice from './features/AuthSlice/AuthSlice';
+import { Action, PreloadedState, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import AuthReducer from './features/AuthSlice/AuthSlice';
 
 const rootReducer = combineReducers({
-  authSlice: AuthSlice,
+  authSlice: AuthReducer,
 });
 
-export function setupStore() {
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
   return configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+    preloadedState,
   });
 }
 
