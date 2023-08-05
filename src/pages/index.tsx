@@ -12,7 +12,7 @@ import SharedLayout from './SharedLayout';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-export function Routes() {
+export function getRoutes() {
   return (
     <>
       <Route path="/" element={<SharedLayout />}>
@@ -31,7 +31,8 @@ export function Routes() {
 }
 
 function AppRouter() {
-  const router = createBrowserRouter(createRoutesFromElements(<Routes />));
+  const routes = createRoutesFromElements(getRoutes());
+  const router = createBrowserRouter(routes);
 
   return <RouterProvider router={router} />;
 }

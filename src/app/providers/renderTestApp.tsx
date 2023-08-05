@@ -2,7 +2,7 @@ import { PreloadedState } from '@reduxjs/toolkit';
 import { RenderOptions, render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { RouterProvider, createMemoryRouter, createRoutesFromElements } from 'react-router-dom';
-import { Routes } from '../../pages';
+import { getRoutes } from '../../pages';
 import { AppStore, RootState, setupStore } from '../redux/store';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
@@ -17,7 +17,7 @@ function renderTestApp({
   store = setupStore(preloadedState),
   ...RenderingOptions
 }: ExtendedRenderOptions = {}) {
-  const routes = createRoutesFromElements(<Routes />);
+  const routes = createRoutesFromElements(getRoutes());
   const router = createMemoryRouter(routes, {
     initialEntries: [initialRoute],
     initialIndex: 0,

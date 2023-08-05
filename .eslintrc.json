@@ -26,7 +26,6 @@
     "func-names": "off",
     "arrow-body-style": "off",
     "react/function-component-definition": "off",
-    "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "comma-dangle": ["error", "only-multiline"],
@@ -43,6 +42,7 @@
     "@typescript-eslint/no-var-reqiures": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "react-refresh/only-export-components": "off"
   }
 }
