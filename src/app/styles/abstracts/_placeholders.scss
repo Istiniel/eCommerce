@@ -25,3 +25,8 @@
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 }
+
+%disabled {
+  user-select: none;
+  pointer-events: none;
+}

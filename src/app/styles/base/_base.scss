@@ -1,5 +1,36 @@
 @use '../abstracts' as *;
 
+$active-theme: $light;
+
+:root {
+  @each $color, $shade-map in $active-theme {
+    @each $shade, $value in $shade-map {
+      --#{$color}-#{$shade}: #{$value};
+    }
+  }
+}
+
+@if ($enable-media-query-dark-mode) {
+  @media (prefers-color-scheme: dark) {
+   :root {
+      @each $color, $shade-map in $dark {
+        @each $shade, $value in $shade-map {
+           --#{$color}-#{$shade}: #{$value};
+         }
+      }
+   }
+  }
+}
+
+body[data-theme="dark"] {
+    @each $color, $shade-map in $dark {
+      @each $shade, $value in $shade-map {
+         --#{$color}-#{$shade}: #{$value};
+       }
+    }
+}
+
+
 .wrapper {
   width: 100%;
   max-width: $max-width;
@@ -21,7 +52,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $c-white;
   border-radius: 3px;
 }
 

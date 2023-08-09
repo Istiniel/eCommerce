@@ -1,24 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
-$font-sans: 'Roboto', 'Arial', sans-serif;
+$font-sans: 'Lato', 'Arial', sans-serif;
+$enable-media-query-dark-mode: false;
 
 $font-weight-small: 300;
 $font-weight-normal: 400;
-$font-weight-semibold: 600;
+$font-weight-medium: 600;
 $font-weight-bold: 700;
+$font-weight-black: 900;
 
 $font-size-small: 14px;
 $font-size-base: 16px;
 $font-size-medium: 20px;
 $font-size-heading: 24px;
 
-$b-radius: 5px;
+$font-height-small: 100%;
+$font-height-base: 120%;
+$font-height-medium: 140%;
+$font-height-large: 160%;
 
-$c-white: #ffffff;
-$c-lightgray: #dbe7f7;
-$c-gray: #5a5c66;
-$c-darkgray: #474955;
-$c-green: #7ebc3c;
+$b-radius: 5px;
 
 $light-gradient: linear-gradient(90deg, #fdc091 0%, #e197c4 31.81%, #7757c0 71.23%, #4c37d9 100%);
 $dark-gradient: linear-gradient(45.66deg, #22222c 0%, #2c295e 100%);
@@ -33,4 +34,4 @@ $fast-transition: all 0.15s ease-in-out;
 $slow-transition: all 0.4s ease-in-out;
 
 /// @type Length
-$max-width: 1100px !default;
+$max-width: 1440px !default;

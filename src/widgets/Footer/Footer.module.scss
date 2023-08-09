@@ -1,11 +1,13 @@
 .footer {
-  background-color: $c-gray;
-
   font-family: $font-sans;
   @include font($font-size-base, 1.5rem, $font-weight-bold);
-  color: $c-white;
+  color: white;
 }
 
 .container {
   padding: 2rem 1rem;
+  border: 1px solid $color-neutral-1000;
+  border-bottom: none;
+
+  color: $color-neutral-1000;
 }
