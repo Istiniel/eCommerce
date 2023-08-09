@@ -10,6 +10,7 @@ const Header = () => {
         <div className={styles.container}>
           <ToMainPageButton />
           <NavDrop />
+          <h1>Shop</h1>
         </div>
       </Wrapper>
     </header>
