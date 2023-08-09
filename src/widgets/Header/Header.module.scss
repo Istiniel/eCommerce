@@ -1,10 +1,17 @@
 .header {
-  background-color: $c-gray;
+  background-color: $color-neutral-000;
 }
 
 .container {
-  padding: 2rem 1rem;
-
   @extend %aligncenter;
-  gap: 1rem;
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.leftContainer, .rightContainer {
+  border-left: 1px solid $color-neutral-1000;
+  @extend %aligncenter;
+}
+
+.rightContainer {
+  margin-left: auto;
 }

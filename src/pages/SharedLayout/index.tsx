@@ -3,6 +3,7 @@ import Wrapper from '../../shared/ui/Wrapper';
 import Footer from '../../widgets/Footer';
 import Header from '../../widgets/Header';
 import styles from './SharedLayout.module.scss';
+import BreadCrumbs from '../../shared/ui/BreadCrumbs/index';
 
 const SharedLayout = () => {
   const navigation = useNavigation();
@@ -14,6 +15,7 @@ const SharedLayout = () => {
       <main className={styles.main}>
         <Wrapper>
           <div className={styles.container}>
+            <BreadCrumbs />
             <Outlet />
           </div>
         </Wrapper>

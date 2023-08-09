@@ -10,6 +10,6 @@
 
   transition: $fast-transition;
   @include onHover() {
-    color: $c-green;
+    color: green;
   }
 }

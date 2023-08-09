@@ -5,5 +5,10 @@
   "prev": "Previous",
   "next": "Next",
   "noMatches": "No matches",
-  "noPage": "Page is not found"
+  "noPage": "Page is not found",
+  "signin": "sign in",
+  "home": "home",
+  "signout": "sign out",
+  "cart": "cart",
+  "products": "shop"
 }
