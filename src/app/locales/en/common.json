@@ -10,5 +10,12 @@
   "home": "home",
   "signout": "sign out",
   "cart": "cart",
-  "products": "shop"
+  "products": "shop",
+  "greetings": "greetings",
+  "login": "login",
+  "password": "password",
+  "emptyPasswordInput": "password is required",
+  "emptyLoginInput": "login is required",
+  "minInputLength": "at least 5 symbols",
+  "wrongPassword": "password should contain numbers, letters with mixed case and special characters"
 }
