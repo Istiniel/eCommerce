@@ -28,6 +28,7 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<SignInFormState> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
