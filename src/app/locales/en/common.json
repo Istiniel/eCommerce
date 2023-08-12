@@ -12,10 +12,17 @@
   "cart": "cart",
   "products": "shop",
   "greetings": "greetings",
-  "login": "login",
-  "password": "password",
-  "emptyPasswordInput": "password is required",
-  "emptyLoginInput": "login is required",
+  "email": "Email",
+  "login": "Login",
+  "password": "Password",
+  "emptyInput": "field is required",
   "minInputLength": "at least 5 symbols",
-  "wrongPassword": "password should contain numbers, letters with mixed case and special characters"
+  "wrongPassword": "wrong password format",
+  "registration": "Sign up",
+  "signup": "sign up",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "address": "Address",
+  "wrongEmail": "invalid email",
+  "register": "sign up"
 }

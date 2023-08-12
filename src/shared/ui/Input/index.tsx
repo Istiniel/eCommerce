@@ -11,14 +11,24 @@ interface Props {
   value: string;
   onChange: VoidFunction;
   invalid: boolean;
+  nativeValidation?: boolean;
 }
 
 type InputRef = HTMLInputElement;
 
 export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
-  const { type, name, error, placeholder, value, onChange, invalid = false } = props;
-  const { t } = useTranslation()
+  const {
+    type,
+    name,
+    error,
+    placeholder,
+    value,
+    onChange,
+    invalid = false,
+    nativeValidation = true,
+  } = props;
+  const { t } = useTranslation();
 
   return (
     <label htmlFor={name} className={styles.label}>
@@ -27,9 +37,10 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
           { [styles.invalid]: invalid, [styles.active]: isFocused },
           styles.input,
         )}
+        formNoValidate={nativeValidation}
         name={name}
         type={type}
-        placeholder={placeholder}
+        placeholder={placeholder || t(name)}
         ref={ref}
         value={value}
         onChange={onChange}
