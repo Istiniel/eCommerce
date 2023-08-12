@@ -2,15 +2,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
-import { LinkButton } from '../../shared/ui/LinkButton/index';
-import styles from './LoginForm.module.scss'
+import styles from './RegistrationForm.module.scss'
 
-type SignInFormState = {
+type SignUpFormState = {
   login: string;
   password: string;
 };
 
-const LoginForm = () => {
+const RegistrationForm = () => {
   const {t} = useTranslation()
 
   const {
@@ -19,7 +18,7 @@ const LoginForm = () => {
     formState: {
       errors: { login, password },
     },
-  } = useForm<SignInFormState>({
+  } = useForm<SignUpFormState>({
     mode: 'onSubmit',
     defaultValues: {
       login: '',
@@ -27,15 +26,15 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<SignInFormState> = (data) => {
+  const onSubmit: SubmitHandler<SignUpFormState> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-      <h2 className={styles.formTitle}>{t('greetings')}</h2>
-      <AuthInput<SignInFormState>
+      <h2 className={styles.formTitle}>{t('registration')}</h2>
+      <AuthInput<SignUpFormState>
         control={control}
         name="login"
         type="text"
@@ -48,7 +47,7 @@ const LoginForm = () => {
           },
         }}
       />
-      <AuthInput<SignInFormState>
+      <AuthInput<SignUpFormState>
         control={control}
         name="password"
         type="password"
@@ -65,10 +64,9 @@ const LoginForm = () => {
           },
         }}
       />
-      <Button buttonType='outlined' type="submit">{t('login')}</Button>
-      <LinkButton href="/signup">{t('register')}</LinkButton>
+      <Button type="submit">{t('registration')}</Button>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegistrationForm;

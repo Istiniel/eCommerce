@@ -17,5 +17,7 @@
   "emptyPasswordInput": "password is required",
   "emptyLoginInput": "login is required",
   "minInputLength": "at least 5 symbols",
-  "wrongPassword": "password should contain numbers, letters with mixed case and special characters"
+  "wrongPassword": "password should contain numbers, letters with mixed case and special characters",
+  "registration": "Sign up",
+  "signup": "sign up"
 }
