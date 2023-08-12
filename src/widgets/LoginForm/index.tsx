@@ -81,7 +81,7 @@ const LoginForm = () => {
       <Button buttonType="outlined" type="submit">
         {t('login')}
       </Button>
-      <LinkButton href="/signup#signup">{t('register')}</LinkButton>
+      <LinkButton href="/signup">{t('register')}</LinkButton>
     </form>
   );
 };
