@@ -1,0 +1,16 @@
+.wrapper {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    @include font-style($font-sans, $font-size-giant, $color-neutral-1000, $font-weight-bold);
+    text-align: center;
+}
+
+.notFound {
+    font-size: $font-size-heading;
+    text-align: center;
+    margin-top: 100px;
+}
