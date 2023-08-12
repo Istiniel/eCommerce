@@ -1,7 +1,7 @@
 .form {
   margin: 0 auto;
   margin-top: 4rem;
-  margin-bottom: 8.1rem;
+  margin-bottom: 7.1rem;
   max-width: 60rem;
 
   padding: 6rem;
@@ -15,5 +15,5 @@
 
   font-family: $font-sans;
   color: $color-neutral-1000;
-  @include font($font-size-large, $font-height-large, $font-weight-medium);
+  @include font($font-size-large, $font-height-base, $font-weight-medium);
 }

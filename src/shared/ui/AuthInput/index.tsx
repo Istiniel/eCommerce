@@ -30,12 +30,12 @@ function AuthInput<T extends FieldValues>({
           <Input
             value={value}
             onChange={onChange}
-            placeholder={name[0].toUpperCase() + name.slice(1)}
             type={type}
             invalid={invalid}
             name={name}
             error={error}
             ref={ref}
+            nativeValidation={type !== 'email'}
           />
         )}
       />
