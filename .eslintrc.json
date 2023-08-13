@@ -22,11 +22,11 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["react-refresh", "@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
+    "import/no-extraneous-dependencies": "off",
     "no-param-reassign": "off",
     "func-names": "off",
     "arrow-body-style": "off",
     "react/function-component-definition": "off",
-    "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "comma-dangle": ["error", "only-multiline"],
