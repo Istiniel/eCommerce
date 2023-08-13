@@ -60,7 +60,6 @@ const RegistrationForm = () => {
     },
   });
 
-
   const onSubmit: SubmitHandler<SignUpFormState> = (data, event) => {
     event?.preventDefault();
     // eslint-disable-next-line no-console
@@ -202,9 +201,7 @@ const RegistrationForm = () => {
           Billing
         </div>
       </div>
-      {currentAddress && (
-        <ShippingAddress control={control} />
-      )}
+      {currentAddress && <ShippingAddress control={control} />}
       {!currentAddress && <BillingAddress control={control} />}
       <Button type="submit">{t('registration')}</Button>
     </form>
