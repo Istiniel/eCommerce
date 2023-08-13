@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+
 .footer {
   font-family: $font-sans;
   @include font($font-size-base, 1.5rem, $font-weight-bold);
@@ -5,9 +7,75 @@
 }
 
 .container {
-  padding: 3.5rem 1rem;
+  display: flex;
+  border-right: 1px solid $color-neutral-1000;
   border: 1px solid $color-neutral-1000;
-  border-bottom: none;
 
   color: $color-neutral-1000;
+}
+
+.column {
+  @extend %flexcolumn;
+  flex: 1 1 auto;
+
+  row-gap: 2.4rem;
+  max-width: 36rem;
+  padding: 4rem;
+
+  &:not(:last-child) {
+    border-right: 1px solid $color-neutral-1000;
+  }
+}
+
+.remind {
+  @include font-style('Gilroy-Regular', 1.6rem, #121212);
+  line-height: 140%;
+}
+
+.remind__form {
+  @extend %flexcolumn;
+  row-gap: 1.6rem;
+}
+
+.input {
+  @include font-style('Gilroy-Regular', 1.6rem, #121212);
+  border: 1px solid #d2d2d7;
+  padding: 1.95rem 0 1.95rem 1.6rem;
+
+  &:focus-visible {
+    outline-color: #121212;
+  }
+}
+
+.btn {
+  @include font-style('Gilroy-Regular', 1.6rem, #ffffff);
+  line-height: 120%;
+  background-color: #121212;
+  text-transform: uppercase;
+  padding: 1.95rem 0;
+}
+
+.title {
+  @include font-style('Gilroy-Medium', 2.1rem, #808080, 100);
+  line-height: 120%;
+}
+
+.subtitle {
+  @include font-style('Gilroy-Regular', 1.4rem, #808080);
+  line-height: 120%;
+  margin-bottom: 0.8rem;
+}
+
+.link {
+  @include font-style('Gilroy-Medium', 1.6rem, #121212, 100);
+  line-height: 120%;
+
+  &:not(:last-child) {
+    margin-bottom: 0.8rem;
+  }
+}
+
+.social {
+  display: flex;
+  justify-content: space-between;
 }
