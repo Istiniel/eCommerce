@@ -24,5 +24,10 @@
   "lastName": "Last name",
   "address": "Address",
   "wrongEmail": "invalid email",
-  "register": "sign up"
+  "register": "sign up",
+  "spaceValidation": "remove spaces",
+  "uppercaseValidation": "at least 1 uppercase",
+  "lowercaseValidation": "at least 1 lowercase",
+  "numberValidation": "at least 1 number",
+  "specialValidation": "at least 1 special character"
 }
