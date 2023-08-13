@@ -29,5 +29,6 @@
   "uppercaseValidation": "at least 1 uppercase",
   "lowercaseValidation": "at least 1 lowercase",
   "numbersValidation": "at least 1 number",
-  "specialValidation": "at least 1 special character"
+  "specialValidation": "at least 1 special character",
+  "showPassword": "Show password"
 }
