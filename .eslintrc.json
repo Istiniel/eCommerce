@@ -22,7 +22,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["react-refresh", "@typescript-eslint", "react", "react-hooks", "prettier"],
   "rules": {
-    "timport/no-extraneous-dependencies": "off",
+    "import/no-extraneous-dependencies": "off",
     "no-param-reassign": "off",
     "func-names": "off",
     "arrow-body-style": "off",
