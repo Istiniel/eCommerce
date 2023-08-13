@@ -29,11 +29,11 @@
 }
 
 .header {
-    @include font-style($font-sans, $font-size-medium, $color-neutral-1000)
+    @include font-style($font-sans, $font-size-heading, $color-neutral-1000);
 }
 
 .description {
-    @include font-style($font-sans, $font-size-base, $color-neutral-1000)
+    @include font-style($font-sans, $font-size-base, $color-neutral-1000);
 }
 
 @media screen and (max-width: 768px) {
