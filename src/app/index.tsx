@@ -4,9 +4,9 @@ import './styles/App.scss';
 
 function App() {
   return (
-    <AppProvider>
-      <AppRouter />
-    </AppProvider>
+      <AppProvider>
+        <AppRouter />
+      </AppProvider>
   );
 }
 

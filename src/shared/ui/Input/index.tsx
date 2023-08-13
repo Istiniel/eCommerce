@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { Checkbox } from 'antd';
 import styles from './Input.module.scss';
 
 interface Props {
@@ -18,6 +19,8 @@ type InputRef = HTMLInputElement;
 
 export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     type,
     name,
@@ -31,23 +34,36 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
   const { t } = useTranslation();
 
   return (
-    <label htmlFor={name} className={styles.label}>
-      <input
-        className={classNames(
-          { [styles.invalid]: invalid, [styles.active]: isFocused },
-          styles.input,
-        )}
-        formNoValidate={nativeValidation}
-        name={name}
-        type={type}
-        placeholder={placeholder || t(name)}
-        ref={ref}
-        value={value}
-        onChange={onChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-      />
-      <p className={styles.errorMessage}>{t(error)}</p>
-    </label>
+    <div className={styles.container}>
+      <label htmlFor={name} className={styles.label}>
+        <span className={styles.title}>{t(name)}</span>
+        <input
+          className={classNames(
+            { [styles.invalid]: invalid, [styles.active]: isFocused },
+            styles.input,
+          )}
+          formNoValidate={nativeValidation}
+          name={name}
+          type={type === 'password' && showPassword ? 'text' : type}
+          placeholder={placeholder || t(name)}
+          ref={ref}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        <p className={styles.errorMessage}>{t(error)}</p>
+      </label>
+      {type === 'password' && (
+        <Checkbox
+          className={styles.showPassword}
+          onChange={() => {
+            setShowPassword((prevState) => !prevState);
+          }}
+        >
+          {t('showPassword')}
+        </Checkbox>
+      )}
+    </div>
   );
 });
