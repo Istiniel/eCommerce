@@ -10,5 +10,19 @@
   "home": "home",
   "signout": "sign out",
   "cart": "cart",
-  "products": "shop"
+  "products": "shop",
+  "greetings": "greetings",
+  "email": "Email",
+  "login": "Login",
+  "password": "Password",
+  "emptyInput": "field is required",
+  "minInputLength": "at least 5 symbols",
+  "wrongPassword": "wrong password format",
+  "registration": "Sign up",
+  "signup": "sign up",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "address": "Address",
+  "wrongEmail": "invalid email",
+  "register": "sign up"
 }

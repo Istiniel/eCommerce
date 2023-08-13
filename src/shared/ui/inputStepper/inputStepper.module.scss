@@ -22,5 +22,7 @@
 	border: none;
 	border-top: 1px solid $color-neutral-1000;
 	border-bottom: 1px solid $color-neutral-1000;
-	text-align: center;
+	@extend %aligncenter;
+	justify-content: center;
+	font-weight: $font-weight-normal;
 }

@@ -1,5 +1,7 @@
+import RegistrationForm from "../../widgets/RegistrationForm";
+
 const SignUp = () => {
-  return <div>Sign up</div>;
+  return <RegistrationForm />;
 };
 
 export default SignUp;

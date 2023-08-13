@@ -1,5 +1,8 @@
+import LoginForm from '../../widgets/LoginForm/index';
+
+
 const SignIn = () => {
-  return <div>Sign in</div>;
+  return <LoginForm />;
 };
 
 export default SignIn;

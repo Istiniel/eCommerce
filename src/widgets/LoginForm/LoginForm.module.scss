@@ -1,0 +1,20 @@
+.form {
+  margin: 0 auto;
+  margin-top: 7rem;
+  margin-bottom: 9.1rem;
+  max-width: 60rem;
+
+  padding: 6rem;
+  background-color: $color-neutral-000;
+
+  border: 2px solid $color-neutral-1000;
+}
+
+.formTitle {
+  padding-bottom: 2rem;
+
+  font-family: $font-sans;
+  color: $color-neutral-1000;
+  @include font($font-size-large, $font-height-large, $font-weight-medium);
+  text-transform: capitalize;
+}

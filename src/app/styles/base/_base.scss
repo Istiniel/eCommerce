@@ -34,6 +34,7 @@ main .wrapper {
 }
 
 .wrapper {
+  height: 100%;
   width: 100%;
   max-width: $max-width;
   padding: 0 20px;
@@ -64,9 +65,12 @@ main .wrapper {
 body,
 #root,
 #__next {
-  height: 100%;
   min-height: 100vh;
   margin: 0;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
 }
