@@ -16,7 +16,7 @@
   "email": "Почта",
   "password": "Пароль",
   "emptyInput": "обязательное поле",
-  "minInputLength": "минимум 5 символов",
+  "minInputLength": "минимум 8 символов",
   "wrongPassword": "неверный формат",
   "registration": "Регистрация",
   "signup": "регистрация",
@@ -30,5 +30,16 @@
   "lowercaseValidation": "at least 1 lowercase",
   "numbersValidation": "at least 1 number",
   "specialValidation": "at least 1 special character",
-  "showPassword": "Show password"
+  "showPassword": "Show password",
+  "noSpecialSymbols": "no special characters",
+  "noNumbers": "no numbers",
+  "ageValidation": "You should be 13 years old at least",
+  "dateOfBirth": "Birthdate ",
+  "noCountry": "select existed country",
+  "shippingAddress.city": "City",
+  "shippingAddress.street": "Street",
+  "shippingAddress.postal": "Postal code",
+  "billingAddress.city": "City",
+  "billingAddress.street": "Street",
+  "billingAddress.postal": "Postal code"
 }

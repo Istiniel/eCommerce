@@ -74,7 +74,7 @@ const LoginForm = () => {
         rules={{
           required: 'emptyInput',
           minLength: {
-            value: 5,
+            value: 8,
             message: 'minInputLength',
           },
           validate: {

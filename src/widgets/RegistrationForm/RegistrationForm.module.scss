@@ -17,3 +17,38 @@
   color: $color-neutral-1000;
   @include font($font-size-large, $font-height-base, $font-weight-medium);
 }
+
+.addressContainer {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.addressTitle {
+  margin-top: 4rem;
+  display: block;
+  font-size: $font-size-heading;
+}
+
+.address {
+  padding: 1rem 0;
+  display: inline-block;
+  text-transform: lowercase;
+  color: $color-neutral-500;
+  font-size: $font-size-medium;
+
+  @include onHover() {
+    cursor: pointer;
+  }
+
+  &.active {
+    color: $color-neutral-1000;
+    user-select: none;
+    pointer-events: none;
+    text-decoration: underline;
+    @include onHover() {
+      cursor: auto;
+    }
+  }
+}

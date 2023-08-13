@@ -1,42 +1,65 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import classNames from 'classnames';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
 import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
+import ShippingAddress from './ShippingAddress';
+import BillingAddress from './BillingAddress';
+import './Autocomplete.scss';
 
-type SignUpFormState = {
+export type SignUpFormState = {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
   dateOfBirth: number;
-  address: number;
+  shippingAddress: {
+    country: string;
+    city: string;
+    postal: string;
+    street: string;
+  };
+  billingAddress: {
+    country: string;
+    city: string;
+    postal: string;
+    street: string;
+  };
 };
 
 const RegistrationForm = () => {
+  const [currentAddress, setCurrentAddress] = useState(true);
   const { t } = useTranslation();
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  useScrollIntoView(formRef)
+  useScrollIntoView(formRef);
 
-  const {
-    handleSubmit,
-    control,
-    formState: {
-      errors: { email, password, firstName, lastName, address, dateOfBirth },
-    },
-  } = useForm<SignUpFormState>({
-    mode: 'onSubmit',
+  const { handleSubmit, control } = useForm<SignUpFormState>({
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
       firstName: '',
       lastName: '',
+      shippingAddress: {
+        country: '',
+        city: '',
+        postal: '',
+        street: '',
+      },
+      billingAddress: {
+        country: '',
+        city: '',
+        postal: '',
+        street: '',
+      },
     },
   });
+
 
   const onSubmit: SubmitHandler<SignUpFormState> = (data, event) => {
     event?.preventDefault();
@@ -49,92 +72,140 @@ const RegistrationForm = () => {
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
       <h2 className={styles.formTitle}>{t('registration')}</h2>
-      <AuthInput<SignUpFormState>
+      <AuthInput
         control={control}
         name="email"
-        type="email"
-        error={email?.message || ''}
+        type="text"
         rules={{
           required: 'emptyInput',
           minLength: {
             value: 5,
             message: 'minInputLength',
           },
-          pattern: {
-            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'wrongEmail',
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            emailPattern: (value) => {
+              const pattern = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+              return pattern.test(String(value)) ? true : 'wrongEmail';
+            },
           },
         }}
       />
-      <AuthInput<SignUpFormState>
+      <AuthInput
         control={control}
         name="password"
         type="password"
-        error={password?.message || ''}
         rules={{
           required: 'emptyInput',
           minLength: {
-            value: 5,
+            value: 8,
             message: 'minInputLength',
           },
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$/,
-            message: 'wrongPassword',
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            uppercase: (value) => {
+              return /[A-Z]/.test(String(value)) ? true : 'uppercaseValidation';
+            },
+            lowercase: (value) => {
+              return /[a-z]/.test(String(value)) ? true : 'lowercaseValidation';
+            },
+            numbers: (value) => {
+              return /[0-9]/.test(String(value)) ? true : 'numberValidation';
+            },
+            special: (value) => {
+              return /[!-/:-@[-`{-~]/.test(String(value)) ? true : 'specialValidation';
+            },
           },
         }}
       />
-      <AuthInput<SignUpFormState>
+      <AuthInput
         control={control}
         name="firstName"
         type="text"
-        error={firstName?.message || ''}
         rules={{
           required: 'emptyInput',
           minLength: {
-            value: 5,
+            value: 1,
             message: 'minInputLength',
+          },
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            special: (value) => {
+              return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
+            },
+            numbers: (value) => {
+              return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
+            },
           },
         }}
       />
-      <AuthInput<SignUpFormState>
+      <AuthInput
         control={control}
         name="lastName"
         type="text"
-        error={lastName?.message || ''}
         rules={{
           required: 'emptyInput',
           minLength: {
-            value: 5,
+            value: 1,
             message: 'minInputLength',
+          },
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            special: (value) => {
+              return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
+            },
+            numbers: (value) => {
+              return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
+            },
           },
         }}
       />
-      <AuthInput<SignUpFormState>
-        control={control}
-        name="address"
-        type="text"
-        error={address?.message || ''}
-        rules={{
-          required: 'emptyInput',
-          minLength: {
-            value: 5,
-            message: 'minInputLength',
-          },
-        }}
-      />
-      <AuthInput<SignUpFormState>
+      <AuthInput
         control={control}
         name="dateOfBirth"
         type="date"
-        error={dateOfBirth?.message || ''}
         rules={{
           required: 'emptyInput',
-          minLength: {
-            value: 5,
-            message: 'minInputLength',
+          validate: {
+            birthDate: (value) => {
+              const date = new Date(String(value));
+              const age = new Date().getFullYear() - date.getFullYear();
+              return age >= 13 ? true : 'ageValidation';
+            },
           },
         }}
       />
+      <h2 className={styles.addressTitle}>Address</h2>
+      <div className={styles.addressContainer}>
+        <div
+          className={classNames({ [styles.active]: currentAddress }, styles.address)}
+          onClick={() => {
+            setCurrentAddress(true);
+          }}
+        >
+          Shipping
+        </div>
+        <div
+          className={classNames({ [styles.active]: !currentAddress }, styles.address)}
+          onClick={() => {
+            setCurrentAddress(false);
+          }}
+        >
+          Billing
+        </div>
+      </div>
+      {currentAddress && (
+        <ShippingAddress control={control} />
+      )}
+      {!currentAddress && <BillingAddress control={control} />}
       <Button type="submit">{t('registration')}</Button>
     </form>
   );

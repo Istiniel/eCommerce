@@ -1,8 +1,8 @@
 import React, { InputHTMLAttributes, useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import styles from './Input.module.scss';
 import { Checkbox } from 'antd';
+import styles from './Input.module.scss';
 
 interface Props {
   type: InputHTMLAttributes<HTMLInputElement>['type'];
@@ -34,8 +34,9 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
   const { t } = useTranslation();
 
   return (
-    <p>
+    <div className={styles.container}>
       <label htmlFor={name} className={styles.label}>
+        <span className={styles.title}>{t(name)}</span>
         <input
           className={classNames(
             { [styles.invalid]: invalid, [styles.active]: isFocused },
@@ -63,6 +64,6 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
           {t('showPassword')}
         </Checkbox>
       )}
-    </p>
+    </div>
   );
 });

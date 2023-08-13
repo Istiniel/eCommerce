@@ -1,45 +1,33 @@
-import React, { HTMLInputTypeAttribute } from 'react';
-import { Control, Controller, FieldValues, Path, RegisterOptions } from 'react-hook-form';
-import styles from './AuthInput.module.scss';
-import { Input } from '../Input';
+import { HTMLInputTypeAttribute } from 'react';
+import { UseControllerProps, useController, FieldValues } from 'react-hook-form';
+import { Input } from '../Input/index';
 
-interface AuthInputProps<T extends FieldValues> {
-  name: Path<T>;
+
+interface AuthInputProps<T extends FieldValues> extends UseControllerProps<T> {
   type?: HTMLInputTypeAttribute;
-  rules:
-    | Omit<RegisterOptions<T, Path<T>>, 'setValueAs' | 'disabled' | 'valueAsNumber' | 'valueAsDate'>
-    | undefined;
-  control: Control<T>;
-  error: string;
 }
 
-function AuthInput<T extends FieldValues>({
-  name,
-  type,
-  control,
-  rules,
-  error
-}: React.PropsWithChildren<AuthInputProps<T>>) {
+function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
+  const { type } = props;
+
+  const {
+    field: { onChange, value, ref, name },
+    fieldState: { invalid, error },
+  } = useController(props);
+
+
+
   return (
-    <div className={styles.input}>
-      <Controller
-        control={control}
-        name={name}
-        rules={rules}
-        render={({ field: { onChange, value, ref }, fieldState: { invalid } }) => (
-          <Input
-            value={value}
-            onChange={onChange}
-            type={type}
-            invalid={invalid}
-            name={name}
-            error={error}
-            ref={ref}
-            nativeValidation={type !== 'email'}
-          />
-        )}
-      />
-    </div>
+    <Input
+      value={value}
+      onChange={onChange}
+      invalid={invalid}
+      name={name}
+      type={type}
+      error={error?.message || ''}
+      ref={ref}
+      nativeValidation={type !== 'email'}
+    />
   );
 }
 
