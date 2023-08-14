@@ -11,7 +11,7 @@ interface Props {
   placeholder?: string;
   value: string;
   onChange: VoidFunction;
-  invalid: boolean;
+  invalid?: boolean;
   nativeValidation?: boolean;
 }
 

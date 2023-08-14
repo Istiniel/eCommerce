@@ -12,23 +12,24 @@ $active-theme: $light;
 
 @if ($enable-media-query-dark-mode) {
   @media (prefers-color-scheme: dark) {
-   :root {
+    :root {
       @each $color, $shade-map in $dark {
         @each $shade, $value in $shade-map {
-           --#{$color}-#{$shade}: #{$value};
-         }
+          --#{$color}-#{$shade}: #{$value};
+        }
       }
-   }
+    }
   }
 }
 
-body[data-theme="dark"] {
-    @each $color, $shade-map in $dark {
-      @each $shade, $value in $shade-map {
-         --#{$color}-#{$shade}: #{$value};
-       }
+body[data-theme='dark'] {
+  @each $color, $shade-map in $dark {
+    @each $shade, $value in $shade-map {
+      --#{$color}-#{$shade}: #{$value};
     }
+  }
 }
+
 main .wrapper {
   height: 100%;
 }
@@ -44,7 +45,11 @@ main .wrapper {
   flex-direction: column;
 
   @include maxWidth(small) {
-    padding: 0 10px;
+    max-width: $break-sm;
+  }
+
+  @include maxWidth(xSmall) {
+    max-width: $break-xs;
   }
 }
 
