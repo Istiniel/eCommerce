@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  useScrollIntoView(formRef)
+  useScrollIntoView(formRef);
 
   const {
     handleSubmit,
@@ -26,7 +26,7 @@ const LoginForm = () => {
       errors: { email, password },
     },
   } = useForm<SignInFormState>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
@@ -47,7 +47,7 @@ const LoginForm = () => {
       <AuthInput<SignInFormState>
         control={control}
         name="email"
-        type="email"
+        type="text"
         error={email?.message || ''}
         rules={{
           required: 'emptyInput',
@@ -55,9 +55,14 @@ const LoginForm = () => {
             value: 5,
             message: 'minInputLength',
           },
-          pattern: {
-            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'wrongEmail',
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(value) ? true : 'spaceValidation';
+            },
+            emailPattern: (value) => {
+              const pattern = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+              return pattern.test(value) ? true : 'wrongEmail';
+            },
           },
         }}
       />
@@ -69,12 +74,25 @@ const LoginForm = () => {
         rules={{
           required: 'emptyInput',
           minLength: {
-            value: 5,
+            value: 8,
             message: 'minInputLength',
           },
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$/,
-            message: 'wrongPassword',
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(value) ? true : 'spaceValidation';
+            },
+            uppercase: (value) => {
+              return /[A-Z]/.test(value) ? true : 'uppercaseValidation';
+            },
+            lowercase: (value) => {
+              return /[a-z]/.test(value) ? true : 'lowercaseValidation';
+            },
+            numbers: (value) => {
+              return /[0-9]/.test(value) ? true : 'numberValidation';
+            },
+            special: (value) => {
+              return /[!-/:-@[-`{-~]/.test(value) ? true : 'specialValidation';
+            },
           },
         }}
       />

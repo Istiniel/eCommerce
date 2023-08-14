@@ -1,4 +1,5 @@
 import StoreProvider from '../redux/StoreProvider';
+import AntdProvider from './AntdProvider';
 
 type WithChildren = { children?: React.ReactNode };
 
@@ -18,5 +19,5 @@ const compose = (...providers: Provider[]) =>
     );
   };
 
-const AppProvider = compose(StoreProvider);
+const AppProvider = compose(StoreProvider, AntdProvider);
 export default AppProvider;
