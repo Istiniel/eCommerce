@@ -19,19 +19,12 @@ function ShippingAddress(props: ShippingAddressProps) {
   const { t } = useTranslation();
 
   const shippingAsBilling = watch('shippingAsBilling');
-  const shippingAsDefault = watch('shippingAsDefault');
 
   useEffect(() => {
     if (shippingAsBilling) {
       setValue('billingAsShipping', false);
     }
   }, [shippingAsBilling, setValue]);
-
-  useEffect(() => {
-    if (shippingAsDefault) {
-      setValue('billingAsDefault', false);
-    }
-  }, [shippingAsDefault, setValue]);
 
   return (
     <fieldset className={styles.container}>

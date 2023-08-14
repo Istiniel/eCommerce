@@ -1,6 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
@@ -8,13 +9,16 @@ import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
 import ShippingAddress from './ShippingAddress';
 import BillingAddress from './BillingAddress';
 import './Autocomplete.scss';
+import { apiRoot } from '../../app/services/commerceTools/Client';
+import { getCountryCode } from '../../shared/static/countries';
+import ErrorMessage from '../../shared/ui/ErrorMessage';
 
 export type SignUpFormState = {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: number;
+  dateOfBirth: string;
   shippingAsBilling: boolean;
   billingAsShipping: boolean;
   shippingAsDefault: boolean;
@@ -34,6 +38,7 @@ export type SignUpFormState = {
 };
 
 const RegistrationForm = () => {
+  const [signUpError, setSignUpError] = useState('')
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -58,15 +63,58 @@ const RegistrationForm = () => {
         postal: '',
         street: '',
       },
+      shippingAsBilling: false,
+      billingAsShipping: true,
+      shippingAsDefault: true,
+      billingAsDefault: true,
     },
   });
 
-  const onSubmit: SubmitHandler<SignUpFormState> = (data, event) => {
+  const onSubmit: SubmitHandler<SignUpFormState> = async (data, event) => {
     event?.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(data);
-    // eslint-disable-next-line no-console
-    console.log(event);
+
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      dateOfBirth,
+      shippingAddress: shipping,
+      billingAddress: billing,
+      shippingAsBilling,
+      billingAsShipping,
+      shippingAsDefault,
+      billingAsDefault,
+    } = data;
+
+    const billingCountry = getCountryCode(billing.country);
+    const billingAddress = { ...billing, country: billingCountry };
+
+    const shippingCountry = getCountryCode(shipping.country);
+    const shippingAddress = { ...shipping, country: shippingCountry };
+
+    const resultingShippingAddress = shippingAsBilling ? billingAddress : shippingAddress;
+    const resultingBillingAddress = billingAsShipping ? shippingAddress : billingAddress;
+
+    const newClient: MyCustomerDraft = {
+      email,
+      password,
+      firstName,
+      lastName,
+      dateOfBirth,
+      addresses: [resultingShippingAddress, resultingBillingAddress],
+      defaultShippingAddress: shippingAsDefault ? 0 : undefined,
+      defaultBillingAddress: billingAsDefault ? 1 : undefined,
+    };
+
+    try {
+      await apiRoot.me().signup().post({ body: newClient }).execute();
+      setSignUpError('')
+    } catch (error) {
+      if (error instanceof Error && "message" in error) {
+        setSignUpError(error.message)
+     }
+    }
   };
 
   return (
@@ -189,6 +237,7 @@ const RegistrationForm = () => {
         <BillingAddress control={control} watch={watch} setValue={setValue} />
       </div>
       <Button type="submit">{t('registration')}</Button>
+      {!!signUpError && <ErrorMessage message={signUpError} />}
     </form>
   );
 };

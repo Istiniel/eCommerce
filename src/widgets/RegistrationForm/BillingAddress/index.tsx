@@ -20,19 +20,12 @@ function BillingAddress(props: BillingAddressProps) {
   const { control, watch, setValue } = props;
 
   const billingAsShipping = watch('billingAsShipping');
-  const billingAsDefault = watch('billingAsDefault');
 
   useEffect(() => {
     if (billingAsShipping) {
       setValue('shippingAsBilling', false);
     }
   }, [billingAsShipping, setValue]);
-
-  useEffect(() => {
-    if (billingAsDefault) {
-      setValue('shippingAsDefault', false);
-    }
-  }, [billingAsDefault, setValue]);
 
   return (
     <fieldset className={styles.container}>

@@ -256,3 +256,8 @@ export const countries = [
   { code: "ZM", value: "Zambia", phone: "260" },
   { code: "ZW", value: "Zimbabwe", phone: "263" }
 ];
+
+
+export function getCountryCode(countryName: string) {
+  return countries.find((country) => country.value === countryName)?.code || countryName;
+}

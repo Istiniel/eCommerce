@@ -7,16 +7,16 @@ import {
   type HttpMiddlewareOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2';
 
-const projectKey = '{projectKey}';
-const scopes = ['{scope}'];
+const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
+const scopes = import.meta.env.VITE_CTP_SCOPES.split(' ');
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
-  host: 'https://auth.{region}.commercetools.com',
+  host: import.meta.env.VITE_CTP_AUTH_URL,
   projectKey,
   credentials: {
-    clientId: '{clientID}',
-    clientSecret: '{clientSecret}',
+    clientId: import.meta.env.VITE_CTP_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
   },
   scopes,
   fetch,
@@ -24,7 +24,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
 
 // Configure httpMiddlewareOptions
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
-  host: 'https://api.{region}.commercetools.com',
+  host: import.meta.env.VITE_CTP_API_URL,
   fetch,
 };
 
