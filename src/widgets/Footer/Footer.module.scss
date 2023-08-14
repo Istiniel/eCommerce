@@ -7,9 +7,6 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  border-right: 1px solid $color-neutral-1000;
-  border: 1px solid $color-neutral-1000;
-
   color: $color-neutral-1000;
 }
 
@@ -20,9 +17,16 @@
   row-gap: 2.4rem;
   max-width: 36rem;
   padding: 4rem;
+  border: 1px solid $color-neutral-1000;
+  margin-left: -1px;
 
-  &:not(:last-child) {
-    border-right: 1px solid $color-neutral-1000;
+  @include maxWidth(small) {
+    margin-bottom: -1px;
+  }
+
+  @include maxWidth(xSmall) {
+    row-gap: 1.6rem;
+    padding-left: 1.6rem;
   }
 }
 
@@ -56,6 +60,10 @@
 .title {
   @include font-style('Gilroy', 2.1rem, $color-neutral-500, 500);
   line-height: 120%;
+
+  @include maxWidth(xSmall) {
+    font-size: 18px;
+  }
 }
 
 .subtitle {
@@ -70,6 +78,10 @@
 
   &:not(:last-child) {
     margin-bottom: 0.8rem;
+  }
+
+  @include maxWidth(xSmall) {
+    font-size: 14px;
   }
 }
 
