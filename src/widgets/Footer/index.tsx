@@ -68,19 +68,19 @@ const Footer = () => {
             </ul>
             <h3 className={styles.title}>Follow Us</h3>
             <div className={styles.social}>
-              <a href="instagram.com">
+              <a href="instagram.com" target="_blank">
                 <img src={instagramIcon} alt="instagram-icon" />
               </a>
-              <a href="pinterest.com">
+              <a href="pinterest.com" target="_blank">
                 <img src={pinterestIcon} alt="pinterest-icon" />
               </a>
-              <a href="facebook.com">
+              <a href="facebook.com" target="_blank">
                 <img src={facebookIcon} alt="facebook-icon" />
               </a>
-              <a href="twitter.com">
+              <a href="twitter.com" target="_blank">
                 <img src={twitterIcon} alt="twitter-icon" />
               </a>
-              <a href="telegram.org">
+              <a href="telegram.org" target="_blank">
                 <img src={telegramIcon} alt="telegram-icon" />
               </a>
             </div>
