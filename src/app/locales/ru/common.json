@@ -41,5 +41,8 @@
   "shippingAddress.postal": "Postal code",
   "billingAddress.city": "City",
   "billingAddress.street": "Street",
-  "billingAddress.postal": "Postal code"
+  "billingAddress.postal": "Postal code",
+  "useForBilling": "use for billing",
+  "useForShipping": "use for shipping",
+  "asDefaultAddress": "use as default"
 }

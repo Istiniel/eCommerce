@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef, useState } from 'react';
-import classNames from 'classnames';
+import { useRef } from 'react';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
@@ -16,6 +15,10 @@ export type SignUpFormState = {
   firstName: string;
   lastName: string;
   dateOfBirth: number;
+  shippingAsBilling: boolean;
+  billingAsShipping: boolean;
+  shippingAsDefault: boolean;
+  billingAsDefault: boolean;
   shippingAddress: {
     country: string;
     city: string;
@@ -31,14 +34,12 @@ export type SignUpFormState = {
 };
 
 const RegistrationForm = () => {
-  const [currentAddress, setCurrentAddress] = useState(true);
   const { t } = useTranslation();
-
   const formRef = useRef<HTMLFormElement>(null);
 
   useScrollIntoView(formRef);
 
-  const { handleSubmit, control } = useForm<SignUpFormState>({
+  const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
     mode: 'onChange',
     defaultValues: {
       email: '',
@@ -184,25 +185,9 @@ const RegistrationForm = () => {
       />
       <h2 className={styles.addressTitle}>Address</h2>
       <div className={styles.addressContainer}>
-        <div
-          className={classNames({ [styles.active]: currentAddress }, styles.address)}
-          onClick={() => {
-            setCurrentAddress(true);
-          }}
-        >
-          Shipping
-        </div>
-        <div
-          className={classNames({ [styles.active]: !currentAddress }, styles.address)}
-          onClick={() => {
-            setCurrentAddress(false);
-          }}
-        >
-          Billing
-        </div>
+        <ShippingAddress control={control} watch={watch} setValue={setValue} />
+        <BillingAddress control={control} watch={watch} setValue={setValue} />
       </div>
-      {currentAddress && <ShippingAddress control={control} />}
-      {!currentAddress && <BillingAddress control={control} />}
       <Button type="submit">{t('registration')}</Button>
     </form>
   );
