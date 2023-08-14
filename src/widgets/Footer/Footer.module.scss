@@ -6,6 +6,7 @@
 
 .container {
   display: flex;
+  flex-wrap: wrap;
   border-right: 1px solid $color-neutral-1000;
   border: 1px solid $color-neutral-1000;
 
@@ -32,7 +33,6 @@
 
 .order__form {
   @extend %flexcolumn;
-  row-gap: 1.6rem;
 }
 
 .input {

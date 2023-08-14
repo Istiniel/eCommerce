@@ -5,6 +5,8 @@ import facebookIcon from '../../app/assets/icons/social/Facebook.svg';
 import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
 import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
 import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
+import Button from '../../shared/ui/Button';
+import { Input } from '../../shared/ui/Input';
 
 const orderText =
   'Remember to offer beautiful flowers from Kyiv LuxeBouquets Valentines Day, Mothers Day, Christmas... Reminds you 7 days before. No spam or sharing your address';
@@ -17,8 +19,15 @@ const Footer = () => {
           <div className={styles.column}>
             <p className={styles.orderText}>{orderText}</p>
             <div className={styles.order__form}>
-              <input type="text" placeholder="Your Email" className={styles.input} />
-              <button className={styles.btn}>remind</button>
+              <Input
+                type="text"
+                placeholder="Your Email"
+                name="email"
+                value=""
+                error=""
+                onChange={() => {}}
+              />
+              <Button>remind</Button>
             </div>
           </div>
           <div className={styles.column}>
