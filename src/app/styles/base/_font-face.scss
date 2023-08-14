@@ -1,34 +1,70 @@
 @font-face {
-  font-family: "Lato";
+  font-family: 'Lato';
   font-weight: 900;
   font-display: swap;
-  src: url("../../assets/fonts/Lato-Black.ttf") format("ttf"),
+  src: url('../../assets/fonts/Lato-Black.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: 'Lato';
   font-weight: 700;
   font-display: swap;
-  src: url("../../assets/fonts/Lato-Bold.ttf") format("ttf"),
+  src: url('../../assets/fonts/Lato-Bold.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: 'Lato';
   font-weight: 500;
   font-display: swap;
-  src: url("../../assets/fonts/Lato-Medium.ttf") format("ttf"),
+  src: url('../../assets/fonts/Lato-Medium.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: 'Lato';
   font-weight: 400;
   font-display: swap;
-  src: url("../../assets/fonts/Lato-Regular.ttf") format("ttf"),
+  src: url('../../assets/fonts/Lato-Regular.ttf') format('ttf');
 }
 
 @font-face {
-  font-family: "Lato";
+  font-family: 'Lato';
   font-weight: 300;
   font-display: swap;
-  src: url("../../assets/fonts/Lato-Thin.ttf") format("ttf"),
+  src: url('../../assets/fonts/Lato-Thin.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../app/assets/fonts/Gilroy/Gilroy-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../app/assets/fonts/Gilroy/Gilroy-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../app/assets/fonts/Gilroy/Gilroy-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../app/assets/fonts/Gilroy/Gilroy-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url('../../app/assets/fonts/Gilroy/Gilroy-RegularItalic.ttf') format('truetype');
 }
