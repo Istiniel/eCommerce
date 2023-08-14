@@ -13,7 +13,7 @@
     }
 
     h2 {
-        font-size: 38px;
+        font-size: $font-size-heading-mobile;
         line-height: $font-height-large;
     }
 
@@ -102,7 +102,7 @@
     align-self: center;
 }
 
-@media screen and (max-width: 936px) {
+@include maxWidth(medium) {
     .container {
         flex-direction: column;
     }
@@ -136,14 +136,14 @@
     }
 }
 
-@media screen and (max-width: 500px) {
+@include maxWidth(small) {
     .wrapper {
         h1 {
-            font-size: 34px;
+            font-size: $font-size-heading-mobile;
         }
 
         h2 {
-            font-size: 26px;
+            font-size: $font-size-medium-mobile;
         }
     }
 
