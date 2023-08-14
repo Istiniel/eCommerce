@@ -1,5 +1,13 @@
 import styles from './Main.module.scss';
 import BlockInfo from '../../shared/ui/blockInfo';
+import { Input } from '../../shared/ui/Input';
+import Button from '../../shared/ui/Button';
+import instagramIcon from '../../app/assets/icons/social/Instagram.svg';
+import facebookIcon from '../../app/assets/icons/social/Facebook.svg';
+import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
+import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
+import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
+import contactImage from '../../app/assets/images/contactImage.webp';
 
 const data = [
   {
@@ -37,16 +45,94 @@ const data = [
 
 const Main = () => {
   return (
-    <section className={styles.section}>
-      <div className={styles.column}>
-        <h2 className={styles.title}>Why choose us ?</h2>
-      </div>
-      <div className={styles.column}>
-        {data.map((item) => (
-          <BlockInfo title={item.title} text={item.text} />
-        ))}
-      </div>
-    </section>
+    <>
+      <section className={styles.section}>
+        <div className={styles.column}>
+          <div className={styles.titleWrapper}>
+            <h2 className={styles.title}>Why choose us ?</h2>
+          </div>
+        </div>
+        <div className={styles.column}>
+          {data.map((item) => (
+            <BlockInfo title={item.title} text={item.text} />
+          ))}
+        </div>
+      </section>
+      <section className={styles.section}>
+        <div className={styles.column}>
+          <div className={styles.contactForm}>
+            <h2 className={styles.title}>To Contact Us</h2>
+            <div className={styles.inputForm}>
+              <p className={styles.label}>We will call you back</p>
+              <div className={styles.inputRow}>
+                <div className={styles.inputWrapper}>
+                  <Input
+                    type="text"
+                    name=""
+                    placeholder="+380 XX XXX XX XX"
+                    error=""
+                    value=""
+                    onChange={() => {}}
+                  />
+                </div>
+                <div className={styles.btnWrapper}>
+                  <Button>book a call</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.contactInfo}>
+            <div className={styles.contactInfoColumn}>
+              <div className={styles.contactInfoBlock}>
+                <h3 className={styles.blockTitle}>Phone</h3>
+              </div>
+              <div className={styles.contactInfoContainer}>
+                <p className={styles.contactText}>+380980099777</p>
+                <p className={styles.contactText}>+380980099111</p>
+              </div>
+            </div>
+            <div className={styles.contactInfoColumn}>
+              <div className={styles.contactInfoBlock}>
+                <h3 className={styles.blockTitle}>Address</h3>
+              </div>
+              <div className={styles.contactInfoContainer}>
+                <p className={styles.locationText}>opening hours: 8 to 11 p.m.</p>
+                <p className={styles.contactText}>15/4 Khreshchatyk Street, Kyiv </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.column}>
+          <div className={styles.imageWrapper}>
+            <img src={contactImage} alt="shop-pic" />
+          </div>
+          <div className={styles.row}>
+            <div className={styles.block}>
+              <h3 className={styles.blockTitle}>Follow us</h3>
+            </div>
+            <div className={styles.block}>
+              <div className={styles.social}>
+                <a href="instagram.com" target="_blank">
+                  <img src={instagramIcon} alt="instagram-icon" />
+                </a>
+                <a href="pinterest.com" target="_blank">
+                  <img src={pinterestIcon} alt="pinterest-icon" />
+                </a>
+                <a href="facebook.com" target="_blank">
+                  <img src={facebookIcon} alt="facebook-icon" />
+                </a>
+                <a href="twitter.com" target="_blank">
+                  <img src={twitterIcon} alt="twitter-icon" />
+                </a>
+                <a href="telegram.org" target="_blank">
+                  <img src={telegramIcon} alt="telegram-icon" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
