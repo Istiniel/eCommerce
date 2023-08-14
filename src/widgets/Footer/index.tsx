@@ -6,7 +6,7 @@ import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
 import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
 import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
 
-const remindText =
+const orderText =
   'Remember to offer beautiful flowers from Kyiv LuxeBouquets Valentines Day, Mothers Day, Christmas... Reminds you 7 days before. No spam or sharing your address';
 
 const Footer = () => {
@@ -15,8 +15,8 @@ const Footer = () => {
       <Wrapper>
         <div className={styles.container}>
           <div className={styles.column}>
-            <p className={styles.remind}>{remindText}</p>
-            <div className={styles.remind__form}>
+            <p className={styles.orderText}>{orderText}</p>
+            <div className={styles.order__form}>
               <input type="text" placeholder="Your Email" className={styles.input} />
               <button className={styles.btn}>remind</button>
             </div>

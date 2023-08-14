@@ -25,18 +25,18 @@
   }
 }
 
-.remind {
-  @include font-style('Gilroy', 1.6rem, #121212);
+.orderText {
+  @include font-style('Gilroy', 1.6rem, $color-neutral-900);
   line-height: 140%;
 }
 
-.remind__form {
+.order__form {
   @extend %flexcolumn;
   row-gap: 1.6rem;
 }
 
 .input {
-  @include font-style('Gilroy', 1.6rem, #121212);
+  @include font-style('Gilroy', 1.6rem, $color-neutral-900);
   border: 1px solid #d2d2d7;
   padding: 1.95rem 0 1.95rem 1.6rem;
 
@@ -46,7 +46,7 @@
 }
 
 .btn {
-  @include font-style('Gilroy', 1.6rem, #ffffff);
+  @include font-style('Gilroy', 1.6rem, $color-neutral-000);
   line-height: 120%;
   background-color: #121212;
   text-transform: uppercase;
@@ -54,18 +54,18 @@
 }
 
 .title {
-  @include font-style('Gilroy', 2.1rem, #808080, 500);
+  @include font-style('Gilroy', 2.1rem, $color-neutral-500, 500);
   line-height: 120%;
 }
 
 .subtitle {
-  @include font-style('Gilroy', 1.4rem, #808080);
+  @include font-style('Gilroy', 1.4rem, $color-neutral-500);
   line-height: 120%;
   margin-bottom: 0.8rem;
 }
 
 .link {
-  @include font-style('Gilroy', 1.6rem, #121212, 500);
+  @include font-style('Gilroy', 1.6rem, $color-neutral-900, 500);
   line-height: 120%;
 
   &:not(:last-child) {
