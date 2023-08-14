@@ -7,13 +7,18 @@
   flex-basis: 50%;
 
   @include maxWidth(small) {
-    flex-basis: auto;
+    flex-basis: 100%;
+    border-left: none;
   }
 
   border-top: 1px solid $color-neutral-1000;
 
   &:last-child {
     border-left: 1px solid $color-neutral-1000;
+
+    @include maxWidth(small) {
+      border-left: none;
+    }
   }
 }
 
@@ -23,18 +28,32 @@
   &:not(:last-child) {
     border-bottom: 1px solid $color-neutral-1000;
   }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px;
+  }
 }
 
 .title {
   @include font-style('Gilroy', 50px, $color-neutral-900, 600);
   line-height: 120%;
   padding: 80px;
+
+  @include maxWidth(xSmall) {
+    font-size: 28px;
+    padding: 40px 16px;
+  }
 }
 
 .blockTitle {
   @include font-style('Gilroy', 38px, $color-neutral-900, 500);
   line-height: 120%;
   margin-bottom: 16px;
+
+  @include maxWidth(xSmall) {
+    font-size: 24px;
+    text-align: center;
+  }
 }
 
 .blockText {
