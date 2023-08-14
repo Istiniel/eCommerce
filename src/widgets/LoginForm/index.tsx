@@ -1,11 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import { LinkButton } from '../../shared/ui/LinkButton/index';
 import styles from './LoginForm.module.scss';
 import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
+import { apiRoot } from '../../app/services/commerceTools/Client';
+import ErrorMessage from '../../shared/ui/ErrorMessage';
 
 type SignInFormState = {
   email: string;
@@ -13,19 +15,14 @@ type SignInFormState = {
 };
 
 const LoginForm = () => {
+  const [signInError, setSignInError] = useState('');
   const { t } = useTranslation();
 
   const formRef = useRef<HTMLFormElement>(null);
 
   useScrollIntoView(formRef);
 
-  const {
-    handleSubmit,
-    control,
-    formState: {
-      errors: { email, password },
-    },
-  } = useForm<SignInFormState>({
+  const { handleSubmit, control } = useForm<SignInFormState>({
     mode: 'onChange',
     defaultValues: {
       email: '',
@@ -33,12 +30,17 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<SignInFormState> = (data, event) => {
+  const onSubmit: SubmitHandler<SignInFormState> = async (data, event) => {
     event?.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(data);
-    // eslint-disable-next-line no-console
-    console.log(event);
+
+    try {
+      await apiRoot.me().login().post({ body: data }).execute();
+      setSignInError('');
+    } catch (error) {
+      if (error instanceof Error && 'message' in error) {
+        setSignInError(error.message);
+      }
+    }
   };
 
   return (
@@ -48,7 +50,6 @@ const LoginForm = () => {
         control={control}
         name="email"
         type="text"
-        error={email?.message || ''}
         rules={{
           required: 'emptyInput',
           minLength: {
@@ -70,7 +71,6 @@ const LoginForm = () => {
         control={control}
         name="password"
         type="password"
-        error={password?.message || ''}
         rules={{
           required: 'emptyInput',
           minLength: {
@@ -100,6 +100,7 @@ const LoginForm = () => {
         {t('login')}
       </Button>
       <LinkButton href="/signup">{t('register')}</LinkButton>
+      {!!signInError && <ErrorMessage message={signInError} />}
     </form>
   );
 };

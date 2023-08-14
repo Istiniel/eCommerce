@@ -1,0 +1,12 @@
+.container {
+  padding: 1rem 0;
+  display: flex;
+  color: $color-primary-500;
+  font-family: $font-sans;
+  @include font($font-size-base, $font-height-base, $font-weight-medium);
+  word-wrap: break-word;
+
+  .errorMessage {
+    margin-left: 8px;
+  }
+}

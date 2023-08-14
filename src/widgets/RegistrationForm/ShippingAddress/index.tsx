@@ -1,7 +1,8 @@
-import { Control, Controller } from 'react-hook-form';
-import { AutoComplete } from 'antd';
+import { Control, Controller, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { AutoComplete, Checkbox } from 'antd';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import AuthInput from '../../../shared/ui/AuthInput';
 import { countries } from '../../../shared/static/countries';
 import type { SignUpFormState } from '../index';
@@ -9,27 +10,40 @@ import styles from './ShippingAddress.module.scss';
 
 interface ShippingAddressProps {
   control: Control<SignUpFormState>;
+  watch: UseFormWatch<SignUpFormState>;
+  setValue: UseFormSetValue<SignUpFormState>;
 }
 
 function ShippingAddress(props: ShippingAddressProps) {
-  const { control } = props;
+  const { control, watch, setValue } = props;
   const { t } = useTranslation();
 
+  const shippingAsBilling = watch('shippingAsBilling');
+
+  useEffect(() => {
+    if (shippingAsBilling) {
+      setValue('billingAsShipping', false);
+    }
+  }, [shippingAsBilling, setValue]);
+
   return (
-    <>
+    <fieldset className={styles.container}>
+      <h2 className={styles.heading}>Shipping</h2>
       <div className={styles.countryContainer}>
         <span className={styles.countryTitle}>Country</span>
         <Controller
           control={control}
           name="shippingAddress.country"
           rules={{
-            required: 'emptyInput',
-            validate: {
-              country: (value) => {
-                const isCountryExisted = countries.some((country) => country.value === value);
-                return isCountryExisted ? true : 'noCountry';
-              },
-            },
+            required: shippingAsBilling ? false : 'emptyInput',
+            validate: shippingAsBilling
+              ? undefined
+              : {
+                  country: (value) => {
+                    const isCountryExisted = countries.some((country) => country.value === value);
+                    return isCountryExisted ? true : 'noCountry';
+                  },
+                },
           }}
           render={({ field: { onChange, onBlur, value, ref }, fieldState: { invalid, error } }) => (
             <>
@@ -53,53 +67,98 @@ function ShippingAddress(props: ShippingAddressProps) {
         name="shippingAddress.city"
         control={control}
         rules={{
-          required: 'emptyInput',
-          validate: {
-            space: (value) => {
-              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-            },
-            special: (value) => {
-              return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
-            },
-            numbers: (value) => {
-              return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
-            },
-          },
+          required: shippingAsBilling ? false : 'emptyInput',
+          validate: shippingAsBilling
+            ? undefined
+            : {
+                space: (value) => {
+                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+                },
+                special: (value) => {
+                  return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
+                },
+                numbers: (value) => {
+                  return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
+                },
+              },
         }}
       />
       <AuthInput
         name="shippingAddress.street"
         control={control}
         rules={{
-          required: 'emptyInput',
-          minLength: {
-            value: 1,
-            message: 'minInputLength',
-          },
-          validate: {
-            space: (value) => {
-              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-            },
-          },
+          required: shippingAsBilling ? false : 'emptyInput',
+          minLength: shippingAsBilling
+            ? undefined
+            : {
+                value: 1,
+                message: 'minInputLength',
+              },
+          validate: shippingAsBilling
+            ? undefined
+            : {
+                space: (value) => {
+                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+                },
+              },
         }}
       />
       <AuthInput
         name="shippingAddress.postal"
         control={control}
         rules={{
-          required: 'emptyInput',
-          minLength: {
-            value: 1,
-            message: 'minInputLength',
-          },
-          validate: {
-            space: (value) => {
-              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-            },
-          },
+          required: shippingAsBilling ? false : 'emptyInput',
+          minLength: shippingAsBilling
+            ? undefined
+            : {
+                value: 1,
+                message: 'minInputLength',
+              },
+          validate: shippingAsBilling
+            ? undefined
+            : {
+                space: (value) => {
+                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+                },
+              },
         }}
       />
-    </>
+
+      <Controller
+        control={control}
+        name="billingAsShipping"
+        render={({ field: { onChange, value } }) => (
+          <Checkbox
+            checked={value}
+            className={styles.checkbox}
+            name="same-address"
+            onClick={(e) => {
+              if (shippingAsBilling) {
+                setValue('billingAsShipping', false);
+              }
+
+              onChange(e);
+            }}
+          >
+            {t('useForBilling')}
+          </Checkbox>
+        )}
+      />
+      <Controller
+        control={control}
+        name="shippingAsDefault"
+        render={({ field: { onChange, value } }) => (
+          <Checkbox
+            checked={value}
+            className={styles.checkbox}
+            name="same-address"
+            onChange={onChange}
+          >
+            {t('asDefaultAddress')}
+          </Checkbox>
+        )}
+      />
+    </fieldset>
   );
 }
 

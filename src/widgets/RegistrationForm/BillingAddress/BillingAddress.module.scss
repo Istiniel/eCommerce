@@ -16,3 +16,23 @@
   @include font($font-size-small, $font-height-base, $font-weight-medium);
   letter-spacing: 0.05em;
 }
+
+.container {
+  text-align: start;
+}
+
+.heading {
+  margin-bottom: 1rem;
+  font-size: $font-size-medium;
+}
+
+.checkbox {
+  margin-bottom: 0.5rem;
+
+  & * {
+    font-family: $font-sans;
+    color: $color-neutral-1000;
+    @include font($font-size-small, $font-height-base, $font-weight-medium);
+    letter-spacing: 0.05em;
+  }
+}
