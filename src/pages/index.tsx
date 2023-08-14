@@ -11,6 +11,7 @@ import Products from './Products';
 import SharedLayout from './SharedLayout';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import AboutUs from './AboutUs';
 
 export function getRoutes() {
   return (
@@ -23,6 +24,7 @@ export function getRoutes() {
         </Route>
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="about" element={<AboutUs />} />
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="/products/:productId/comments" element={<h1>Comments</h1>} />
