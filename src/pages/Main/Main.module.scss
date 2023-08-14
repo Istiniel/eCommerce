@@ -1,0 +1,44 @@
+.section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex-basis: 50%;
+
+  @include maxWidth(small) {
+    flex-basis: auto;
+  }
+
+  border-top: 1px solid $color-neutral-1000;
+
+  &:last-child {
+    border-left: 1px solid $color-neutral-1000;
+  }
+}
+
+.block {
+  padding: 80px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-neutral-1000;
+  }
+}
+
+.title {
+  @include font-style('Gilroy', 50px, $color-neutral-900, 600);
+  line-height: 120%;
+  padding: 80px;
+}
+
+.blockTitle {
+  @include font-style('Gilroy', 38px, $color-neutral-900, 500);
+  line-height: 120%;
+  margin-bottom: 16px;
+}
+
+.blockText {
+  @include font-style('Gilroy', 16px, $color-neutral-900);
+  line-height: 120%;
+  opacity: 90%;
+}
