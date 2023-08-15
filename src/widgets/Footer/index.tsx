@@ -7,6 +7,17 @@ import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
 import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
 import Button from '../../shared/ui/Button';
 import { Input } from '../../shared/ui/Input';
+import List from '../../shared/ui/List';
+
+const shopItems = [
+  'All Products',
+  'Fresh Flowers',
+  'Dried Flowers',
+  'Live Plants',
+  'Aroma Candles',
+];
+const aboutItems = ['Our Story', 'Blog'];
+const shipmentItems = ['Shipping & returns', 'Terms & conditions', 'Privacy policy'];
 
 const orderText =
   'Remember to offer beautiful flowers from Kyiv LuxeBouquets Valentines Day, Mothers Day, Christmas... Reminds you 7 days before. No spam or sharing your address';
@@ -22,7 +33,7 @@ const Footer = () => {
               <Input
                 type="text"
                 placeholder="Your Email"
-                name="email"
+                name=""
                 value=""
                 error=""
                 onChange={() => {}}
@@ -47,43 +58,40 @@ const Footer = () => {
           </div>
           <div className={styles.column}>
             <h3 className={styles.title}>Shop</h3>
-            <ul>
-              <li className={styles.link}>All Products</li>
-              <li className={styles.link}>Fresh Flowers</li>
-              <li className={styles.link}>Dried Flowers</li>
-              <li className={styles.link}>Live Plants</li>
-              <li className={styles.link}>Aroma Candles</li>
-            </ul>
+            <List items={shopItems} styles={styles.link} />
           </div>
           <div className={styles.column}>
             <h3 className={styles.title}>About Us</h3>
-            <ul>
-              <li className={styles.link}>Our Story</li>
-              <li className={styles.link}>Blog</li>
-            </ul>
-            <ul>
-              <li className={styles.link}>Shipping & returns</li>
-              <li className={styles.link}>Terms & conditions</li>
-              <li className={styles.link}>Privacy policy</li>
-            </ul>
+            <List items={aboutItems} styles={styles.link} />
+            <List items={shipmentItems} styles={styles.link} />
             <h3 className={styles.title}>Follow Us</h3>
-            <div className={styles.social}>
-              <a href="instagram.com" target="_blank">
-                <img src={instagramIcon} alt="instagram-icon" />
-              </a>
-              <a href="pinterest.com" target="_blank">
-                <img src={pinterestIcon} alt="pinterest-icon" />
-              </a>
-              <a href="facebook.com" target="_blank">
-                <img src={facebookIcon} alt="facebook-icon" />
-              </a>
-              <a href="twitter.com" target="_blank">
-                <img src={twitterIcon} alt="twitter-icon" />
-              </a>
-              <a href="telegram.org" target="_blank">
-                <img src={telegramIcon} alt="telegram-icon" />
-              </a>
-            </div>
+            <ul className={styles.social}>
+              <li>
+                <a href="instagram.com" target="_blank">
+                  <img src={instagramIcon} alt="instagram-icon" />
+                </a>
+              </li>
+              <li>
+                <a href="pinterest.com" target="_blank">
+                  <img src={pinterestIcon} alt="pinterest-icon" />
+                </a>
+              </li>
+              <li>
+                <a href="facebook.com" target="_blank">
+                  <img src={facebookIcon} alt="facebook-icon" />
+                </a>
+              </li>
+              <li>
+                <a href="twitter.com" target="_blank">
+                  <img src={twitterIcon} alt="twitter-icon" />
+                </a>
+              </li>
+              <li>
+                <a href="telegram.org" target="_blank">
+                  <img src={telegramIcon} alt="telegram-icon" />
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </Wrapper>
