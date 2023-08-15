@@ -79,7 +79,7 @@
 }
 
 .title {
-  @include font-style('Gilroy', 2.1rem, $color-neutral-500, 500);
+  @include font-style('Gilroy', 2.1rem, $color-neutral-500, $font-weight-partly-medium);
   line-height: 120%;
 
   @include maxWidth(xSmall) {
@@ -94,7 +94,7 @@
 }
 
 .link {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-900, 500);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
   line-height: 120%;
 
   &:not(:last-child) {
