@@ -1,26 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import User from '../../../types/User';
+import { Customer } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
 
 type AuthState = {
-  user: User | null;
+  customer: Customer | null;
 };
 
 const initialState: AuthState = {
-  user: null,
+  customer: null,
 };
 
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User | null>) => {
-      state.user = action.payload;
+    setCustomer: (state, action: PayloadAction<Customer | null>) => {
+      state.customer = action.payload;
     },
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setCustomer } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectUser = (state: RootState) => state.authSlice.user;
+export const selectCustomer = (state: RootState) => state.authSlice.customer;

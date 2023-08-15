@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useRef, useState } from 'react';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
@@ -9,9 +10,11 @@ import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
 import ShippingAddress from './ShippingAddress';
 import BillingAddress from './BillingAddress';
 import './Autocomplete.scss';
-import { apiRoot } from '../../app/services/commerceTools/Client';
+import { signIn, signUp } from '../../app/services/commerceTools/Client';
 import { getCountryCode } from '../../shared/static/countries';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
+import { useAppDispatch } from '../../app/redux/hooks';
+import { setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
 
 export type SignUpFormState = {
   email: string;
@@ -38,9 +41,11 @@ export type SignUpFormState = {
 };
 
 const RegistrationForm = () => {
-  const [signUpError, setSignUpError] = useState('')
+  const [signUpError, setSignUpError] = useState('');
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useScrollIntoView(formRef);
 
@@ -108,12 +113,15 @@ const RegistrationForm = () => {
     };
 
     try {
-      await apiRoot.me().signup().post({ body: newClient }).execute();
-      setSignUpError('')
+      await signUp(newClient);
+      setSignUpError('');
+      const customer = await signIn({ email: newClient.email, password: newClient.password });
+      dispatch(setCustomer(customer));
+      navigate('/');
     } catch (error) {
-      if (error instanceof Error && "message" in error) {
-        setSignUpError(error.message)
-     }
+      if (error instanceof Error && 'message' in error) {
+        setSignUpError(error.message);
+      }
     }
   };
 

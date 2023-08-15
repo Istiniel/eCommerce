@@ -1,13 +1,16 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import { LinkButton } from '../../shared/ui/LinkButton/index';
 import styles from './LoginForm.module.scss';
 import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
-import { apiRoot } from '../../app/services/commerceTools/Client';
+import { signIn } from '../../app/services/commerceTools/Client';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
+import { selectCustomer, setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 
 type SignInFormState = {
   email: string;
@@ -17,6 +20,9 @@ type SignInFormState = {
 const LoginForm = () => {
   const [signInError, setSignInError] = useState('');
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const customer = useAppSelector(selectCustomer);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -34,8 +40,10 @@ const LoginForm = () => {
     event?.preventDefault();
 
     try {
-      await apiRoot.me().login().post({ body: data }).execute();
+      const newCustomer = await signIn(data);
       setSignInError('');
+      dispatch(setCustomer(newCustomer));
+      navigate('/');
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
         setSignInError(error.message);
@@ -43,8 +51,16 @@ const LoginForm = () => {
     }
   };
 
+
+
+  useEffect(() => {
+    if (customer) {
+      navigate('/', { replace: true });
+    }
+  }, [customer, navigate])
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate ref={formRef}>
+   <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate ref={formRef}>
       <h2 className={styles.formTitle}>{t('greetings')}</h2>
       <AuthInput<SignInFormState>
         control={control}

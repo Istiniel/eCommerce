@@ -1,0 +1,17 @@
+.link {
+  display: block;
+  background-color: $color-neutral-000;
+  border-right: 1px solid $color-neutral-1000;
+
+  padding: 3.2rem 7rem;
+
+  font-family: $font-sans;
+  color: $color-neutral-1000;
+  @include font($font-size-base, $font-height-base, $font-weight-medium);
+
+  transition: $fast-transition;
+  @include onHover() {
+    background-color: $color-neutral-800;
+    color: $color-neutral-000;
+  }
+}
