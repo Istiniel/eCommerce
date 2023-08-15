@@ -17,6 +17,11 @@
   justify-content: space-between;
 }
 
+%flexwrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 %truncated {
   display: -webkit-box;
   overflow: hidden;

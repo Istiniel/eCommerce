@@ -5,33 +5,54 @@
 }
 
 .container {
-  display: flex;
-  flex-wrap: wrap;
+  @extend %flexwrap;
+  flex-basis: 100%;
+  flex-grow: 1;
   color: $color-neutral-1000;
+  border: 1px solid $color-neutral-1000;
+
+  @include maxWidth(small) {
+    border-bottom: none;
+  }
+
+  @include maxWidth(xSmall) {
+  }
 }
 
 .column {
   @extend %flexcolumn;
-  flex: 1 1 auto;
+  flex-basis: 25%;
 
   row-gap: 2.4rem;
   max-width: 36rem;
   padding: 4rem;
-  border: 1px solid $color-neutral-1000;
-  margin-left: -1px;
+
+  &:not(:first-child) {
+    border-left: 1px solid $color-neutral-1000;
+  }
 
   @include maxWidth(small) {
-    margin-bottom: -1px;
+    flex-basis: 50%;
+    border-bottom: 1px solid $color-neutral-1000;
+
+    &:nth-child(3) {
+      border-left: none;
+    }
   }
 
   @include maxWidth(xSmall) {
+    flex-basis: 100%;
     row-gap: 1.6rem;
     padding-left: 1.6rem;
+    border-bottom: 1px solid $color-neutral-1000;
+    &:not(:first-child) {
+      border-left: none;
+    }
   }
 }
 
 .orderText {
-  @include font-style('Gilroy', 1.6rem, $color-neutral-900);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900);
   line-height: 140%;
 }
 
@@ -40,7 +61,7 @@
 }
 
 .input {
-  @include font-style('Gilroy', 1.6rem, $color-neutral-900);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900);
   border: 1px solid #d2d2d7;
   padding: 1.95rem 0 1.95rem 1.6rem;
 
@@ -50,7 +71,7 @@
 }
 
 .btn {
-  @include font-style('Gilroy', 1.6rem, $color-neutral-000);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-000);
   line-height: 120%;
   background-color: #121212;
   text-transform: uppercase;
@@ -58,7 +79,7 @@
 }
 
 .title {
-  @include font-style('Gilroy', 2.1rem, $color-neutral-500, 500);
+  @include font-style('Gilroy', 2.1rem, $color-neutral-500, $font-weight-partly-medium);
   line-height: 120%;
 
   @include maxWidth(xSmall) {
@@ -67,13 +88,13 @@
 }
 
 .subtitle {
-  @include font-style('Gilroy', 1.4rem, $color-neutral-500);
+  @include font-style('Gilroy', $font-size-small, $color-neutral-500);
   line-height: 120%;
   margin-bottom: 0.8rem;
 }
 
 .link {
-  @include font-style('Gilroy', 1.6rem, $color-neutral-900, 500);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
   line-height: 120%;
 
   &:not(:last-child) {
@@ -86,6 +107,5 @@
 }
 
 .social {
-  display: flex;
-  justify-content: space-between;
+  @extend %spacebetween;
 }
