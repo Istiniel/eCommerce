@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import { LinkButton } from '../../shared/ui/LinkButton/index';
@@ -44,6 +45,16 @@ const LoginForm = () => {
       setSignInError('');
       dispatch(setCustomer(newCustomer));
       navigate('/');
+      toast.success('Success', {
+        position: "top-right",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
         setSignInError(error.message);
@@ -55,10 +66,10 @@ const LoginForm = () => {
     if (customer) {
       navigate('/', { replace: true });
     }
-  }, [customer, navigate])
+  }, [customer, navigate]);
 
   return (
-   <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate ref={formRef}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate ref={formRef}>
       <h2 className={styles.formTitle}>{t('greetings')}</h2>
       <AuthInput<SignInFormState>
         control={control}

@@ -24,7 +24,7 @@ const Header = () => {
               <NavButton
                 callback={() => {
                   dispatch(setCustomer(null));
-                  navigate('/', { replace: true });
+                  navigate('/signin', { replace: true });
                 }}
                 content="Sign out"
               />

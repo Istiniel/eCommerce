@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
@@ -119,6 +120,16 @@ const RegistrationForm = () => {
       const newCustomer = await signIn({ email: newClient.email, password: newClient.password });
       dispatch(setCustomer(newCustomer));
       navigate('/');
+      toast.success('Success', {
+        position: "top-right",
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
         setSignUpError(error.message);
