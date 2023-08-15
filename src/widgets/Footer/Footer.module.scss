@@ -7,26 +7,48 @@
 .container {
   display: flex;
   flex-wrap: wrap;
+  flex-basis: 100%;
+  flex-grow: 1;
   color: $color-neutral-1000;
+  border: 1px solid $color-neutral-1000;
+
+  @include maxWidth(small) {
+    border-bottom: none;
+  }
+
+  @include maxWidth(xSmall) {
+  }
 }
 
 .column {
   @extend %flexcolumn;
-  flex: 1 1 auto;
+  flex-basis: 25%;
 
   row-gap: 2.4rem;
   max-width: 36rem;
   padding: 4rem;
-  border: 1px solid $color-neutral-1000;
-  margin-left: -1px;
+
+  &:not(:first-child) {
+    border-left: 1px solid $color-neutral-1000;
+  }
 
   @include maxWidth(small) {
-    margin-bottom: -1px;
+    flex-basis: 50%;
+    border-bottom: 1px solid $color-neutral-1000;
+
+    &:nth-child(3) {
+      border-left: none;
+    }
   }
 
   @include maxWidth(xSmall) {
+    flex-basis: 100%;
     row-gap: 1.6rem;
     padding-left: 1.6rem;
+    border-bottom: 1px solid $color-neutral-1000;
+    &:not(:first-child) {
+      border-left: none;
+    }
   }
 }
 
