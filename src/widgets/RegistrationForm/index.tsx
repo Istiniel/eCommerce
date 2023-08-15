@@ -7,15 +7,15 @@ import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
-import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
 import ShippingAddress from './ShippingAddress';
 import BillingAddress from './BillingAddress';
 import './Autocomplete.scss';
-import { signIn, signUp } from '../../app/services/commerceTools/Client';
+import { signUp } from '../../app/services/commerceTools/Client';
 import { getCountryCode } from '../../shared/static/countries';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
-import { selectCustomer, setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { selectCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
 
 export type SignUpFormState = {
   email: string;
@@ -48,8 +48,6 @@ const RegistrationForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const customer = useAppSelector(selectCustomer);
-
-  useScrollIntoView(formRef);
 
   const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
     mode: 'onChange',
@@ -117,19 +115,21 @@ const RegistrationForm = () => {
     try {
       await signUp(newClient);
       setSignUpError('');
-      const newCustomer = await signIn({ email: newClient.email, password: newClient.password });
-      dispatch(setCustomer(newCustomer));
-      navigate('/');
-      toast.success('Success', {
-        position: "top-right",
-        autoClose: 3500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+
+      const result = await dispatch(loginCustomer({ email: newClient.email, password: newClient.password }));
+      if (result.meta.requestStatus !== 'rejected') {
+        navigate('/');
+        toast.success('Success', {
+          position: 'top-right',
+          autoClose: 3500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
         });
+      }
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
         setSignUpError(error.message);

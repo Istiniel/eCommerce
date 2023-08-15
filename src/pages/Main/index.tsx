@@ -57,7 +57,7 @@ const Main = () => {
         </div>
         <div className={styles.column}>
           {data.map((item) => (
-            <BlockInfo title={item.title} text={item.text} />
+            <BlockInfo key={item.title} title={item.title} text={item.text} />
           ))}
         </div>
       </section>

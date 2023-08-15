@@ -7,7 +7,7 @@ const List = (props: Props) => {
   return (
     <ul>
       {items.map((item: string) => (
-        <li className={styles}>{item}</li>
+        <li key={item} className={styles}>{item}</li>
       ))}
     </ul>
   );

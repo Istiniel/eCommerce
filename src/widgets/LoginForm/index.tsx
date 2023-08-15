@@ -1,17 +1,16 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import { LinkButton } from '../../shared/ui/LinkButton/index';
 import styles from './LoginForm.module.scss';
-import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
-import { signIn } from '../../app/services/commerceTools/Client';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
-import { selectCustomer, setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { selectCustomer, selectSignInError } from '../../app/redux/features/AuthSlice/AuthSlice';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
+import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
 
 type SignInFormState = {
   email: string;
@@ -19,15 +18,13 @@ type SignInFormState = {
 };
 
 const LoginForm = () => {
-  const [signInError, setSignInError] = useState('');
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const customer = useAppSelector(selectCustomer);
-
+  const signInError = useAppSelector(selectSignInError);
   const formRef = useRef<HTMLFormElement>(null);
 
-  useScrollIntoView(formRef);
 
   const { handleSubmit, control } = useForm<SignInFormState>({
     mode: 'onChange',
@@ -40,25 +37,20 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<SignInFormState> = async (data, event) => {
     event?.preventDefault();
 
-    try {
-      const newCustomer = await signIn(data);
-      setSignInError('');
-      dispatch(setCustomer(newCustomer));
+   const result = await dispatch(loginCustomer(data));
+
+    if (result.meta.requestStatus !== 'rejected') {
       navigate('/');
       toast.success('Success', {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 3500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
-    } catch (error) {
-      if (error instanceof Error && 'message' in error) {
-        setSignInError(error.message);
-      }
+        theme: 'light',
+      });
     }
   };
 

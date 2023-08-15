@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { selectCustomer, setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { selectCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import NavButton from '../../shared/ui/NavButton';
 import NavLink from '../../shared/ui/NavLink';
 import Wrapper from '../../shared/ui/Wrapper';
 import styles from './Header.module.scss';
+import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -22,8 +23,8 @@ const Header = () => {
             {!customer && <NavLink href="/signin" content="Sign in" />}
             {customer && (
               <NavButton
-                callback={() => {
-                  dispatch(setCustomer(null));
+                callback={async () => {
+                  await dispatch(loginCustomer(null));
                   navigate('/signin', { replace: true });
                 }}
                 content="Sign out"
