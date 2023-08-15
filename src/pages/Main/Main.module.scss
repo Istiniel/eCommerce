@@ -1,12 +1,10 @@
 .section {
-  display: flex;
-  flex-wrap: wrap;
+  @extend %flexwrap;
 }
 
 .column {
   flex-basis: 50%;
-  display: flex;
-  flex-direction: column;
+  @extend %flexcolumn;
 
   @include maxWidth(small) {
     flex-basis: 100%;
@@ -32,7 +30,7 @@
 }
 
 .title {
-  @include font-style('Gilroy', 50px, $color-neutral-900, 600);
+  @include font-style('Gilroy', $font-size-large, $color-neutral-900, 600);
   line-height: 120%;
 
   @include maxWidth(xSmall) {
@@ -41,8 +39,7 @@
 }
 
 .contactForm {
-  display: flex;
-  flex-direction: column;
+  @extend %flexcolumn;
   row-gap: 24px;
   padding: 80px;
   border-bottom: 1px solid $color-neutral-1000;
@@ -58,19 +55,17 @@
 }
 
 .inputRow {
-  display: flex;
-
-  justify-content: space-between;
+  @extend %spacebetween;
   column-gap: 16px;
 
   @include maxWidth(xSmall) {
     flex-wrap: wrap;
   }
 }
-
+/*
 .input {
   flex-basis: 50%;
-  @include font-style('Gilroy', 1.6rem, $color-neutral-900);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900);
   border: 1px solid #d2d2d7;
   padding: 1.95rem 0 1.95rem 1.6rem;
 
@@ -81,12 +76,14 @@
 
 .btn {
   flex-basis: 50%;
-  @include font-style('Gilroy', 1.6rem, $color-neutral-000);
+  padding: 1.95rem 0;
+
+  @include font-style('Gilroy', $font-size-base, $color-neutral-000);
   line-height: 120%;
   background-color: #121212;
   text-transform: uppercase;
-  padding: 1.95rem 0;
 }
+*/
 
 .inputWrapper,
 .btnWrapper {
@@ -102,8 +99,7 @@
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
+  @extend %flexwrap;
 }
 
 .block {
@@ -135,15 +131,13 @@
 }
 
 .contactInfo {
-  display: flex;
-  flex-wrap: wrap;
+  @extend %flexwrap;
   flex-grow: 1;
 }
 
 .contactInfoColumn {
   flex-basis: 50%;
-  display: flex;
-  flex-direction: column;
+  @extend %flexcolumn;
   flex-wrap: wrap;
 
   &:first-child {
@@ -173,9 +167,9 @@
 
 .contactInfoContainer {
   flex-basis: 50%;
-  display: flex;
+
+  @extend %flexcolumn;
   flex-grow: 1;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 24px;
@@ -193,19 +187,18 @@
 }
 
 .contactText {
-  @include font-style('Gilroy', 16px, $color-neutral-900, 600);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, 600);
   line-height: 120%;
 }
 
 .locationText {
-  @include font-style('Gilroy', 14px, $color-neutral-900, 500);
+  @include font-style('Gilroy', $font-size-small, $color-neutral-900, 500);
   line-height: 120%;
   text-transform: uppercase;
 }
 
 .social {
-  display: flex;
-  justify-content: center;
+  @extend %spacebetween;
   align-items: stretch;
   column-gap: 32px;
 }
