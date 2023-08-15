@@ -59,7 +59,7 @@
 }
 
 .label {
-  @include font-style('Gilroy', 18px, $color-neutral-900, 500);
+  @include font-style('Gilroy', 18px, $color-neutral-900, $font-weight-partly-medium);
   line-height: 140%;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .blockTitle {
-  @include font-style('Gilroy', 38px, $color-neutral-900, 500);
+  @include font-style('Gilroy', 38px, $color-neutral-900, $font-weight-partly-medium);
   line-height: 120%;
 
   @include maxWidth(xSmall) {
@@ -196,12 +196,12 @@
 }
 
 .contactText {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-900, 600);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-medium);
   line-height: 120%;
 }
 
 .locationText {
-  @include font-style('Gilroy', $font-size-small, $color-neutral-900, 500);
+  @include font-style('Gilroy', $font-size-small, $color-neutral-900, $font-weight-partly-medium);
   line-height: 120%;
   text-transform: uppercase;
 }
@@ -232,14 +232,14 @@
 }
 
 .serviceSubtitle {
-  @include font-style('Gilroy', $font-size-small, $color-neutral-000, 500);
+  @include font-style('Gilroy', $font-size-small, $color-neutral-000, $font-weight-partly-medium);
   line-height: 120%;
   text-transform: uppercase;
   margin-bottom: 24px;
 }
 
 .serviceTitle {
-  @include font-style('Gilroy', $font-size-large, $color-neutral-000, 600);
+  @include font-style('Gilroy', $font-size-large, $color-neutral-000, $font-weight-medium);
   line-height: 120%;
   margin-bottom: 16px;
 
@@ -249,7 +249,7 @@
 }
 
 .serviceText {
-  @include font-style('Gilroy', 18px, $color-neutral-000, 500);
+  @include font-style('Gilroy', 18px, $color-neutral-000, $font-weight-partly-medium);
   line-height: 140%;
   max-width: 620px;
   margin-bottom: 64px;
