@@ -51,8 +51,6 @@ const LoginForm = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (customer) {
       navigate('/', { replace: true });

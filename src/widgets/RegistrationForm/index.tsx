@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../shared/ui/Button';
@@ -13,8 +13,8 @@ import './Autocomplete.scss';
 import { signIn, signUp } from '../../app/services/commerceTools/Client';
 import { getCountryCode } from '../../shared/static/countries';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
-import { useAppDispatch } from '../../app/redux/hooks';
-import { setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
+import { selectCustomer, setCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
 
 export type SignUpFormState = {
   email: string;
@@ -46,6 +46,7 @@ const RegistrationForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const customer = useAppSelector(selectCustomer);
 
   useScrollIntoView(formRef);
 
@@ -115,8 +116,8 @@ const RegistrationForm = () => {
     try {
       await signUp(newClient);
       setSignUpError('');
-      const customer = await signIn({ email: newClient.email, password: newClient.password });
-      dispatch(setCustomer(customer));
+      const newCustomer = await signIn({ email: newClient.email, password: newClient.password });
+      dispatch(setCustomer(newCustomer));
       navigate('/');
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
@@ -124,6 +125,12 @@ const RegistrationForm = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (customer) {
+      navigate('/', { replace: true });
+    }
+  }, [customer, navigate])
 
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
