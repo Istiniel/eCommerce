@@ -33,7 +33,7 @@ const Footer = () => {
               <Input
                 type="text"
                 placeholder="Your Email"
-                name="email"
+                name=""
                 value=""
                 error=""
                 onChange={() => {}}
