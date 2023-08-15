@@ -132,6 +132,19 @@ const Main = () => {
           </div>
         </div>
       </section>
+      <section>
+        <div className={styles.serviceTitleWrapper}>
+          <h2 className={`${styles.title} ${styles.textCenter}`}>Our Service</h2>
+        </div>
+        <div className={styles.serviceContainer}>
+          <h5 className={styles.serviceSubtitle}>service</h5>
+          <h2 className={styles.serviceTitle}>Wedding & Event Decor</h2>
+          <p className={styles.serviceText}>
+            Let our team of expert florists and designers create stunning, on-trend floral décor for
+            your special day. Trust us to bring your vision to life.
+          </p>
+        </div>
+      </section>
     </>
   );
 };

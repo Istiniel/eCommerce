@@ -22,11 +22,20 @@
   }
 }
 
-.titleWrapper {
+.titleWrapper,
+.serviceTitleWrapper {
   padding: 80px;
   @include maxWidth(xSmall) {
     padding: 40px 16px;
   }
+}
+
+.serviceTitleWrapper {
+  border-top: 1px solid $color-neutral-1000;
+}
+
+.textCenter {
+  text-align: center;
 }
 
 .title {
@@ -201,4 +210,51 @@
   @extend %spacebetween;
   align-items: stretch;
   column-gap: 32px;
+}
+
+.serviceContainer {
+  @extend %flexcolumn;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+  border-top: 1px solid $color-neutral-1000;
+  text-align: center;
+  background-image: url(../../app/assets/images/weedingImage21.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 720px;
+
+  @include maxWidth(xSmall) {
+    height: 420px;
+    padding: 40px 16px;
+  }
+}
+
+.serviceSubtitle {
+  @include font-style('Gilroy', $font-size-small, $color-neutral-000, 500);
+  line-height: 120%;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.serviceTitle {
+  @include font-style('Gilroy', $font-size-large, $color-neutral-000, 600);
+  line-height: 120%;
+  margin-bottom: 16px;
+
+  @include maxWidth(xSmall) {
+    font-size: 34px;
+  }
+}
+
+.serviceText {
+  @include font-style('Gilroy', 18px, $color-neutral-000, 500);
+  line-height: 140%;
+  max-width: 620px;
+  margin-bottom: 64px;
+
+  @include maxWidth(xSmall) {
+    max-width: 320px;
+  }
 }
