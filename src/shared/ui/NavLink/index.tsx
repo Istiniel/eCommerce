@@ -4,7 +4,7 @@ import styles from './NavLink.module.scss'
 
 type NavLinkProps = {
   href: string,
-  content: string,
+  content: string
 }
 
 const NavLink: React.FC<NavLinkProps> = ({href, content}) => {

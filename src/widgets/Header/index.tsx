@@ -15,7 +15,7 @@ const Header = () => {
       <Wrapper>
         <div className={styles.container}>
           <div className={styles.leftContainer}>
-            <NavLink href="/products" content="Shop" />
+            <NavLink href="/" content="Home" />
             <NavLink href="/#contacts" content="Contacts" />
           </div>
           <div className={styles.rightContainer}>
@@ -29,7 +29,7 @@ const Header = () => {
                 content="Sign out"
               />
             )}
-            <NavLink href="/cart" content="Cart" />
+            <NavLink href="/products" content="Shop" />
           </div>
         </div>
       </Wrapper>
