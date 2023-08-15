@@ -111,23 +111,33 @@ const Main = () => {
               <h3 className={styles.blockTitle}>Follow us</h3>
             </div>
             <div className={styles.block}>
-              <div className={styles.social}>
-                <a href="instagram.com" target="_blank">
-                  <img src={instagramIcon} alt="instagram-icon" />
-                </a>
-                <a href="pinterest.com" target="_blank">
-                  <img src={pinterestIcon} alt="pinterest-icon" />
-                </a>
-                <a href="facebook.com" target="_blank">
-                  <img src={facebookIcon} alt="facebook-icon" />
-                </a>
-                <a href="twitter.com" target="_blank">
-                  <img src={twitterIcon} alt="twitter-icon" />
-                </a>
-                <a href="telegram.org" target="_blank">
-                  <img src={telegramIcon} alt="telegram-icon" />
-                </a>
-              </div>
+              <ul className={styles.social}>
+                <li>
+                  <a href="instagram.com" target="_blank">
+                    <img src={instagramIcon} alt="instagram-icon" />
+                  </a>
+                </li>
+                <li>
+                  <a href="pinterest.com" target="_blank">
+                    <img src={pinterestIcon} alt="pinterest-icon" />
+                  </a>
+                </li>
+                <li>
+                  <a href="facebook.com" target="_blank">
+                    <img src={facebookIcon} alt="facebook-icon" />
+                  </a>
+                </li>
+                <li>
+                  <a href="twitter.com" target="_blank">
+                    <img src={twitterIcon} alt="twitter-icon" />
+                  </a>
+                </li>
+                <li>
+                  <a href="telegram.org" target="_blank">
+                    <img src={telegramIcon} alt="telegram-icon" />
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
