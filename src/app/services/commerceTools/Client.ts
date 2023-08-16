@@ -15,7 +15,6 @@ export const signUp = async (newClient: CustomerDraft) => {
 
 export const signIn = async (newClient: CustomerSignin) => {
   const authAPI = getAuthApi({ username: newClient.email, password: newClient.password })
-
   const response = await authAPI.login().post({ body: newClient }).execute()
   return response.body.customer
 }

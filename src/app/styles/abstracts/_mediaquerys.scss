@@ -24,3 +24,15 @@ $breakpoints: (
     @content;
   }
 }
+
+@mixin minWidthCustom($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin maxWidthCustom($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
