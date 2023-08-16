@@ -1,17 +1,21 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
-import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
 import ShippingAddress from './ShippingAddress';
 import BillingAddress from './BillingAddress';
 import './Autocomplete.scss';
-import { apiRoot } from '../../app/services/commerceTools/Client';
+import { signUp } from '../../app/services/commerceTools/Client';
 import { getCountryCode } from '../../shared/static/countries';
 import ErrorMessage from '../../shared/ui/ErrorMessage';
+import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
+import { selectCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
+import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
 
 export type SignUpFormState = {
   email: string;
@@ -38,11 +42,12 @@ export type SignUpFormState = {
 };
 
 const RegistrationForm = () => {
-  const [signUpError, setSignUpError] = useState('')
+  const [signUpError, setSignUpError] = useState('');
   const { t } = useTranslation();
   const formRef = useRef<HTMLFormElement>(null);
-
-  useScrollIntoView(formRef);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const customer = useAppSelector(selectCustomer);
 
   const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
     mode: 'onChange',
@@ -108,14 +113,35 @@ const RegistrationForm = () => {
     };
 
     try {
-      await apiRoot.me().signup().post({ body: newClient }).execute();
-      setSignUpError('')
+      await signUp(newClient);
+      setSignUpError('');
+
+      const result = await dispatch(loginCustomer({ email: newClient.email, password: newClient.password }));
+      if (result.meta.requestStatus !== 'rejected') {
+        navigate('/');
+        toast.success('Success', {
+          position: 'top-right',
+          autoClose: 3500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
     } catch (error) {
-      if (error instanceof Error && "message" in error) {
-        setSignUpError(error.message)
-     }
+      if (error instanceof Error && 'message' in error) {
+        setSignUpError(error.message);
+      }
     }
   };
+
+  useEffect(() => {
+    if (customer) {
+      navigate('/', { replace: true });
+    }
+  }, [customer, navigate])
 
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>

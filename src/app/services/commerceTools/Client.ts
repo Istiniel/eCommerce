@@ -1,22 +1,21 @@
-/* eslint-disable no-console */
 import {
+  CustomerDraft,
+  CustomerSignin,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
-import { ctpClient } from './BuildClient';
+import { anonimusClient, getAuthApi } from './BuildClient';
 
-// Create apiRoot from the imported ClientBuilder and include your Project key
-export const apiRoot = createApiBuilderFromCtpClient(ctpClient)
+export const apiRoot = createApiBuilderFromCtpClient(anonimusClient)
   .withProjectKey({ projectKey: import.meta.env.VITE_CTP_PROJECT_KEY });
 
-// Example call to return Project information
-// This code has the same effect as sending a GET request to the commercetools Composable Commerce API without any endpoints.
-const getProject = () => {
-  return apiRoot
-    .get()
-    .execute();
-};
+export const signUp = async (newClient: CustomerDraft) => {
+  const response = await apiRoot.customers().post({ body: newClient }).execute()
+  return response.body.customer
+}
 
-// Retrieve Project information and output the result to the log
-getProject()
-  .then(console.log)
-  .catch(console.error);
+export const signIn = async (newClient: CustomerSignin) => {
+  const authAPI = getAuthApi({ username: newClient.email, password: newClient.password })
+
+  const response = await authAPI.login().post({ body: newClient }).execute()
+  return response.body.customer
+}

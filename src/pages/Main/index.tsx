@@ -8,6 +8,7 @@ import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
 import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
 import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
 import contactImage from '../../app/assets/images/contactImage.webp';
+import useAnchorLink from '../../shared/hooks/useAnchorLink';
 
 const data = [
   {
@@ -44,6 +45,8 @@ const data = [
 ];
 
 const Main = () => {
+  useAnchorLink();
+
   return (
     <>
       <section className={styles.section}>
@@ -54,11 +57,11 @@ const Main = () => {
         </div>
         <div className={styles.column}>
           {data.map((item) => (
-            <BlockInfo title={item.title} text={item.text} />
+            <BlockInfo key={item.title} title={item.title} text={item.text} />
           ))}
         </div>
       </section>
-      <section className={styles.section}>
+      <section className={styles.section} id="contacts">
         <div className={styles.column}>
           <div className={styles.contactForm}>
             <h2 className={styles.title}>To Contact Us</h2>

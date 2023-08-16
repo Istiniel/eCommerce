@@ -1,14 +1,37 @@
 import fetch from 'node-fetch';
 import {
   ClientBuilder,
-
   // Import middlewares
   type AuthMiddlewareOptions, // Required for auth
-  type HttpMiddlewareOptions, // Required for sending HTTP requests
+  type HttpMiddlewareOptions,
+  TokenStore,
+  TokenCache,
+  PasswordAuthMiddlewareOptions,
+  UserAuthOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const scopes = import.meta.env.VITE_CTP_SCOPES.split(' ');
+
+
+class CommerceToolsToken implements TokenCache {
+  tokenStore: TokenStore = {
+    token: '',
+    expirationTime: 0,
+    refreshToken: ''
+  };
+
+  get() {
+    return this.tokenStore
+  }
+
+  set(token: TokenStore) {
+    this.tokenStore = token
+  }
+}
+
+export const token = new CommerceToolsToken();
 
 // Configure authMiddlewareOptions
 const authMiddlewareOptions: AuthMiddlewareOptions = {
@@ -20,18 +43,43 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
+  tokenCache: token
 };
 
+
+
 // Configure httpMiddlewareOptions
-const httpMiddlewareOptions: HttpMiddlewareOptions = {
+export const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: import.meta.env.VITE_CTP_API_URL,
   fetch,
 };
 
-// Export the ClientBuilder
-export const ctpClient = new ClientBuilder()
-  .withProjectKey(projectKey) // .withProjectKey() is not required if the projectKey is included in authMiddlewareOptions
+export const anonimusClient = new ClientBuilder()
   .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
-  .withLoggerMiddleware() // Include middleware for logging
+  .withLoggerMiddleware()
   .build();
+
+export function getAuthApi(user: UserAuthOptions) {
+  const authOptions: PasswordAuthMiddlewareOptions = {
+    host: import.meta.env.VITE_CTP_AUTH_URL,
+    projectKey,
+    credentials: {
+      clientId: import.meta.env.VITE_CTP_CLIENT_ID,
+      clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
+      user
+    },
+    scopes,
+    fetch,
+    tokenCache: token
+  };
+
+  const withPasswordClient = new ClientBuilder()
+    .withPasswordFlow(authOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .withLoggerMiddleware()
+    .build();
+
+  return createApiBuilderFromCtpClient(withPasswordClient)
+    .withProjectKey({ projectKey });
+}
