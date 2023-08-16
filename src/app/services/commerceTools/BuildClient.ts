@@ -46,8 +46,6 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   tokenCache: token
 };
 
-
-
 // Configure httpMiddlewareOptions
 export const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: import.meta.env.VITE_CTP_API_URL,

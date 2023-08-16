@@ -16,6 +16,7 @@ import ErrorMessage from '../../shared/ui/ErrorMessage';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { selectCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
 import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
+import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
 
 export type SignUpFormState = {
   email: string;
@@ -48,6 +49,8 @@ const RegistrationForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const customer = useAppSelector(selectCustomer);
+
+  useScrollIntoView(formRef)
 
   const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
     mode: 'onChange',
