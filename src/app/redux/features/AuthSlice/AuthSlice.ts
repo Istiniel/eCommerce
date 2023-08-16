@@ -9,8 +9,8 @@ type AuthState = {
   error: string | undefined
 };
 
-const lcCustomer = localStorage.getItem('current-customer');
-const customer: Customer | null = lcCustomer ? JSON.parse(lcCustomer) : null
+const cachedCustomerInfo = localStorage.getItem('current-customer');
+const customer: Customer | null = cachedCustomerInfo ? JSON.parse(cachedCustomerInfo) : null
 
 const initialState: AuthState = {
   customer,

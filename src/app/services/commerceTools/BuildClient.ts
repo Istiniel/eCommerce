@@ -5,8 +5,11 @@ import {
   type AuthMiddlewareOptions, // Required for auth
   type HttpMiddlewareOptions,
   TokenStore,
-  TokenCache, // Required for sending HTTP requests
+  TokenCache,
+  PasswordAuthMiddlewareOptions,
+  UserAuthOptions, // Required for sending HTTP requests
 } from '@commercetools/sdk-client-v2';
+import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const scopes = import.meta.env.VITE_CTP_SCOPES.split(' ');
@@ -43,30 +46,40 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   tokenCache: token
 };
 
+
+
 // Configure httpMiddlewareOptions
-const httpMiddlewareOptions: HttpMiddlewareOptions = {
+export const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: import.meta.env.VITE_CTP_API_URL,
   fetch,
 };
 
 export const anonimusClient = new ClientBuilder()
-  .withAnonymousSessionFlow(authMiddlewareOptions)
+  .withClientCredentialsFlow(authMiddlewareOptions)
   .withHttpMiddleware(httpMiddlewareOptions)
   .withLoggerMiddleware()
   .build();
 
-// export const anonimusClient = new ClientBuilder()
-//   .withAnonymousSessionFlow(authMiddlewareOptions)
-//   .build();
+export function getAuthApi(user: UserAuthOptions) {
+  const authOptions: PasswordAuthMiddlewareOptions = {
+    host: import.meta.env.VITE_CTP_AUTH_URL,
+    projectKey,
+    credentials: {
+      clientId: import.meta.env.VITE_CTP_CLIENT_ID,
+      clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
+      user
+    },
+    scopes,
+    fetch,
+    tokenCache: token
+  };
 
-// export const authorizedClient = new ClientBuilder()
-//   .withExistingTokenFlow(token.get().token, { force: true })
-//   .withHttpMiddleware(httpMiddlewareOptions)
-//   .build();
+  const withPasswordClient = new ClientBuilder()
+    .withPasswordFlow(authOptions)
+    .withHttpMiddleware(httpMiddlewareOptions)
+    .withLoggerMiddleware()
+    .build();
 
-// export const ctpClient = new ClientBuilder()
-//   .withProjectKey(projectKey) // .withProjectKey() is not required if the projectKey is included in authMiddlewareOptions
-//   .withClientCredentialsFlow(authMiddlewareOptions)
-//   .withHttpMiddleware(httpMiddlewareOptions)
-//   .withLoggerMiddleware() // Include middleware for logging
-//   .build();
+  return createApiBuilderFromCtpClient(withPasswordClient)
+    .withProjectKey({ projectKey });
+}
