@@ -380,7 +380,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   height: 720px;
 
-  @include maxWidth(xSmall) {
+  @include maxWidthCustom(615px) {
+    height: 540px;
+    padding: 40px 16px;
+  }
+
+  @include maxWidthCustom(487px) {
     height: 420px;
     padding: 40px 16px;
   }
