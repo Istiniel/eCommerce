@@ -3,15 +3,32 @@
 }
 
 .container {
-  @extend %aligncenter;
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(805px) {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
 }
 
-.leftContainer, .rightContainer {
-  border-left: 1px solid $color-neutral-1000;
-  @extend %aligncenter;
-}
-
+.leftContainer,
 .rightContainer {
-  margin-left: auto;
+  display: flex;
+  border-left: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(805px) {
+    flex-direction: column;
+
+    a:not(:last-child) {
+      border-bottom: 1px solid $color-neutral-1000;
+    }
+  }
+}
+
+.leftContainer {
+  @include maxWidthCustom(805px) {
+    border-bottom: 1px solid $color-neutral-1000;
+  }
 }
