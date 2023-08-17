@@ -1,5 +1,5 @@
 import styles from './Main.module.scss';
-import BlockInfo from '../../shared/ui/blockInfo';
+import BlockInfo from '../../shared/ui/BlockInfo';
 import { Input } from '../../shared/ui/Input';
 import Button from '../../shared/ui/Button';
 import instagramIcon from '../../app/assets/icons/social/Instagram.svg';
