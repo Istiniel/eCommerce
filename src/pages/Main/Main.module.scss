@@ -6,7 +6,7 @@
   flex-basis: 50%;
   @extend %flexcolumn;
 
-  @include maxWidth(small) {
+  @include maxWidthCustom(820px) {
     flex-basis: 100%;
     border-left: none;
   }
@@ -16,7 +16,7 @@
   &:last-child {
     border-left: 1px solid $color-neutral-1000;
 
-    @include maxWidth(small) {
+    @include maxWidthCustom(820px) {
       border-left: none;
     }
   }
@@ -25,6 +25,28 @@
 .titleWrapper,
 .serviceTitleWrapper {
   padding: 80px;
+
+  @include maxWidthCustom(1164px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 50px;
+  }
+
+  @include maxWidthCustom(920px) {
+    padding: 30px;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 60px;
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+  }
+
   @include maxWidth(xSmall) {
     padding: 40px 16px;
   }
@@ -41,6 +63,22 @@
 .title {
   @include font-style('Gilroy', $font-size-large, $color-neutral-900, $font-weight-medium);
   line-height: 120%;
+
+  @include maxWidthCustom(1084px) {
+    font-size: 42px;
+  }
+
+  @include maxWidthCustom(920px) {
+    font-size: 38px;
+  }
+
+  @include maxWidthCustom(820px) {
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    font-size: 38px;
+  }
 
   @include maxWidth(xSmall) {
     font-size: 28px;
