@@ -2,14 +2,71 @@
   @extend %flexcolumn;
 
   gap: 2rem;
+
+  padding: 80px;
+  height: 54vh;
+
+  @include maxWidthCustom(1164px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 50px;
+    height: 54.3vh;
+  }
+
+  @include maxWidthCustom(920px) {
+    padding: 30px;
+    height: 49vh;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 60px;
+    font-size: 50px;
+    height: 30vh;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+    height: 25vh;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px;
+  }
 }
 
 .link {
-  font-family: $font-sans;
-  @include font($font-size-base, 1.5rem, $font-weight-bold);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  line-height: 120%;
 
   transition: $fast-transition;
   @include onHover() {
     color: green;
+  }
+}
+
+.title {
+  @include font-style('Gilroy', $font-size-large, $color-neutral-900, $font-weight-medium);
+  line-height: 120%;
+
+  @include maxWidthCustom(1084px) {
+    font-size: 42px;
+  }
+
+  @include maxWidthCustom(920px) {
+    font-size: 38px;
+  }
+
+  @include maxWidthCustom(820px) {
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    font-size: 38px;
+  }
+
+  @include maxWidth(xSmall) {
+    font-size: 28px;
   }
 }
