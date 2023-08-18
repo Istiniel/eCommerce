@@ -21,7 +21,8 @@
   @include maxWidthCustom(805px) {
     flex-direction: column;
 
-    a:not(:last-child) {
+    a:not(:last-child),
+    button {
       border-bottom: 1px solid $color-neutral-1000;
     }
   }
