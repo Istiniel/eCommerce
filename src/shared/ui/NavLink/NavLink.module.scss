@@ -14,4 +14,12 @@
     background-color: $color-neutral-800;
     color: $color-neutral-000;
   }
+
+  @include maxWidthCustom(805px) {
+    padding: 2.8rem 2.8rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 1.6rem 1.6rem;
+  }
 }
