@@ -11,6 +11,6 @@
 
   &.disabled {
     @extend %disabled;
-    color: $color-neutral-400
+    color: $color-neutral-400;
   }
 }

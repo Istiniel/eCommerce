@@ -24,18 +24,17 @@
   &.invalid {
     outline: 2px solid $color-primary-400;
     outline-offset: -2px;
-   }
+  }
 
-   &::first-letter {
+  &::first-letter {
     text-transform: uppercase;
-   }
+  }
 }
 
 .label {
   display: block;
   margin-bottom: 2.3rem;
   position: relative;
-
 
   .title {
     display: inline-block;

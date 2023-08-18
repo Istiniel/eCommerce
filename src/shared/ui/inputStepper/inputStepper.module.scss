@@ -1,28 +1,29 @@
 .stepperWrapper {
-	font-family: $font-sans;
-	display: flex;
-	width: 146px;
-	height: 44px;
+  font-family: $font-sans;
+  display: flex;
+  width: 146px;
+  height: 44px;
 }
 
-.minusButton, .plusButton {
-	width: 44px;
-	height: 44px;
-	border: 1px solid $color-neutral-1000;
-	box-sizing: border-box;
-	@extend %aligncenter;
-	justify-content: center;
-	cursor: pointer;
-	user-select: none;
-	background: $color-neutral-000;
+.minusButton,
+.plusButton {
+  width: 44px;
+  height: 44px;
+  border: 1px solid $color-neutral-1000;
+  box-sizing: border-box;
+  @extend %aligncenter;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  background: $color-neutral-000;
 }
 
 .input {
-	width: 58px;
-	border: none;
-	border-top: 1px solid $color-neutral-1000;
-	border-bottom: 1px solid $color-neutral-1000;
-	@extend %aligncenter;
-	justify-content: center;
-	font-weight: $font-weight-normal;
+  width: 58px;
+  border: none;
+  border-top: 1px solid $color-neutral-1000;
+  border-bottom: 1px solid $color-neutral-1000;
+  @extend %aligncenter;
+  justify-content: center;
+  font-weight: $font-weight-normal;
 }

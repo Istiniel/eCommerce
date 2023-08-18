@@ -137,82 +137,80 @@ $-clr-red-800: hsl(0 75% 17.5%);
 $-clr-red-900: hsl(0 75% 7.5%);
 
 $light: (
-  "neutral": (
-    "000": $-clr-white,
-    "100": $-clr-gray-100,
-    "200": $-clr-gray-200,
-    "300": $-clr-gray-300,
-    "400": $-clr-gray-400,
-    "500": $-clr-gray-500,
-    "600": $-clr-gray-600,
-    "700": $-clr-gray-700,
-    "800": $-clr-gray-800,
-    "900": $-clr-gray-900,
-    "1000": $-clr-black,
+  'neutral': (
+    '000': $-clr-white,
+    '100': $-clr-gray-100,
+    '200': $-clr-gray-200,
+    '300': $-clr-gray-300,
+    '400': $-clr-gray-400,
+    '500': $-clr-gray-500,
+    '600': $-clr-gray-600,
+    '700': $-clr-gray-700,
+    '800': $-clr-gray-800,
+    '900': $-clr-gray-900,
+    '1000': $-clr-black,
   ),
-  "accent": (
-    "100": $-clr-green-100,
-    "200": $-clr-green-200,
-    "300": $-clr-green-300,
-    "400": $-clr-green-400,
-    "500": $-clr-green-500,
-    "600": $-clr-green-600,
-    "700": $-clr-green-700,
-    "800": $-clr-green-800,
-    "900": $-clr-green-900,
-
+  'accent': (
+    '100': $-clr-green-100,
+    '200': $-clr-green-200,
+    '300': $-clr-green-300,
+    '400': $-clr-green-400,
+    '500': $-clr-green-500,
+    '600': $-clr-green-600,
+    '700': $-clr-green-700,
+    '800': $-clr-green-800,
+    '900': $-clr-green-900,
   ),
-  "primary": (
-    "100": $-clr-red-100,
-    "200": $-clr-red-200,
-    "300": $-clr-red-300,
-    "400": $-clr-red-400,
-    "500": $-clr-red-500,
-    "600": $-clr-red-600,
-    "700": $-clr-red-700,
-    "800": $-clr-red-800,
-    "900": $-clr-red-900,
+  'primary': (
+    '100': $-clr-red-100,
+    '200': $-clr-red-200,
+    '300': $-clr-red-300,
+    '400': $-clr-red-400,
+    '500': $-clr-red-500,
+    '600': $-clr-red-600,
+    '700': $-clr-red-700,
+    '800': $-clr-red-800,
+    '900': $-clr-red-900,
   ),
 );
 
 $dark: (
-  "neutral": (
-    "1000": $-clr-white,
-    "900": $-clr-gray-100,
-    "800": $-clr-gray-200,
-    "700": $-clr-gray-300,
-    "600": $-clr-gray-400,
-    "500": $-clr-gray-500,
-    "400": $-clr-gray-600,
-    "300": $-clr-gray-700,
-    "200": $-clr-gray-800,
-    "100": $-clr-gray-900,
-    "000": $-clr-black,
+  'neutral': (
+    '1000': $-clr-white,
+    '900': $-clr-gray-100,
+    '800': $-clr-gray-200,
+    '700': $-clr-gray-300,
+    '600': $-clr-gray-400,
+    '500': $-clr-gray-500,
+    '400': $-clr-gray-600,
+    '300': $-clr-gray-700,
+    '200': $-clr-gray-800,
+    '100': $-clr-gray-900,
+    '000': $-clr-black,
   ),
-  "accent": (
-    "900": $-clr-green-900,
-    "800": $-clr-green-800,
-    "700": $-clr-green-700,
-    "600": $-clr-green-600,
-    "500": $-clr-green-500,
-    "400": $-clr-green-400,
-    "300": $-clr-green-300,
-    "200": $-clr-green-200,
-    "100": $-clr-green-100,
+  'accent': (
+    '900': $-clr-green-900,
+    '800': $-clr-green-800,
+    '700': $-clr-green-700,
+    '600': $-clr-green-600,
+    '500': $-clr-green-500,
+    '400': $-clr-green-400,
+    '300': $-clr-green-300,
+    '200': $-clr-green-200,
+    '100': $-clr-green-100,
   ),
-  "primary": (
-    "900": $-clr-red-900,
-    "800": $-clr-red-800,
-    "700": $-clr-red-700,
-    "600": $-clr-red-600,
-    "500": $-clr-red-500,
-    "400": $-clr-red-400,
-    "300": $-clr-red-300,
-    "200": $-clr-red-200,
-    "100": $-clr-red-100,
+  'primary': (
+    '900': $-clr-red-900,
+    '800': $-clr-red-800,
+    '700': $-clr-red-700,
+    '600': $-clr-red-600,
+    '500': $-clr-red-500,
+    '400': $-clr-red-400,
+    '300': $-clr-red-300,
+    '200': $-clr-red-200,
+    '100': $-clr-red-100,
   ),
 );
-
 
 $color-neutral-000: var(--neutral-000);
 $color-neutral-100: var(--neutral-100);
@@ -245,7 +243,3 @@ $color-accent-600: var(--accent-600);
 $color-accent-700: var(--accent-700);
 $color-accent-800: var(--accent-800);
 $color-accent-900: var(--accent-900);
-
-
-
-

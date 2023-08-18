@@ -10,7 +10,8 @@
     "lint-fix": "eslint . --ext .tsx --ext .ts --fix",
     "prettier": "prettier . --write",
     "test:unit": "npx vitest run --coverage.enabled --coverage.provider=c8 --coverage.all",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@commercetools/platform-sdk": "^5.0.0",

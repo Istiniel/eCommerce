@@ -1,4 +1,4 @@
-import styles from './blockInfo.module.scss';
+import styles from './BlockInfo.module.scss';
 
 interface Props {
   title: string;

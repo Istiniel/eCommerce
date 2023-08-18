@@ -1,153 +1,155 @@
 .wrapper {
-    font-family: $font-sans;
-    display: flex;
-    flex-direction: column;
-    margin-top: -55px;
-    margin-left: -10px;
-    margin-right: -10px;
+  font-family: $font-sans;
+  display: flex;
+  flex-direction: column;
+  margin-top: -55px;
+  margin-left: -10px;
+  margin-right: -10px;
 
-    h1 {
-        text-align: center;
-        font-size: $font-size-large;
-        line-height: $font-height-large;
-    }
+  h1 {
+    text-align: center;
+    font-size: $font-size-large;
+    line-height: $font-height-large;
+  }
 
-    h2 {
-        font-size: $font-size-heading-mobile;
-        line-height: $font-height-large;
-    }
+  h2 {
+    font-size: $font-size-heading-mobile;
+    line-height: $font-height-large;
+  }
 
-    p {
-        font-weight: $font-weight-small;
-    }
-
+  p {
+    font-weight: $font-weight-small;
+  }
 }
 
 .container {
-    display: flex;
-    border-bottom: 1px solid $color-neutral-1000;
+  display: flex;
+  border-bottom: 1px solid $color-neutral-1000;
 }
 
 .container:nth-child(1) {
-    border-top: none;
+  border-top: none;
 
-    .contentBox {
-        flex-direction: column;
-        justify-content: center;
-        gap: 15%;
+  .contentBox {
+    flex-direction: column;
+    justify-content: center;
+    gap: 15%;
 
-        h2 {
-            text-align: center;
-        }
-
-        p {
-            padding-left: 2%;
-        }
+    h2 {
+      text-align: center;
     }
+
+    p {
+      padding-left: 2%;
+    }
+  }
 }
 
 .imgBox {
-    width: 50%;
-    height: 100% !important;
+  width: 50%;
+  height: 100% !important;
 
-    img {
-        width: 100%;
-        height: 100%;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .contentBox {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    padding: 80px;
-    gap: 10%;  
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  gap: 10%;
 }
 
 .socialBox {
-    display: flex;
-    align-self: center;
-    gap: 25px;
+  display: flex;
+  align-self: center;
+  gap: 25px;
 }
 
 .socialContainer {
-    width: 48px;
-    height: 48px;
-    border: 1px solid $color-neutral-1000;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid $color-neutral-1000;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .splitter {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px;
-    gap: 30px;
-    border-bottom: 1px solid $color-neutral-1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  gap: 30px;
+  border-bottom: 1px solid $color-neutral-1000;
 
-    h2, p {
-        text-align: center;
-    }
+  h2,
+  p {
+    text-align: center;
+  }
 }
 
 .splitter:nth-child(6) {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .button {
-    width: 270px;
-    align-self: center;
+  width: 270px;
+  align-self: center;
 }
 
 @include maxWidth(medium) {
-    .container {
-        flex-direction: column;
-    }
+  .container {
+    flex-direction: column;
+  }
 
-    .imgBox, .contentBox {
-        width: 100%;
-    }
+  .imgBox,
+  .contentBox {
+    width: 100%;
+  }
 
-    .container:nth-child(1) {
-        .contentBox {
-            min-height: 620px;
-            gap: 64px !important;
-        }
-    }
-
+  .container:nth-child(1) {
     .contentBox {
-        min-height: 350px;
-        gap: 16px;
-        justify-content: center;
+      min-height: 620px;
+      gap: 64px !important;
     }
+  }
 
-    .imgBox {
-        img {
-            height: 500px;
-            object-fit: cover;
-        }
-    }
+  .contentBox {
+    min-height: 350px;
+    gap: 16px;
+    justify-content: center;
+  }
 
-    .container:nth-child(3), .container:nth-child(5) {
-        flex-direction: column-reverse;
+  .imgBox {
+    img {
+      height: 500px;
+      object-fit: cover;
     }
+  }
+
+  .container:nth-child(3),
+  .container:nth-child(5) {
+    flex-direction: column-reverse;
+  }
 }
 
 @include maxWidth(small) {
-    .wrapper {
-        h1 {
-            font-size: $font-size-heading-mobile;
-        }
-
-        h2 {
-            font-size: $font-size-medium-mobile;
-        }
+  .wrapper {
+    h1 {
+      font-size: $font-size-heading-mobile;
     }
 
-    .contentBox {
-        padding: 40px 16px 40px 16px;
+    h2 {
+      font-size: $font-size-medium-mobile;
     }
+  }
+
+  .contentBox {
+    padding: 40px 16px 40px 16px;
+  }
 }

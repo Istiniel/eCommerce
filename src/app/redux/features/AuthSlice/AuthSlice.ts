@@ -5,17 +5,17 @@ import { loginCustomer } from '../../asyncThunks/loginCustomer';
 
 type AuthState = {
   customer: Customer | null;
-  status: 'loading' | 'idle' | 'error',
-  error: string | undefined
+  status: 'loading' | 'idle' | 'error';
+  error: string | undefined;
 };
 
 const cachedCustomerInfo = localStorage.getItem('current-customer');
-const customer: Customer | null = cachedCustomerInfo ? JSON.parse(cachedCustomerInfo) : null
+const customer: Customer | null = cachedCustomerInfo ? JSON.parse(cachedCustomerInfo) : null;
 
 const initialState: AuthState = {
   customer,
   status: 'idle',
-  error: undefined
+  error: undefined,
 };
 
 export const authSlice = createSlice({
@@ -25,22 +25,23 @@ export const authSlice = createSlice({
     setCustomer: (state, action: PayloadAction<Customer | null>) => {
       state.customer = action.payload;
     },
-  }, extraReducers: (builder) => {
+  },
+  extraReducers: (builder) => {
     builder
       .addCase(loginCustomer.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(loginCustomer.fulfilled, (state, action) => {
-        state.customer = action.payload
+        state.customer = action.payload;
         state.status = 'idle';
         state.error = undefined;
       })
       .addCase(loginCustomer.rejected, (state, action) => {
         state.status = 'error';
-        state.error = action.error.message
-      })
-  }
-})
+        state.error = action.error.message;
+      });
+  },
+});
 
 export const { setCustomer } = authSlice.actions;
 export default authSlice.reducer;

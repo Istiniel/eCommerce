@@ -31,7 +31,10 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }, { find: 'node-fetch', replacement: 'isomorphic-fetch', }],
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      { find: 'node-fetch', replacement: 'isomorphic-fetch' },
+    ],
   },
   css: {
     preprocessorOptions: {

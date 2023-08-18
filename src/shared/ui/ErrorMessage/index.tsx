@@ -10,17 +10,17 @@ type ErrorMessageProps = {
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ message = 'Error' }) => {
   return (
     <AnimatePresence>
-        <motion.div
-          initial={{ transform: 'translateY(100px)', opacity: 0 }}
-          animate={{ transform: 'translateY(0px)', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className={styles.container}>
-            <BiError />
-            <p className={styles.errorMessage}>{message}</p>
-          </div>
-        </motion.div>
+      <motion.div
+        initial={{ transform: 'translateY(100px)', opacity: 0 }}
+        animate={{ transform: 'translateY(0px)', opacity: 1 }}
+        exit={{ height: 0, opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className={styles.container}>
+          <BiError />
+          <p className={styles.errorMessage}>{message}</p>
+        </div>
+      </motion.div>
     </AnimatePresence>
   );
 };
