@@ -16,4 +16,8 @@
   @include onHover() {
     background-color: $color-neutral-800;
   }
+
+  @include maxWidthCustom(430px) {
+    padding: 1.4rem;
+  }
 }
