@@ -4,6 +4,7 @@
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 import { configDefaults, defineConfig } from 'vitest/config';
+import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import styles from './InputStepper.module.scss';
+import styles from './ProductCounter.module.scss';
 
 interface InputStepperProps {
   value?: number;
   maxItems?: number;
 }
 
-const InputStepper = ({ value = 1, maxItems = 99 }: InputStepperProps) => {
+const ProductCounter = ({ value = 1, maxItems = 99 }: InputStepperProps) => {
   const [counter, setCounter] = useState(value);
 
   const minusButtonHandler = () => {
@@ -34,4 +34,4 @@ const InputStepper = ({ value = 1, maxItems = 99 }: InputStepperProps) => {
   );
 };
 
-export default InputStepper;
+export default ProductCounter;

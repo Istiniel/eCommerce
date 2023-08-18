@@ -1,7 +1,7 @@
 // import { useParams } from 'react-router-dom';
 import styles from './Product.module.scss';
 import Button from '../../shared/ui/Button';
-import InputStepper from '../../shared/ui/InputStepper/inputStepper';
+import ProductCounter from '../../shared/ui/ProductCounter';
 
 const data = {
   itemName: 'Rosy Delight',
@@ -39,7 +39,7 @@ const Product = () => {
         <p className={styles.description}>{description}</p>
         <div className={styles.quantityBox}>
           <p className={styles.quantity}>Quantity:</p>
-          <InputStepper />
+          <ProductCounter />
         </div>
         <div className={styles.button}>
           <Button type="button" onClick={addToCartHandler}>

@@ -1,11 +1,11 @@
-import styles from './BlockInfo.module.scss';
+import styles from './InfoBlock.module.scss';
 
 interface Props {
   title: string;
   text: string;
 }
 
-const BlockInfo = (props: Props) => {
+const InfoBlock = (props: Props) => {
   const { title, text } = props;
 
   return (
@@ -16,4 +16,4 @@ const BlockInfo = (props: Props) => {
   );
 };
 
-export default BlockInfo;
+export default InfoBlock;
