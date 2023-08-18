@@ -27,7 +27,7 @@
 }
 
 .blockTitle {
-  @include font-style('Gilroy', 38px, $color-neutral-900, 500);
+  @include font-style($font-sans, 38px, $color-neutral-900, 500);
   line-height: 120%;
   margin-bottom: 16px;
 
@@ -38,7 +38,7 @@
 }
 
 .blockText {
-  @include font-style('Gilroy', 16px, $color-neutral-900);
+  @include font-style($font-sans, 16px, $color-neutral-900);
   line-height: 120%;
   opacity: 90%;
 }

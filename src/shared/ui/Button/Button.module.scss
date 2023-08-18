@@ -28,4 +28,8 @@
       color: $color-neutral-000;
     }
   }
+
+  @include maxWidthCustom(430px) {
+    padding: 1.4rem;
+  }
 }

@@ -8,6 +8,18 @@
   background-color: $color-neutral-000;
 
   border: 2px solid $color-neutral-1000;
+
+  @include maxWidthCustom(642px) {
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: 1px solid $color-neutral-1000;
+    padding: 4rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 2rem;
+  }
 }
 
 .formTitle {
@@ -16,6 +28,10 @@
   font-family: $font-sans;
   color: $color-neutral-1000;
   @include font($font-size-large, $font-height-base, $font-weight-medium);
+
+  @include maxWidthCustom(430px) {
+    font-size: 3.4rem;
+  }
 }
 
 .addressContainer {
@@ -23,13 +39,32 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
+
+  @include maxWidthCustom(642px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  @include maxWidthCustom(642px) {
+    gap: 3rem;
+  }
 }
 
 .addressTitle {
   margin-top: 4rem;
   display: block;
-  font-size: $font-size-heading;
+  @include font-style(
+    $font-sans,
+    $font-size-large-mobile,
+    $color-neutral-900,
+    $font-weight-partly-medium
+  );
+
+  @include maxWidthCustom(642px) {
+    font-size: $font-size-medium-mobile;
+  }
 }
 
 .address {

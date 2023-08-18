@@ -18,6 +18,7 @@ const Header = () => {
           <div className={styles.leftContainer}>
             <NavLink href="/" content="Home" />
             <NavLink href="/#contacts" content="Contacts" />
+            <NavLink href="/about" content="About us" />
           </div>
           <div className={styles.rightContainer}>
             {!customer && <NavLink href="/signin" content="Sign in" />}

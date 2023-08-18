@@ -72,7 +72,7 @@
 }
 
 .orderText {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-900);
+  @include font-style($font-sans, $font-size-base, $color-neutral-900);
   line-height: 140%;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .input {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-900);
+  @include font-style($font-sans, $font-size-base, $color-neutral-900);
   border: 1px solid #d2d2d7;
   padding: 1.95rem 0 1.95rem 1.6rem;
 
@@ -91,7 +91,7 @@
 }
 
 .btn {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-000);
+  @include font-style($font-sans, $font-size-base, $color-neutral-000);
   line-height: 120%;
   background-color: #121212;
   text-transform: uppercase;
@@ -99,7 +99,7 @@
 }
 
 .title {
-  @include font-style('Gilroy', 2.1rem, $color-neutral-500, $font-weight-partly-medium);
+  @include font-style($font-sans, 2.1rem, $color-neutral-500, $font-weight-partly-medium);
   line-height: 120%;
 
   @include maxWidth(xSmall) {
@@ -108,13 +108,13 @@
 }
 
 .subtitle {
-  @include font-style('Gilroy', $font-size-small, $color-neutral-500);
+  @include font-style($font-sans, $font-size-small, $color-neutral-500);
   line-height: 120%;
   margin-bottom: 0.8rem;
 }
 
 .link {
-  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
   line-height: 120%;
 
   &:not(:last-child) {

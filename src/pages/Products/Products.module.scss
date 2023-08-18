@@ -2,14 +2,57 @@
   @extend %flexcolumn;
 
   gap: 2rem;
+
+  border-top: 1px solid $color-neutral-1000;
+
+  padding: 40px;
+  height: 57vh;
+
+  @include maxWidthCustom(920px) {
+    height: 49vh;
+  }
+
+  @include maxWidthCustom(820px) {
+    height: 30vh;
+  }
+
+  @include maxWidthCustom(805px) {
+    height: 30vh;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+    height: 25vh;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px;
+  }
 }
 
 .link {
-  font-family: $font-sans;
-  @include font($font-size-base, 1.5rem, $font-weight-bold);
+  @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  line-height: 120%;
 
   transition: $fast-transition;
   @include onHover() {
     color: green;
+  }
+}
+
+.title {
+  @include font-style('Gilroy', $font-size-large, $color-neutral-900, $font-weight-medium);
+  line-height: 120%;
+
+  @include maxWidthCustom(820px) {
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    font-size: 38px;
+  }
+
+  @include maxWidth(xSmall) {
+    font-size: 28px;
   }
 }

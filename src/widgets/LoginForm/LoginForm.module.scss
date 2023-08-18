@@ -8,6 +8,19 @@
   background-color: $color-neutral-000;
 
   border: 2px solid $color-neutral-1000;
+
+  @include maxWidthCustom(642px) {
+    // padding: 2.8rem 2.8rem;
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: 1px solid $color-neutral-1000;
+    padding: 4rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 2rem;
+  }
 }
 
 .formTitle {
@@ -17,4 +30,8 @@
   color: $color-neutral-1000;
   @include font($font-size-large, $font-height-large, $font-weight-medium);
   text-transform: capitalize;
+
+  @include maxWidthCustom(430px) {
+    font-size: 3.4rem;
+  }
 }
