@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Products.module.scss';
 
 function Products() {
-  const products = ['Fresh Flowers', 'Dried Flowers', 'Live Plants', 'Aroma Candles'];
+  const products = ['Rosy Delight', 'Snowfall', 'Pink Elegance', 'Blue Harmony'];
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Products</h1>
