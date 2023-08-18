@@ -5,17 +5,19 @@
 }
 
 .container {
-  @extend %flexwrap;
-  flex-basis: 100%;
-  flex-grow: 1;
+  // @extend %flexwrap;
+  display: flex;
+
   color: $color-neutral-1000;
   border: 1px solid $color-neutral-1000;
 
-  @include maxWidth(small) {
+  @include maxWidthCustom(820px) {
     border-bottom: none;
+    flex-wrap: wrap;
   }
 
-  @include maxWidth(xSmall) {
+  @include maxWidthCustom(555px) {
+    flex-direction: column;
   }
 }
 
@@ -24,15 +26,23 @@
   flex-basis: 25%;
 
   row-gap: 2.4rem;
-  max-width: 36rem;
   padding: 4rem;
 
   &:not(:first-child) {
     border-left: 1px solid $color-neutral-1000;
   }
 
-  @include maxWidth(small) {
+  @include maxWidthCustom(1164px) {
+    padding: 30px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 25px;
+  }
+
+  @include maxWidthCustom(820px) {
     flex-basis: 50%;
+    padding: 4rem;
     border-bottom: 1px solid $color-neutral-1000;
 
     &:nth-child(3) {
@@ -40,14 +50,24 @@
     }
   }
 
-  @include maxWidth(xSmall) {
-    flex-basis: 100%;
-    row-gap: 1.6rem;
-    padding-left: 1.6rem;
+  @include maxWidthCustom(635px) {
+    padding: 25px;
+  }
+
+  @include maxWidthCustom(575px) {
+    padding: 20px;
+  }
+
+  @include maxWidthCustom(555px) {
     border-bottom: 1px solid $color-neutral-1000;
     &:not(:first-child) {
       border-left: none;
     }
+  }
+
+  @include maxWidth(xSmall) {
+    row-gap: 1.6rem;
+    padding-left: 1.6rem;
   }
 }
 

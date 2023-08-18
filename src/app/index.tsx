@@ -18,7 +18,7 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-        style={{fontSize: 16}}
+        style={{ fontSize: 16 }}
       />
       <AppRouter />
     </AppProvider>

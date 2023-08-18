@@ -2,7 +2,6 @@ import { HTMLInputTypeAttribute } from 'react';
 import { UseControllerProps, useController, FieldValues } from 'react-hook-form';
 import { Input } from '../Input/index';
 
-
 interface AuthInputProps<T extends FieldValues> extends UseControllerProps<T> {
   type?: HTMLInputTypeAttribute;
 }
@@ -14,8 +13,6 @@ function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
     field: { onChange, value, ref, name },
     fieldState: { invalid, error },
   } = useController(props);
-
-
 
   return (
     <Input

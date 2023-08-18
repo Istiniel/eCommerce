@@ -25,7 +25,6 @@ const LoginForm = () => {
   const signInError = useAppSelector(selectSignInError);
   const formRef = useRef<HTMLFormElement>(null);
 
-
   const { handleSubmit, control } = useForm<SignInFormState>({
     mode: 'onChange',
     defaultValues: {
@@ -37,7 +36,7 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<SignInFormState> = async (data, event) => {
     event?.preventDefault();
 
-   const result = await dispatch(loginCustomer(data));
+    const result = await dispatch(loginCustomer(data));
 
     if (result.meta.requestStatus !== 'rejected') {
       navigate('/');

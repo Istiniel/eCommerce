@@ -14,20 +14,19 @@ import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 const projectKey = import.meta.env.VITE_CTP_PROJECT_KEY;
 const scopes = import.meta.env.VITE_CTP_SCOPES.split(' ');
 
-
 class CommerceToolsToken implements TokenCache {
   tokenStore: TokenStore = {
     token: '',
     expirationTime: 0,
-    refreshToken: ''
+    refreshToken: '',
   };
 
   get() {
-    return this.tokenStore
+    return this.tokenStore;
   }
 
   set(token: TokenStore) {
-    this.tokenStore = token
+    this.tokenStore = token;
   }
 }
 
@@ -43,7 +42,7 @@ const authMiddlewareOptions: AuthMiddlewareOptions = {
   },
   scopes,
   fetch,
-  tokenCache: token
+  tokenCache: token,
 };
 
 // Configure httpMiddlewareOptions
@@ -65,11 +64,11 @@ export function getAuthApi(user: UserAuthOptions) {
     credentials: {
       clientId: import.meta.env.VITE_CTP_CLIENT_ID,
       clientSecret: import.meta.env.VITE_CTP_CLIENT_SECRET,
-      user
+      user,
     },
     scopes,
     fetch,
-    tokenCache: token
+    tokenCache: token,
   };
 
   const withPasswordClient = new ClientBuilder()
@@ -78,6 +77,5 @@ export function getAuthApi(user: UserAuthOptions) {
     .withLoggerMiddleware()
     .build();
 
-  return createApiBuilderFromCtpClient(withPasswordClient)
-    .withProjectKey({ projectKey });
+  return createApiBuilderFromCtpClient(withPasswordClient).withProjectKey({ projectKey });
 }

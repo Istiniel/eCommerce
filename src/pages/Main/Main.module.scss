@@ -6,7 +6,7 @@
   flex-basis: 50%;
   @extend %flexcolumn;
 
-  @include maxWidth(small) {
+  @include maxWidthCustom(820px) {
     flex-basis: 100%;
     border-left: none;
   }
@@ -16,7 +16,7 @@
   &:last-child {
     border-left: 1px solid $color-neutral-1000;
 
-    @include maxWidth(small) {
+    @include maxWidthCustom(820px) {
       border-left: none;
     }
   }
@@ -25,6 +25,28 @@
 .titleWrapper,
 .serviceTitleWrapper {
   padding: 80px;
+
+  @include maxWidthCustom(1164px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 50px;
+  }
+
+  @include maxWidthCustom(920px) {
+    padding: 30px;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 60px;
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+  }
+
   @include maxWidth(xSmall) {
     padding: 40px 16px;
   }
@@ -42,6 +64,22 @@
   @include font-style('Gilroy', $font-size-large, $color-neutral-900, $font-weight-medium);
   line-height: 120%;
 
+  @include maxWidthCustom(1084px) {
+    font-size: 42px;
+  }
+
+  @include maxWidthCustom(920px) {
+    font-size: 38px;
+  }
+
+  @include maxWidthCustom(820px) {
+    font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    font-size: 38px;
+  }
+
   @include maxWidth(xSmall) {
     font-size: 28px;
   }
@@ -52,6 +90,27 @@
   row-gap: 24px;
   padding: 80px;
   border-bottom: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(1164px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 50px;
+  }
+
+  @include maxWidthCustom(920px) {
+    padding: 30px;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 60px;
+    // font-size: 50px;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+  }
 
   @include maxWidth(xSmall) {
     padding: 40px 16px;
@@ -66,6 +125,18 @@
 .inputRow {
   @extend %spacebetween;
   column-gap: 16px;
+
+  @include maxWidthCustom(920px) {
+    flex-wrap: wrap;
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-wrap: nowrap;
+  }
+
+  @include maxWidthCustom(565px) {
+    flex-wrap: wrap;
+  }
 
   @include maxWidth(xSmall) {
     flex-wrap: wrap;
@@ -98,6 +169,19 @@
 .btnWrapper {
   flex-basis: 50%;
 
+  @include maxWidthCustom(920px) {
+    //flex-grow: 1;
+    flex-basis: 100%;
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-basis: 50%;
+  }
+
+  @include maxWidthCustom(565px) {
+    flex-basis: 100%;
+  }
+
   @include maxWidth(xSmall) {
     flex-basis: 100%;
   }
@@ -108,17 +192,67 @@
 }
 
 .row {
-  @extend %flexwrap;
+  // @extend %flexwrap;
+  display: flex;
+
+  @include maxWidthCustom(1084px) {
+    flex-wrap: wrap;
+    flex-grow: 1;
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-wrap: nowrap;
+    flex-grow: 0;
+  }
+
+  @include maxWidthCustom(565px) {
+    flex-wrap: wrap;
+  }
 }
 
 .block {
   flex-basis: 50%;
   text-align: center;
   align-self: center;
+  align-content: center;
   padding: 16px 40px;
 
   &:first-child {
     border-right: 1px solid $color-neutral-1000;
+  }
+
+  @include maxWidthCustom(1164px) {
+    padding: 14px 24px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    flex-wrap: wrap;
+    flex-basis: 100%;
+
+    &:first-child {
+      border-right: none;
+      border-bottom: 1px solid $color-neutral-1000;
+    }
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-wrap: nowrap;
+    flex-basis: 50%;
+    // padding: 16px 40px;
+
+    &:first-child {
+      border-right: 1px solid $color-neutral-1000;
+      border-bottom: none;
+    }
+  }
+
+  @include maxWidthCustom(565px) {
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    &:first-child {
+      border-right: none;
+      // border-bottom: 1px solid $color-neutral-1000;
+    }
   }
 
   @include maxWidth(xSmall) {
@@ -153,6 +287,15 @@
     border-right: 1px solid $color-neutral-1000;
   }
 
+  @include maxWidthCustom(565px) {
+    flex-basis: 100%;
+
+    &:first-child {
+      border-right: none;
+      border-bottom: 1px solid $color-neutral-1000;
+    }
+  }
+
   @include maxWidth(xSmall) {
     flex-basis: 100%;
 
@@ -167,6 +310,14 @@
   text-align: center;
   padding: 16px 40px;
   border-bottom: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(944px) {
+    padding: 16px 24px;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 16px 40px;
+  }
 
   @include maxWidth(xSmall) {
     text-align: left;
@@ -210,6 +361,10 @@
   @extend %spacebetween;
   align-items: stretch;
   column-gap: 32px;
+
+  li {
+    min-width: 20px;
+  }
 }
 
 .serviceContainer {
@@ -225,7 +380,12 @@
   background-color: rgba(0, 0, 0, 0.5);
   height: 720px;
 
-  @include maxWidth(xSmall) {
+  @include maxWidthCustom(615px) {
+    height: 540px;
+    padding: 40px 16px;
+  }
+
+  @include maxWidthCustom(487px) {
     height: 420px;
     padding: 40px 16px;
   }

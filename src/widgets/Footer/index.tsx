@@ -55,15 +55,6 @@ const Footer = () => {
               <h4 className={styles.subtitle}>General Enquiry:</h4>
               <p className={styles.link}>Kiev.Florist.Studio@gmail.com</p>
             </div>
-          </div>
-          <div className={styles.column}>
-            <h3 className={styles.title}>Shop</h3>
-            <List items={shopItems} styles={styles.link} />
-          </div>
-          <div className={styles.column}>
-            <h3 className={styles.title}>About Us</h3>
-            <List items={aboutItems} styles={styles.link} />
-            <List items={shipmentItems} styles={styles.link} />
             <h3 className={styles.title}>Follow Us</h3>
             <ul className={styles.social}>
               <li>
@@ -92,6 +83,15 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+          </div>
+          <div className={styles.column}>
+            <h3 className={styles.title}>Shop</h3>
+            <List items={shopItems} styles={styles.link} />
+          </div>
+          <div className={styles.column}>
+            <h3 className={styles.title}>About Us</h3>
+            <List items={aboutItems} styles={styles.link} />
+            <List items={shipmentItems} styles={styles.link} />
           </div>
         </div>
       </Wrapper>

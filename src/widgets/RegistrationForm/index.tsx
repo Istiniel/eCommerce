@@ -50,7 +50,7 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
   const customer = useAppSelector(selectCustomer);
 
-  useScrollIntoView(formRef)
+  useScrollIntoView(formRef);
 
   const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
     mode: 'onChange',
@@ -119,7 +119,9 @@ const RegistrationForm = () => {
       await signUp(newClient);
       setSignUpError('');
 
-      const result = await dispatch(loginCustomer({ email: newClient.email, password: newClient.password }));
+      const result = await dispatch(
+        loginCustomer({ email: newClient.email, password: newClient.password }),
+      );
       if (result.meta.requestStatus !== 'rejected') {
         navigate('/');
         toast.success('Success', {
@@ -144,7 +146,7 @@ const RegistrationForm = () => {
     if (customer) {
       navigate('/', { replace: true });
     }
-  }, [customer, navigate])
+  }, [customer, navigate]);
 
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>

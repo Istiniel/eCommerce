@@ -1,5 +1,4 @@
 import styles from './Main.module.scss';
-import BlockInfo from '../../shared/ui/blockInfo';
 import { Input } from '../../shared/ui/Input';
 import Button from '../../shared/ui/Button';
 import instagramIcon from '../../app/assets/icons/social/Instagram.svg';
@@ -9,6 +8,8 @@ import twitterIcon from '../../app/assets/icons/social/Twitter.svg';
 import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
 import contactImage from '../../app/assets/images/contactImage.webp';
 import useAnchorLink from '../../shared/hooks/useAnchorLink';
+import InfoBlock from '../../shared/ui/InfoBlock';
+
 
 const data = [
   {
@@ -57,7 +58,7 @@ const Main = () => {
         </div>
         <div className={styles.column}>
           {data.map((item) => (
-            <BlockInfo key={item.title} title={item.title} text={item.text} />
+            <InfoBlock key={item.title} title={item.title} text={item.text} />
           ))}
         </div>
       </section>

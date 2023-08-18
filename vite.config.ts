@@ -4,6 +4,7 @@
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 import { configDefaults, defineConfig } from 'vitest/config';
+import path from "path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,7 +32,10 @@ export default defineConfig({
     },
   },
   resolve: {
-    alias: [{ find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) }, { find: 'node-fetch', replacement: 'isomorphic-fetch', }],
+    alias: [
+      { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      { find: 'node-fetch', replacement: 'isomorphic-fetch' },
+    ],
   },
   css: {
     preprocessorOptions: {
