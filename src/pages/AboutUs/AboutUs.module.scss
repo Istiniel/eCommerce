@@ -8,15 +8,19 @@
     text-align: center;
     font-size: $font-size-large;
     line-height: $font-height-large;
+    font-weight: $font-weight-medium;
   }
 
   h2 {
     font-size: $font-size-heading-mobile;
     line-height: $font-height-large;
+    font-weight: $font-weight-partly-medium;
   }
 
   p {
     font-weight: $font-weight-small;
+    line-height: $font-height-medium;
+    letter-spacing: 0;
   }
 }
 
@@ -137,8 +141,8 @@
     }
   }
 
-  .container:nth-child(3),
-  .container:nth-child(5) {
+  .container:nth-child(2),
+  .container:nth-child(4) {
     flex-direction: column-reverse;
   }
 }
