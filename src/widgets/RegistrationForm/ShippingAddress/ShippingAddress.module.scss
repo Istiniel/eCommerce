@@ -23,8 +23,9 @@
 }
 
 .heading {
-  margin-bottom: 1rem;
-  font-size: $font-size-medium;
+  margin-bottom: 2rem;
+  // font-size: $font-size-medium;
+  @include font-style('Gilroy', $font-size-medium, $color-neutral-900, $font-weight-medium);
 }
 
 .checkbox {
