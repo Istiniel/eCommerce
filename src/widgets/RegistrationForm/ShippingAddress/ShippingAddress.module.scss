@@ -25,7 +25,7 @@
 .heading {
   margin-bottom: 2rem;
   // font-size: $font-size-medium;
-  @include font-style('Gilroy', $font-size-medium, $color-neutral-900, $font-weight-medium);
+  @include font-style($font-sans, $font-size-medium, $color-neutral-900, $font-weight-medium);
 }
 
 .checkbox {
