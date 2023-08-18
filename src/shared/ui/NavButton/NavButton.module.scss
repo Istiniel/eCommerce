@@ -1,7 +1,8 @@
 .link {
-  display: block;
+  // display: block;
   background-color: $color-neutral-000;
   border-right: 1px solid $color-neutral-1000;
+  text-align: start;
 
   padding: 3.2rem 7rem;
 
@@ -13,5 +14,13 @@
   @include onHover() {
     background-color: $color-neutral-800;
     color: $color-neutral-000;
+  }
+
+  @include maxWidthCustom(805px) {
+    padding: 2.8rem 2.8rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 1.6rem 1.6rem;
   }
 }
