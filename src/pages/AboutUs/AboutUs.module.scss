@@ -2,9 +2,7 @@
   font-family: $font-sans;
   display: flex;
   flex-direction: column;
-  margin-top: -55px;
-  margin-left: -10px;
-  margin-right: -10px;
+  border-top: 1px solid $color-neutral-1000;
 
   h1 {
     text-align: center;
@@ -41,6 +39,9 @@
 
     p {
       padding-left: 2%;
+      @include maxWidth(xSmall) {
+        text-align: center;
+      }
     }
   }
 }
@@ -90,6 +91,10 @@
   h2,
   p {
     text-align: center;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px 40px 16px;
   }
 }
 

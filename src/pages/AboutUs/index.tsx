@@ -1,6 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './AboutUs.module.scss';
 import Button from '../../shared/ui/Button';
+import instagramIcon from '../../app/assets/icons/social/Instagram.svg';
+import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
+import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
+import AboutImage1 from '../../app/assets/images/about.jpg'
+import AboutImage2 from '../../app/assets/images/about2.jpg'
+import AboutImage3 from '../../app/assets/images/about3.jpg'
+import AboutImage4 from '../../app/assets/images/about4.jpg'
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -18,23 +25,23 @@ const AboutUs = () => {
           <div className={styles.socialBox}>
             <a href="https://instagram.com">
               <div className={styles.socialContainer}>
-                <img src="/instagram.svg" alt="instagram" />
+                <img src={instagramIcon} alt="instagram" />
               </div>
             </a>
             <a href="https://pinterest.com">
               <div className={styles.socialContainer}>
-                <img src="/pinterest.svg" alt="pinterest" />
+                <img src={pinterestIcon} alt="pinterest" />
               </div>
             </a>
             <a href="https://telegram.org">
               <div className={styles.socialContainer}>
-                <img src="/telegram.svg" alt="telegram" />
+                <img src={telegramIcon} alt="telegram" />
               </div>
             </a>
           </div>
         </div>
         <div className={styles.imgBox}>
-          <img src="/about.jpg" alt="founder" />
+          <img src={AboutImage1} alt="founder" />
         </div>
       </div>
 
@@ -50,7 +57,7 @@ const AboutUs = () => {
 
       <div className={styles.container}>
         <div className={styles.imgBox}>
-          <img src="/about2.jpg" alt="roses" />
+          <img src={AboutImage2} alt="roses" />
         </div>
         <div className={styles.contentBox}>
           <h2>Expertly Crafted Bouquets</h2>
@@ -72,13 +79,13 @@ const AboutUs = () => {
           </p>
         </div>
         <div className={styles.imgBox}>
-          <img src="/about3.jpg" alt="interior" />
+          <img src={AboutImage3} alt="interior" />
         </div>
       </div>
 
       <div className={styles.container}>
         <div className={styles.imgBox}>
-          <img src="/about4.jpg" alt="bouquet" />
+          <img src={AboutImage4} alt="bouquet" />
         </div>
         <div className={styles.contentBox}>
           <h2>Making Every Day Special</h2>
