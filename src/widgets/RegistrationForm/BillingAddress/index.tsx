@@ -1,4 +1,4 @@
-import { Control, Controller, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { Control, Controller, UseFormClearErrors, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import classNames from 'classnames';
 import { AutoComplete, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -12,12 +12,13 @@ interface BillingAddressProps {
   control: Control<SignUpFormState>;
   watch: UseFormWatch<SignUpFormState>;
   setValue: UseFormSetValue<SignUpFormState>;
+  clearErrors: UseFormClearErrors<SignUpFormState>;
 }
 
 function BillingAddress(props: BillingAddressProps) {
   const { t } = useTranslation();
 
-  const { control, watch, setValue } = props;
+  const { control, watch, setValue, clearErrors } = props;
 
   const billingAsShipping = watch('billingAsShipping');
 
@@ -28,8 +29,9 @@ function BillingAddress(props: BillingAddressProps) {
   useEffect(() => {
     if (billingAsShipping) {
       setValue('shippingAsBilling', false);
+      clearErrors('billingAddress')
     }
-  }, [billingAsShipping, setValue]);
+  }, [billingAsShipping, clearErrors, setValue]);
 
   return (
     <fieldset className={styles.container}>
@@ -145,7 +147,9 @@ function BillingAddress(props: BillingAddressProps) {
             checked={value}
             className={styles.checkbox}
             name="same-address"
-            onChange={onChange}
+            onChange={(e) => {
+              onChange(e);
+            }}
           >
             {t('useForShipping')}
           </Checkbox>

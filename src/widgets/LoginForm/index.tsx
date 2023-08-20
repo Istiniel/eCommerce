@@ -2,7 +2,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import { LinkButton } from '../../shared/ui/LinkButton/index';
@@ -11,6 +10,7 @@ import ErrorMessage from '../../shared/ui/ErrorMessage';
 import { selectCustomer, selectSignInError } from '../../app/redux/features/AuthSlice/AuthSlice';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
+import { showSuccessMessage } from '../../shared/helpers/showSuccessMessage';
 
 type SignInFormState = {
   email: string;
@@ -40,16 +40,7 @@ const LoginForm = () => {
 
     if (result.meta.requestStatus !== 'rejected') {
       navigate('/');
-      toast.success('Success', {
-        position: 'top-right',
-        autoClose: 3500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      showSuccessMessage()
     }
   };
 
