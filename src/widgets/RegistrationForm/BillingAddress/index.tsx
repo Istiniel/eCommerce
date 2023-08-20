@@ -4,7 +4,7 @@ import { AutoComplete, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import AuthInput from '../../../shared/ui/AuthInput';
-import { countries, getPostalCodePatern } from '../../../shared/static/countries';
+import { countries, getPostalCodePattern } from '../../../shared/static/countries';
 import type { SignUpFormState } from '../index';
 import styles from './BillingAddress.module.scss';
 
@@ -57,6 +57,7 @@ function BillingAddress(props: BillingAddressProps) {
                 aria-invalid={invalid}
                 value={value}
                 ref={ref}
+                disabled={billingAsShipping}
                 onChange={onChange}
                 onBlur={onBlur}
                 style={{ width: '100%' }}
@@ -71,6 +72,7 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.city"
         control={control}
+        disabled={billingAsShipping}
         rules={{
           required: billingAsShipping ? false : 'emptyInput',
           validate: billingAsShipping
@@ -91,6 +93,7 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.street"
         control={control}
+        disabled={billingAsShipping}
         rules={{
           required: billingAsShipping ? false : 'emptyInput',
           minLength: {
@@ -109,6 +112,7 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.postal"
         control={control}
+        disabled={billingAsShipping}
         rules={{
           required: billingAsShipping ? false : 'emptyInput',
           minLength: billingAsShipping
@@ -124,7 +128,7 @@ function BillingAddress(props: BillingAddressProps) {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
                 },
                 rule: (value) => {
-                  const pattern = getPostalCodePatern(billingCountry);
+                  const pattern = getPostalCodePattern(billingCountry);
                   if (pattern) {
                     return pattern.test(String(value)) ? true : 'invalidPostalCode';
                   }

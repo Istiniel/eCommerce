@@ -13,6 +13,7 @@ interface Props {
   onChange: VoidFunction;
   invalid?: boolean;
   nativeValidation?: boolean;
+  disabled?: boolean;
 }
 
 type InputRef = HTMLInputElement;
@@ -30,6 +31,7 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
     onChange,
     invalid = false,
     nativeValidation = true,
+    disabled = false,
   } = props;
   const { t } = useTranslation();
 
@@ -39,8 +41,11 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
         <span className={styles.title}>{t(name)}</span>
         <input
           className={classNames(
-            { [styles.invalid]: invalid, [styles.active]: isFocused },
-            styles.input,
+            { [styles.invalid]: invalid,
+              [styles.active]: isFocused,
+              [styles.disabled]: disabled
+            },
+              styles.input,
           )}
           formNoValidate={nativeValidation}
           name={name}
@@ -51,6 +56,7 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
           onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          disabled={disabled}
         />
         <p className={styles.errorMessage}>{t(error)}</p>
       </label>

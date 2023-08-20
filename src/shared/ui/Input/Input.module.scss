@@ -29,6 +29,13 @@
   &::first-letter {
     text-transform: uppercase;
   }
+
+  &.disabled {
+    background-color: $input-disabled;
+    @include onHover() {
+      cursor: not-allowed;
+    }
+  }
 }
 
 .label {
