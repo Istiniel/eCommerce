@@ -44,5 +44,6 @@
   "billingAddress.postal": "Postal code",
   "useForBilling": "use for billing",
   "useForShipping": "use for shipping",
-  "asDefaultAddress": "use as default"
+  "asDefaultAddress": "use as default",
+  "invalidPostalCode": "invalid code"
 }

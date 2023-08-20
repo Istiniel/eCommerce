@@ -1,9 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
-import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import { CustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import Button from '../../shared/ui/Button';
 import AuthInput from '../../shared/ui/AuthInput';
 import styles from './RegistrationForm.module.scss';
@@ -17,6 +16,7 @@ import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { selectCustomer } from '../../app/redux/features/AuthSlice/AuthSlice';
 import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
 import useScrollIntoView from '../../shared/hooks/useScrollIntoView';
+import { showSuccessMessage } from '../../shared/helpers/showSuccessMessage';
 
 export type SignUpFormState = {
   email: string;
@@ -52,13 +52,14 @@ const RegistrationForm = () => {
 
   useScrollIntoView(formRef);
 
-  const { handleSubmit, control, watch, setValue } = useForm<SignUpFormState>({
+  const { handleSubmit, control, watch, setValue, clearErrors } = useForm<SignUpFormState>({
     mode: 'onChange',
     defaultValues: {
       email: '',
       password: '',
       firstName: '',
       lastName: '',
+      dateOfBirth: '',
       shippingAddress: {
         country: '',
         city: '',
@@ -101,18 +102,34 @@ const RegistrationForm = () => {
     const shippingCountry = getCountryCode(shipping.country);
     const shippingAddress = { ...shipping, country: shippingCountry };
 
-    const resultingShippingAddress = shippingAsBilling ? billingAddress : shippingAddress;
-    const resultingBillingAddress = billingAsShipping ? shippingAddress : billingAddress;
+    let addresses: SignUpFormState['shippingAddress' | 'billingAddress'][] = [];
+    const defaultShippingAddressIndex: number = 0;
+    let defaultBillingAddressIndex: number = 0;
 
-    const newClient: MyCustomerDraft = {
+    if (!shippingAsBilling && !billingAsShipping) {
+      addresses = [shippingAddress, billingAddress];
+      defaultBillingAddressIndex = 1;
+    }
+
+    if (shippingAsBilling) {
+      addresses = [billingAddress];
+    }
+
+    if (billingAsShipping) {
+      addresses = [shippingAddress];
+    }
+
+    const newClient: CustomerDraft = {
       email,
       password,
       firstName,
       lastName,
       dateOfBirth,
-      addresses: [resultingShippingAddress, resultingBillingAddress],
-      defaultShippingAddress: shippingAsDefault ? 0 : undefined,
-      defaultBillingAddress: billingAsDefault ? 1 : undefined,
+      addresses,
+      defaultShippingAddress: shippingAsDefault ? defaultShippingAddressIndex : undefined,
+      defaultBillingAddress: billingAsDefault ? defaultBillingAddressIndex : undefined,
+      shippingAddresses: [defaultShippingAddressIndex],
+      billingAddresses: [defaultBillingAddressIndex],
     };
 
     try {
@@ -120,20 +137,12 @@ const RegistrationForm = () => {
       setSignUpError('');
 
       const result = await dispatch(
-        loginCustomer({ email: newClient.email, password: newClient.password }),
+        loginCustomer({ email: newClient.email, password: newClient.password! }),
       );
+
       if (result.meta.requestStatus !== 'rejected') {
         navigate('/');
-        toast.success('Success', {
-          position: 'top-right',
-          autoClose: 3500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        showSuccessMessage();
       }
     } catch (error) {
       if (error instanceof Error && 'message' in error) {
@@ -264,8 +273,18 @@ const RegistrationForm = () => {
       />
       <h2 className={styles.addressTitle}>Address</h2>
       <div className={styles.addressContainer}>
-        <ShippingAddress control={control} watch={watch} setValue={setValue} />
-        <BillingAddress control={control} watch={watch} setValue={setValue} />
+        <ShippingAddress
+          clearErrors={clearErrors}
+          control={control}
+          watch={watch}
+          setValue={setValue}
+        />
+        <BillingAddress
+          clearErrors={clearErrors}
+          control={control}
+          watch={watch}
+          setValue={setValue}
+        />
       </div>
       <Button type="submit">{t('registration')}</Button>
       {!!signUpError && <ErrorMessage message={signUpError} />}

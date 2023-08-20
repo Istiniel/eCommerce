@@ -11,7 +11,7 @@ i18n.use(initReactI18next).init({
     },
     ru: { common: commonTranslationRu },
   },
-  debug: true,
+  debug: false,
   ns: ['common'],
   defaultNS: 'common',
 });

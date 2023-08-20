@@ -4,10 +4,11 @@ import { Input } from '../Input/index';
 
 interface AuthInputProps<T extends FieldValues> extends UseControllerProps<T> {
   type?: HTMLInputTypeAttribute;
+  disabled?: boolean;
 }
 
 function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
-  const { type } = props;
+  const { type, disabled } = props;
 
   const {
     field: { onChange, value, ref, name },
@@ -16,6 +17,7 @@ function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
 
   return (
     <Input
+      disabled={disabled}
       value={value}
       onChange={onChange}
       invalid={invalid}
