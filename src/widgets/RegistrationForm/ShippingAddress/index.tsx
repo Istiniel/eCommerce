@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import AuthInput from '../../../shared/ui/AuthInput';
-import { countries } from '../../../shared/static/countries';
+import { countries, getPostalCodePatern } from '../../../shared/static/countries';
 import type { SignUpFormState } from '../index';
 import styles from './ShippingAddress.module.scss';
 
@@ -19,6 +19,10 @@ function ShippingAddress(props: ShippingAddressProps) {
   const { t } = useTranslation();
 
   const shippingAsBilling = watch('shippingAsBilling');
+
+  const {
+    shippingAddress: { country: shippingCountry },
+  } = watch();
 
   useEffect(() => {
     if (shippingAsBilling) {
@@ -120,10 +124,16 @@ function ShippingAddress(props: ShippingAddressProps) {
                 space: (value) => {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
                 },
+                rule: (value) => {
+                  const pattern = getPostalCodePatern(shippingCountry);
+                  if (pattern) {
+                    return pattern.test(String(value)) ? true : 'invalidPostalCode';
+                  }
+                  return true;
+                },
               },
         }}
       />
-
       <Controller
         control={control}
         name="billingAsShipping"

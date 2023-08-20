@@ -4,7 +4,7 @@ import { AutoComplete, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import AuthInput from '../../../shared/ui/AuthInput';
-import { countries } from '../../../shared/static/countries';
+import { countries, getPostalCodePatern } from '../../../shared/static/countries';
 import type { SignUpFormState } from '../index';
 import styles from './BillingAddress.module.scss';
 
@@ -20,6 +20,10 @@ function BillingAddress(props: BillingAddressProps) {
   const { control, watch, setValue } = props;
 
   const billingAsShipping = watch('billingAsShipping');
+
+  const {
+    billingAddress: { country: billingCountry },
+  } = watch();
 
   useEffect(() => {
     if (billingAsShipping) {
@@ -118,6 +122,13 @@ function BillingAddress(props: BillingAddressProps) {
             : {
                 space: (value) => {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+                },
+                rule: (value) => {
+                  const pattern = getPostalCodePatern(billingCountry);
+                  if (pattern) {
+                    return pattern.test(String(value)) ? true : 'invalidPostalCode';
+                  }
+                  return true;
                 },
               },
         }}
