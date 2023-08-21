@@ -1,10 +1,35 @@
 .header {
-  background-color: $c-gray;
+  background-color: $color-neutral-000;
 }
 
 .container {
-  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-neutral-1000;
 
-  @extend %aligncenter;
-  gap: 1rem;
+  @include maxWidthCustom(1025px) {
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
+
+.leftContainer,
+.rightContainer {
+  display: flex;
+  border-left: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(1025px) {
+    flex-direction: column;
+
+    a:not(:last-child),
+    button {
+      border-bottom: 1px solid $color-neutral-1000;
+    }
+  }
+}
+
+.leftContainer {
+  @include maxWidthCustom(1025px) {
+    border-bottom: 1px solid $color-neutral-1000;
+  }
 }

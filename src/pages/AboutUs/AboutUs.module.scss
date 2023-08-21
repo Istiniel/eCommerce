@@ -1,0 +1,164 @@
+.wrapper {
+  font-family: $font-sans;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid $color-neutral-1000;
+
+  h1 {
+    text-align: center;
+    font-size: $font-size-large;
+    line-height: $font-height-large;
+    font-weight: $font-weight-medium;
+  }
+
+  h2 {
+    font-size: $font-size-heading-mobile;
+    line-height: $font-height-large;
+    font-weight: $font-weight-partly-medium;
+  }
+
+  p {
+    font-weight: $font-weight-small;
+    line-height: $font-height-medium;
+    letter-spacing: 0;
+  }
+}
+
+.container {
+  display: flex;
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.container:nth-child(1) {
+  border-top: none;
+
+  .contentBox {
+    flex-direction: column;
+    justify-content: center;
+    gap: 15%;
+
+    h2 {
+      text-align: center;
+    }
+
+    p {
+      padding-left: 2%;
+      @include maxWidth(xSmall) {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.imgBox {
+  width: 50%;
+  height: 100% !important;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.contentBox {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  gap: 10%;
+}
+
+.socialBox {
+  display: flex;
+  align-self: center;
+  gap: 25px;
+}
+
+.socialContainer {
+  width: 48px;
+  height: 48px;
+  border: 1px solid $color-neutral-1000;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.splitter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  gap: 30px;
+  border-bottom: 1px solid $color-neutral-1000;
+
+  h2,
+  p {
+    text-align: center;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px 40px 16px;
+  }
+}
+
+.splitter:nth-child(6) {
+  border-bottom: none;
+}
+
+.button {
+  width: 270px;
+  align-self: center;
+}
+
+@include maxWidth(medium) {
+  .container {
+    flex-direction: column;
+  }
+
+  .imgBox,
+  .contentBox {
+    width: 100%;
+  }
+
+  .container:nth-child(1) {
+    .contentBox {
+      min-height: 620px;
+      gap: 64px !important;
+    }
+  }
+
+  .contentBox {
+    min-height: 350px;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .imgBox {
+    img {
+      height: 500px;
+      object-fit: cover;
+    }
+  }
+
+  .container:nth-child(2),
+  .container:nth-child(4) {
+    flex-direction: column-reverse;
+  }
+}
+
+@include maxWidth(small) {
+  .wrapper {
+    h1 {
+      font-size: $font-size-heading-mobile;
+    }
+
+    h2 {
+      font-size: $font-size-medium-mobile;
+    }
+  }
+
+  .contentBox {
+    padding: 40px 16px 40px 16px;
+  }
+}

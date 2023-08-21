@@ -1,12 +1,7 @@
-import styles from './SignIn.module.scss';
+import LoginForm from '../../widgets/LoginForm/index';
 
 const SignIn = () => {
-  return (
-    <div>
-      <h1 className={styles.header}>Sign in</h1>
-    </div>
-  );
+  return <LoginForm />;
 };
 
 export default SignIn;
-

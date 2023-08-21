@@ -1,4 +1,10 @@
-import { Action, PreloadedState, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  Action,
+  PreloadedState,
+  ThunkAction,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
 import AuthReducer from './features/AuthSlice/AuthSlice';
 
 const rootReducer = combineReducers({

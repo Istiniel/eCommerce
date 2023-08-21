@@ -1,0 +1,24 @@
+.container {
+  padding: 2rem 0 2rem 4rem;
+  position: relative;
+  z-index: 1;
+
+  @include maxWidthCustom(1014px) {
+    padding-left: 28px;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding-left: 16px;
+  }
+}
+
+.link {
+  @include onHover() {
+    color: $color-accent-700;
+  }
+
+  &.disabled {
+    @extend %disabled;
+    color: $color-neutral-400;
+  }
+}

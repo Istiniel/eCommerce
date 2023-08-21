@@ -1,11 +1,17 @@
 .main {
-  background-color: $c-lightgray;
+  background-color: $color-neutral-000;
 }
 
 .container {
-  padding: 2rem 1rem;
+  // min-height: calc(100vh);
+  // padding: 0rem 1rem;
+
+  border: 1px solid $color-neutral-1000;
+  border-top: none;
+  border-bottom: none;
 
   font-family: $font-sans;
   @include font($font-size-base, 1.5rem, $font-weight-bold);
   letter-spacing: 0.1rem;
+  height: 100%;
 }

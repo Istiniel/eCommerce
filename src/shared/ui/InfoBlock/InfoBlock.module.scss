@@ -1,0 +1,44 @@
+.block {
+  padding: 80px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-neutral-1000;
+  }
+
+  @include maxWidthCustom(1164px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 28px;
+  }
+
+  @include maxWidthCustom(820px) {
+    padding: 60px;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px;
+  }
+}
+
+.blockTitle {
+  @include font-style($font-sans, 38px, $color-neutral-900, 500);
+  line-height: 120%;
+  margin-bottom: 16px;
+
+  @include maxWidth(xSmall) {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+.blockText {
+  @include font-style($font-sans, 16px, $color-neutral-900);
+  line-height: 120%;
+  opacity: 90%;
+}

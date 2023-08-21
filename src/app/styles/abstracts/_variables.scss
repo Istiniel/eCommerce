@@ -1,34 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
-$font-sans: 'Roboto', 'Arial', sans-serif;
+$font-sans: 'Gilroy', 'Arial', sans-serif;
+$enable-media-query-dark-mode: false;
 
+$font-weight-thin: 100;
+$font-weight-ultralite: 200;
 $font-weight-small: 300;
 $font-weight-normal: 400;
-$font-weight-semibold: 600;
+$font-weight-partly-medium: 500;
+$font-weight-medium: 600;
 $font-weight-bold: 700;
+$font-weight-heavy: 800;
+$font-weight-black: 900;
 
 $font-size-small: 14px;
 $font-size-base: 16px;
 $font-size-medium: 20px;
 $font-size-heading: 24px;
+$font-size-heading-mobile: 36px;
+$font-size-medium-mobile: 26px;
+$font-size-large-mobile: 34px;
+$font-size-large: 50px;
+$font-size-giant: 128px;
 
-$font-height-small: 1rem;
-$font-height-base: 1.2rem;
-$font-height-medium: 1.5rem;
-$font-height-heading: 2rem;
+$font-height-small: 100%;
+$font-height-base: 120%;
+$font-height-medium: 140%;
+$font-height-large: 160%;
 
 $b-radius: 5px;
-
-$c-white: #ffffff;
-$c-lightgray: #dbe7f7;
-$c-gray: #5a5c66;
-$c-darkgray: #474955;
-$c-green: #7ebc3c;
 
 $light-gradient: linear-gradient(90deg, #fdc091 0%, #e197c4 31.81%, #7757c0 71.23%, #4c37d9 100%);
 $dark-gradient: linear-gradient(45.66deg, #22222c 0%, #2c295e 100%);
 
-$break-xs: 320px;
+$break-xs: 430px;
 $break-sm: 768px;
 $break-md: 1024px;
 $break-lg: 1280px;
@@ -38,4 +43,4 @@ $fast-transition: all 0.15s ease-in-out;
 $slow-transition: all 0.4s ease-in-out;
 
 /// @type Length
-$max-width: 1100px !default;
+$max-width: 1440px !default;
