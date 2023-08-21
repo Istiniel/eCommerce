@@ -3,17 +3,17 @@ import renderTestApp from '../../providers/renderTestApp';
 
 describe('routing', () => {
   it('handle routing beetween pages', async () => {
-    renderTestApp({ initialRoute: '/products' });
+    renderTestApp({ initialRoute: '/' });
 
-    const [toMainButton] = screen.getAllByRole('button');
+    const aboutLink = screen.getByRole('link', {name: /About us/});
 
-    const productsHeading = await screen.findByText('Products');
-    expect(productsHeading).toBeInTheDocument();
+    const [heading] = screen.getAllByText(/Why choose us/);
+    expect(heading).toBeInTheDocument();
 
-    await waitFor(() => fireEvent.click(toMainButton));
-    expect(productsHeading).not.toBeInTheDocument();
+    await waitFor(() => fireEvent.click(aboutLink));
+    expect(heading).not.toBeInTheDocument();
 
-    expect(screen.getByText('MainPage')).toBeInTheDocument();
+    expect(screen.getByText(/Founder's/)).toBeInTheDocument();
     // screen.debug(undefined, Infinity);
   });
 });
