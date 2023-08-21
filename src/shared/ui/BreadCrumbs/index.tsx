@@ -16,7 +16,7 @@ const BreadCrumbs: React.FC = () => {
               to={route.to}
               className={classNames({ [styles.disabled]: index === array.length - 1 }, styles.link)}
             >
-              {route.content}
+              {route.content.split('%20').join(' ')}
             </NavLink>
             {index !== array.length - 1 && <span className={styles.divider}> / </span>}
           </React.Fragment>
