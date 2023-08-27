@@ -3,13 +3,14 @@ import { Image } from 'antd';
 import styles from './Product.module.scss';
 import Button from '../../shared/ui/Button';
 import ProductCounter from '../../shared/ui/ProductCounter';
+import Slider from '../../shared/ui/Slider';
 
 const data = {
   itemName: 'Rosy Delight',
   price: '100$',
   description:
     'Large exceptional bouquet composed of a selection of David Austin roses, known for their beauty and subtle fragrance. The bouquet is accompanied by seasonal foliage which will enhance these sublime flowers even',
-  img: ['/rosy_delight.jpg', '/rustic_charm.png']
+  img: ['/rosy_delight.jpg', '/rustic_charm.jpg', '/blazing_blossoms.jpg']
 };
 
 // interface Props {
@@ -30,7 +31,14 @@ const Product = () => {
   return (
     <div className={styles.productContainer}>
       <div className={styles.imgBox}>
-        <Image src={img[0]} className={styles.img} height='100%' width='100%' />
+        {/* <Image src={img[0]} className={styles.img} height='100%' width='100%' /> */}
+        <Slider>
+        {img.map((item) => {
+          return (
+            <Image src={item} className={styles.img} key={itemName} alt={itemName} preview={{mask: false}} loading='lazy' height='100%' width='100%' />
+          );
+        })}
+        </Slider>
       </div>
       <div className={styles.contentBox}>
         {/* <div>{productId}</div> */}

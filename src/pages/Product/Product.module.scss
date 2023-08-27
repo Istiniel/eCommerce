@@ -70,14 +70,6 @@
   }
 }
 
-.ant-carousel .slick-prev,
-.ant-carousel .slick-next,
-.ant-carousel .slick-prev:hover,
-.ant-carousel .slick-next:hover {
-  font-size: inherit;
-  color: currentColor;
-}
-
 @media screen and (max-width: 431px) {
   .header {
       font-size: $font-size-medium-mobile;
