@@ -1,4 +1,5 @@
 // import { useParams } from 'react-router-dom';
+import { Image } from 'antd';
 import styles from './Product.module.scss';
 import Button from '../../shared/ui/Button';
 import ProductCounter from '../../shared/ui/ProductCounter';
@@ -8,7 +9,7 @@ const data = {
   price: '100$',
   description:
     'Large exceptional bouquet composed of a selection of David Austin roses, known for their beauty and subtle fragrance. The bouquet is accompanied by seasonal foliage which will enhance these sublime flowers even',
-  img: '/rosy_delight.jpg',
+  img: ['/rosy_delight.jpg', '/rustic_charm.png']
 };
 
 // interface Props {
@@ -29,7 +30,7 @@ const Product = () => {
   return (
     <div className={styles.productContainer}>
       <div className={styles.imgBox}>
-        <img src={img} alt={itemName} className={styles.img} />
+        <Image src={img[0]} className={styles.img} height='100%' width='100%' />
       </div>
       <div className={styles.contentBox}>
         {/* <div>{productId}</div> */}
