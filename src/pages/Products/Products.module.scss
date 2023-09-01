@@ -1,20 +1,37 @@
 .container {
-  display: flex;
+  @extend %flexcolumn;
+
+  gap: 2rem;
+
   border-top: 1px solid $color-neutral-1000;
 
-  @include maxWidthCustom(820px) {
-    flex-direction: column;
-  }
-}
+  padding: 40px;
+  height: 57vh;
 
-.rightColumn,
-.leftColumn {
-  flex-basis: 50%;
+  @include maxWidthCustom(920px) {
+    height: 49vh;
+  }
+
+  @include maxWidthCustom(820px) {
+    height: 30vh;
+  }
+
+  @include maxWidthCustom(805px) {
+    height: 30vh;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 28px;
+    height: 25vh;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 40px 16px;
+  }
 }
 
 .link {
   @include font-style('Gilroy', $font-size-base, $color-neutral-900, $font-weight-partly-medium);
-
   line-height: 120%;
 
   transition: $fast-transition;
@@ -23,27 +40,9 @@
   }
 }
 
-.titleWrapper {
-  padding: 80px;
-  background-image: url(../../app/assets/images/flowers-bg4.jpeg);
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  border-bottom: 1px solid $color-neutral-1000;
-
-  @include maxWidthCustom(565px) {
-    padding: 80px 40px;
-  }
-
-  @include maxWidth(xSmall) {
-    padding: 40px 16px;
-  }
-}
-
 .title {
-  @include font-style('Gilroy', $font-size-large, $color-neutral-000, $font-weight-medium);
+  @include font-style('Gilroy', $font-size-large, $color-neutral-900, $font-weight-medium);
   line-height: 120%;
-  text-align: center;
 
   @include maxWidthCustom(820px) {
     font-size: 50px;
@@ -56,46 +55,4 @@
   @include maxWidth(xSmall) {
     font-size: 28px;
   }
-}
-
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card {
-  flex-basis: 50%;
-  border-bottom: 1px solid $color-neutral-1000;
-  border-left: 1px solid $color-neutral-1000;
-
-  @include maxWidthCustom(820px) {
-    &:nth-child(odd) {
-      border-left: none;
-    }
-  }
-
-  @include maxWidthCustom(430px) {
-    flex-basis: 100%;
-    border-left: none;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}
-
-.cardImage {
-  border-bottom: 1px solid $color-neutral-1000;
-}
-
-.cardTitle {
-  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
-  text-align: center;
-  padding: 16px 0;
-  border-bottom: 1px solid $color-neutral-1000;
-}
-
-.cardPrice {
-  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
-  text-align: center;
-  padding: 16px 0;
 }
