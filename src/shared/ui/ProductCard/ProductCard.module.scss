@@ -1,0 +1,36 @@
+.card {
+  flex-basis: 50%;
+  border-bottom: 1px solid $color-neutral-1000;
+  border-left: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(820px) {
+    &:nth-child(odd) {
+      border-left: none;
+    }
+  }
+
+  @include maxWidthCustom(430px) {
+    flex-basis: 100%;
+    border-left: none;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.cardImage {
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.cardTitle {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.cardPrice {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  text-align: center;
+  padding: 16px 0;
+}
