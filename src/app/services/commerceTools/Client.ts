@@ -40,3 +40,9 @@ export const fetchProductsInfo = async () => {
   const response = await apiRoot.productProjections().get({ queryArgs: { limit: 100 } }).execute()
   return response;
 };
+
+export const fetchProductInfo = async (ID: string) => {
+  const response = await apiRoot.productProjections().withId({ID}).get().execute()
+
+  return response;
+};

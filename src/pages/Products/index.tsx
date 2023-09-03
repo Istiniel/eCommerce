@@ -9,10 +9,10 @@ import { selectProducts } from '../../app/redux/features/ProductsSlice/ProductsS
 function Products() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const products = useAppSelector(selectProducts)
+  const products = useAppSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
@@ -25,9 +25,15 @@ function Products() {
       <div className={styles.leftColumn}>
         <ul className={styles.cardContainer}>
           {products.map((product) => {
-            return <ProductCard {...product} key={product.id} onMouseDown={() => {
-              navigate(`/products/${product.id}`)
-            }} />;
+            return (
+              <ProductCard
+                {...product}
+                key={product.id}
+                onMouseDown={() => {
+                  navigate(`/products/${product.name["en-US"]}?id=${product.id}`);
+                }}
+              />
+            );
           })}
         </ul>
       </div>
