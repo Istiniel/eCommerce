@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 5rem;
+}
+
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.disabled {
+  @extend %disabled;
+  background-color: $color-neutral-400;
+
+  @include onHover() {
+    cursor: auto;
+  }
+}
+
+.editContainer {
+  flex: 1 0 auto;
+  max-width: 45rem;
+}

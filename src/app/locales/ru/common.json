@@ -37,13 +37,16 @@
   "dateOfBirth": "Birthdate ",
   "noCountry": "select existed country",
   "shippingAddress.city": "City",
-  "shippingAddress.street": "Street",
-  "shippingAddress.postal": "Postal code",
+  "shippingAddress.streetNumber": "Street",
+  "shippingAddress.postalCode": "Postal code",
   "billingAddress.city": "City",
-  "billingAddress.street": "Street",
-  "billingAddress.postal": "Postal code",
+  "billingAddress.streetNumber": "Street",
+  "billingAddress.postalCode": "Postal code",
   "useForBilling": "use for billing",
   "useForShipping": "use for shipping",
   "asDefaultAddress": "use as default",
-  "invalidPostalCode": "invalid code"
+  "invalidPostalCode": "invalid code",
+  "defaultAddress": "default address",
+  "currentPassword": "Previous password",
+  "newPassword": "New password"
 }

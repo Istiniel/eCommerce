@@ -1,37 +1,32 @@
-import { Control, Controller, UseFormClearErrors, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  UseFormWatch,
+} from 'react-hook-form';
 import classNames from 'classnames';
 import { AutoComplete, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import AuthInput from '../../../shared/ui/AuthInput';
-import { countries, getPostalCodePattern } from '../../../shared/static/countries';
-import type { SignUpFormState } from '../index';
-import styles from './BillingAddress.module.scss';
+import styles from './BillingAddressInfo.module.scss';
+import type { AddressesInfoState } from '../AddressesInfo';
+import { countries, getPostalCodePattern } from '../../../../shared/static/countries';
+import AuthInput from '../../../../shared/ui/AuthInput';
 
 interface BillingAddressProps {
-  control: Control<SignUpFormState>;
-  watch: UseFormWatch<SignUpFormState>;
-  setValue: UseFormSetValue<SignUpFormState>;
-  clearErrors: UseFormClearErrors<SignUpFormState>;
+  control: Control<AddressesInfoState>;
+  watch: UseFormWatch<AddressesInfoState>;
+  disabled?: boolean;
 }
 
 function BillingAddress(props: BillingAddressProps) {
   const { t } = useTranslation();
 
-  const { control, watch, setValue, clearErrors } = props;
+  const { control, watch, disabled = false } = props;
 
-  const billingAsShipping = watch('billingAsShipping');
 
   const {
     billingAddress: { country: billingCountry },
   } = watch();
 
-  useEffect(() => {
-    if (billingAsShipping) {
-      setValue('shippingAsBilling', false);
-      clearErrors('billingAddress')
-    }
-  }, [billingAsShipping, clearErrors, setValue]);
 
   return (
     <fieldset className={styles.container}>
@@ -42,10 +37,8 @@ function BillingAddress(props: BillingAddressProps) {
           control={control}
           name="billingAddress.country"
           rules={{
-            required: billingAsShipping ? false : 'emptyInput',
-            validate: billingAsShipping
-              ? undefined
-              : {
+            required: 'emptyInput',
+            validate: {
                   country: (value) => {
                     const isCountryExisted = countries.some((country) => country.value === value);
                     return isCountryExisted ? true : 'noCountry';
@@ -59,7 +52,7 @@ function BillingAddress(props: BillingAddressProps) {
                 aria-invalid={invalid}
                 value={value}
                 ref={ref}
-                disabled={billingAsShipping}
+                disabled={disabled}
                 onChange={onChange}
                 onBlur={onBlur}
                 style={{ width: '100%' }}
@@ -74,12 +67,10 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.city"
         control={control}
-        disabled={billingAsShipping}
+        disabled={disabled}
         rules={{
-          required: billingAsShipping ? false : 'emptyInput',
-          validate: billingAsShipping
-            ? undefined
-            : {
+          required: 'emptyInput',
+          validate:{
                 space: (value) => {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
                 },
@@ -95,16 +86,14 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.streetNumber"
         control={control}
-        disabled={billingAsShipping}
+        disabled={disabled}
         rules={{
-          required: billingAsShipping ? false : 'emptyInput',
+          required: 'emptyInput',
           minLength: {
             value: 1,
             message: 'minInputLength',
           },
-          validate: billingAsShipping
-            ? undefined
-            : {
+          validate:{
                 space: (value) => {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
                 },
@@ -114,18 +103,14 @@ function BillingAddress(props: BillingAddressProps) {
       <AuthInput
         name="billingAddress.postalCode"
         control={control}
-        disabled={billingAsShipping}
+        disabled={disabled}
         rules={{
-          required: billingAsShipping ? false : 'emptyInput',
-          minLength: billingAsShipping
-            ? undefined
-            : {
+          required: 'emptyInput',
+          minLength: {
                 value: 1,
                 message: 'minInputLength',
               },
-          validate: billingAsShipping
-            ? undefined
-            : {
+          validate: {
                 space: (value) => {
                   return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
                 },
@@ -141,22 +126,6 @@ function BillingAddress(props: BillingAddressProps) {
       />
       <Controller
         control={control}
-        name="shippingAsBilling"
-        render={({ field: { onChange, value } }) => (
-          <Checkbox
-            checked={value}
-            className={styles.checkbox}
-            name="same-address"
-            onChange={(e) => {
-              onChange(e);
-            }}
-          >
-            {t('useForShipping')}
-          </Checkbox>
-        )}
-      />
-      <Controller
-        control={control}
         name="billingAsDefault"
         render={({ field: { onChange, value } }) => (
           <Checkbox
@@ -164,8 +133,9 @@ function BillingAddress(props: BillingAddressProps) {
             className={styles.checkbox}
             name="same-address"
             onChange={onChange}
+            disabled={disabled}
           >
-            {t('asDefaultAddress')}
+            {t('defaultAddress')}
           </Checkbox>
         )}
       />
