@@ -14,7 +14,8 @@ interface Props {
   invalid?: boolean;
   nativeValidation?: boolean;
   disabled?: boolean;
-  defaultValue?: string
+  defaultValue?: string;
+  showPasswordToggler?: boolean
 }
 
 type InputRef = HTMLInputElement;
@@ -33,7 +34,8 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
     invalid = false,
     nativeValidation = true,
     disabled = false,
-    defaultValue
+    defaultValue,
+    showPasswordToggler = true
   } = props;
   const { t } = useTranslation();
 
@@ -63,7 +65,7 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
         />
         <p className={styles.errorMessage}>{t(error)}</p>
       </label>
-      {type === 'password' && (
+      {type === 'password' && showPasswordToggler && (
         <Checkbox
           className={styles.showPassword}
           onChange={() => {

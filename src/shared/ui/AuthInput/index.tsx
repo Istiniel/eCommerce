@@ -5,10 +5,11 @@ import { Input } from '../Input/index';
 interface AuthInputProps<T extends FieldValues> extends UseControllerProps<T> {
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
+  showPasswordToggler?: boolean;
 }
 
 function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
-  const { type, disabled } = props;
+  const { type, disabled, showPasswordToggler } = props;
 
   const {
     field: { onChange, value, ref, name },
@@ -17,6 +18,7 @@ function AuthInput<T extends FieldValues>(props: AuthInputProps<T>) {
 
   return (
     <Input
+      showPasswordToggler={showPasswordToggler}
       disabled={disabled}
       value={value}
       onChange={onChange}

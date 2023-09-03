@@ -1,4 +1,5 @@
 import {
+  CustomerChangePassword,
   CustomerDraft,
   CustomerSignin,
   MyCustomerUpdate,
@@ -23,5 +24,10 @@ export const signIn = async (newClient: CustomerSignin) => {
 
 export const updateCustomerInfo = async (newClient: MyCustomerUpdate, ID: string) => {
   const response = await apiRoot.customers().withId({ ID }).post({ body: newClient }).execute();
+  return response;
+};
+
+export const changePasswordInfo = async (changePasswordDto: CustomerChangePassword) => {
+  const response = await apiRoot.customers().password().post({body: changePasswordDto}).execute();
   return response;
 };
