@@ -98,21 +98,21 @@ const AddressesInfo = () => {
       actions: [
         {
           action: 'changeAddress',
-          addressId: `{{${shippingAddressId}}}`,
+          addressId: shippingAddressId,
           address: shippingAddress,
         },
         {
           action: 'changeAddress',
-          addressId: `{{${billingAddressId}}}`,
+          addressId: billingAddressId,
           address: billingAddress,
         },
         ...(shippingAsDefault ? [{
           action: 'setDefaultShippingAddress',
-          addressId: `{{${shippingAddressId}}}`,
+          addressId: shippingAddressId,
         } as const] : []),
         ...(billingAsDefault ? [{
           action: 'setDefaultBillingAddress',
-          addressId: `{{${billingAddressId}}}`,
+          addressId: billingAddressId,
         } as const] : [])
       ]
     };
