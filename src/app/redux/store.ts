@@ -6,9 +6,11 @@ import {
   configureStore,
 } from '@reduxjs/toolkit';
 import AuthReducer from './features/AuthSlice/AuthSlice';
+import ProductsReducer from './features/ProductsSlice/ProductsSlice';
 
 const rootReducer = combineReducers({
   authSlice: AuthReducer,
+  productsSlice: ProductsReducer
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

@@ -28,10 +28,21 @@ export const updateCustomerInfo = async (newClient: MyCustomerUpdate, ID: string
 };
 
 export const changePasswordInfo = async (changePasswordDto: CustomerChangePassword) => {
-  const response = await apiRoot.customers().password().post({body: changePasswordDto}).execute();
+  const response = await apiRoot.customers().password().post({ body: changePasswordDto }).execute();
   const newCustomerData = response.body;
   if (newCustomerData) {
     getAuthApi({ username: newCustomerData.email, password: changePasswordDto.newPassword })
   }
+  return response;
+};
+
+export const fetchProductsInfo = async () => {
+  const response = await apiRoot.productProjections().get({ queryArgs: { limit: 100 } }).execute()
+  return response;
+};
+
+export const fetchProductInfo = async (ID: string) => {
+  const response = await apiRoot.productProjections().withId({ID}).get().execute()
+
   return response;
 };

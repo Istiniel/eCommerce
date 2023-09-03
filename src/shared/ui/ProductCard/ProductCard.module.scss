@@ -1,0 +1,82 @@
+.card {
+  flex-basis: 50%;
+  border-bottom: 1px solid $color-neutral-1000;
+  border-left: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(820px) {
+    &:nth-child(odd) {
+      border-left: none;
+    }
+  }
+
+  @include maxWidthCustom(430px) {
+    flex-basis: 100%;
+    border-left: none;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  @include onHover() {
+    cursor: pointer;
+
+    & .cardImage {
+      filter: blur(2px) brightness(90%);
+    }
+  }
+}
+
+.cardImageContainer {
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.cardImage {
+  transition: $slow-transition;
+}
+
+.cardTitle {
+  @include font-style($font-sans, $font-size-medium, $color-neutral-900, $font-weight-bold);
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid $color-neutral-1000;
+}
+
+.cardPrice,
+.cardDescription {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  text-align: center;
+  padding: 16px 0;
+}
+
+.cardDescription {
+  margin: 1.6rem 0;
+  padding: 0 1rem;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.pricesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.originalPrice {
+  font-weight: $font-weight-bold;
+
+  &.withDiscount {
+    text-decoration: line-through;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.discountedPrice {
+  color: $color-accent-600;
+  font-weight: $font-weight-bold;
+}
