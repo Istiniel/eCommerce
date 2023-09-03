@@ -1,50 +1,43 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Customer } from '@commercetools/platform-sdk';
+import { createSlice } from '@reduxjs/toolkit';
+import { ProductProjection } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
-import { loginCustomer } from '../../asyncThunks/loginCustomer';
+import { fetchProducts } from '../../asyncThunks/fetchProducts';
 
-type AuthState = {
-  customer: Customer | null;
+type ProductsState = {
+  products: ProductProjection[];
   status: 'loading' | 'idle' | 'error';
   error: string | undefined;
 };
 
-const cachedCustomerInfo = localStorage.getItem('current-customer');
-const customer: Customer | null = cachedCustomerInfo ? JSON.parse(cachedCustomerInfo) : null;
-
-const initialState: AuthState = {
-  customer,
+const initialState: ProductsState = {
+  products: [],
   status: 'idle',
   error: undefined,
 };
 
-export const authSlice = createSlice({
-  name: 'authSlice',
+export const productsSlice = createSlice({
+  name: 'productsSlice',
   initialState,
   reducers: {
-    setCustomer: (state, action: PayloadAction<Customer | null>) => {
-      state.customer = action.payload;
-    },
+
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginCustomer.pending, (state) => {
+      .addCase(fetchProducts.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(loginCustomer.fulfilled, (state, action) => {
-        state.customer = action.payload;
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.products = action.payload;
         state.status = 'idle';
         state.error = undefined;
       })
-      .addCase(loginCustomer.rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'error';
         state.error = action.error.message;
       });
   },
 });
 
-export const { setCustomer } = authSlice.actions;
-export default authSlice.reducer;
+export default productsSlice.reducer;
 
-export const selectCustomer = (state: RootState) => state.authSlice.customer;
-export const selectSignInError = (state: RootState) => state.authSlice.error;
+export const selectProducts = (state: RootState) => state.productsSlice.products;

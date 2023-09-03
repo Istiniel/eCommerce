@@ -1,9 +1,20 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Products.module.scss';
 import ProductCard from '../../shared/ui/ProductCard';
+import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
+import { fetchProducts } from '../../app/redux/asyncThunks/fetchProducts';
+import { selectProducts } from '../../app/redux/features/ProductsSlice/ProductsSlice';
 
 function Products() {
-  const products = ['Rosy Delight', 'Snowfall', 'Pink Elegance', 'Blue Harmony'];
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(selectProducts)
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch]);
+
   return (
     <div className={styles.container}>
       <div className={styles.rightColumn}>
@@ -13,20 +24,12 @@ function Products() {
       </div>
       <div className={styles.leftColumn}>
         <ul className={styles.cardContainer}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products.map((product) => {
+            return <ProductCard {...product} key={product.id} onMouseDown={() => {
+              navigate(`/products/${product.id}`)
+            }} />;
+          })}
         </ul>
-        {products.map((link) => (
-          <NavLink key={link} to={link} className={styles.link}>
-            {link}
-          </NavLink>
-        ))}
       </div>
     </div>
   );
