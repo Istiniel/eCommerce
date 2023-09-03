@@ -1,0 +1,14 @@
+.controlButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem
+}
+
+.disabled {
+  @extend %disabled;
+  background-color: $color-neutral-400;
+
+  @include onHover() {
+    cursor: auto;
+  }
+}

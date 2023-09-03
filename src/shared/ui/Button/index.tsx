@@ -7,10 +7,11 @@ interface Props {
   onClick?: VoidFunction;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   buttonType?: 'solid' | 'outlined';
+  className?: string
 }
 
 const Button = (props: Props) => {
-  const { children, onClick, type, buttonType } = props;
+  const { children, onClick, type, buttonType, className } = props;
 
   return (
     <button
@@ -19,6 +20,7 @@ const Button = (props: Props) => {
       className={classNames(
         { [styles.solid]: buttonType === 'solid', [styles.outlined]: buttonType === 'outlined' },
         styles.button,
+        className
       )}
     >
       {children}

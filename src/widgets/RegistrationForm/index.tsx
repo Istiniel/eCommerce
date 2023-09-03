@@ -31,14 +31,14 @@ export type SignUpFormState = {
   shippingAddress: {
     country: string;
     city: string;
-    postal: string;
-    street: string;
+    postalCode: string;
+    streetNumber: string;
   };
   billingAddress: {
     country: string;
     city: string;
-    postal: string;
-    street: string;
+    postalCode: string;
+    streetNumber: string;
   };
 };
 
@@ -63,14 +63,14 @@ const RegistrationForm = () => {
       shippingAddress: {
         country: '',
         city: '',
-        postal: '',
-        street: '',
+        postalCode: '',
+        streetNumber: '',
       },
       billingAddress: {
         country: '',
         city: '',
-        postal: '',
-        street: '',
+        postalCode: '',
+        streetNumber: '',
       },
       shippingAsBilling: false,
       billingAsShipping: true,
