@@ -93,7 +93,6 @@ const AddressesInfo = () => {
     const shippingCountry = getCountryCode(shipping.country);
     const shippingAddress = { ...shipping, country: shippingCountry };
 
-
     const requestBody: Omit<MyCustomerUpdate, 'version'> = {
       actions: [
         {
@@ -106,15 +105,41 @@ const AddressesInfo = () => {
           addressId: billingAddressId,
           address: billingAddress,
         },
-        ...(shippingAsDefault ? [{
-          action: 'setDefaultShippingAddress',
-          addressId: shippingAddressId,
-        } as const] : []),
-        ...(billingAsDefault ? [{
-          action: 'setDefaultBillingAddress',
-          addressId: billingAddressId,
-        } as const] : [])
-      ]
+        ...(shippingAsDefault
+          ? [
+              {
+                action: 'setDefaultShippingAddress',
+                addressId: shippingAddressId,
+              } as const,
+            ]
+          : [
+              {
+                action: 'removeShippingAddressId',
+                addressId: shippingAddressId,
+              } as const,
+              {
+                action: 'addShippingAddressId',
+                addressId: shippingAddressId,
+              } as const,
+            ]),
+        ...(billingAsDefault
+          ? [
+              {
+                action: 'setDefaultBillingAddress',
+                addressId: billingAddressId,
+              } as const,
+            ]
+          : [
+              {
+                action: 'removeBillingAddressId',
+                addressId: billingAddressId,
+              } as const,
+              {
+                action: 'addBillingAddressId',
+                addressId: billingAddressId,
+              } as const,
+            ]),
+      ],
     };
     try {
       setError('');
