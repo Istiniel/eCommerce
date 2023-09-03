@@ -8,7 +8,7 @@ import AuthInput from '../../../../shared/ui/AuthInput';
 import ErrorMessage from '../../../../shared/ui/ErrorMessage';
 import Button from '../../../../shared/ui/Button';
 import styles from './PersonalInfo.module.scss';
-import { updateCustomer } from '../../../../app/redux/asyncThunks/updateUser';
+import { updateCustomer } from '../../../../app/redux/asyncThunks/updateCustomer';
 import { showSuccessMessage } from '../../../../shared/helpers/showSuccessMessage';
 
 export type PersonalInfoFormState = {

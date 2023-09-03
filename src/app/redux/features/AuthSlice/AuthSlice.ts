@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Customer } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
 import { loginCustomer } from '../../asyncThunks/loginCustomer';
-import { updateCustomer } from '../../asyncThunks/updateUser';
+import { updateCustomer } from '../../asyncThunks/updateCustomer';
 
 type AuthState = {
   customer: Customer | null;

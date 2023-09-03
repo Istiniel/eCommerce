@@ -1,15 +1,17 @@
 import { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { MyCustomerUpdate } from '@commercetools/platform-sdk';
 import styles from './AddressesInfo.module.scss';
-import { useAppSelector } from '../../../../app/redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/redux/hooks';
 import { selectCustomer } from '../../../../app/redux/features/AuthSlice/AuthSlice';
 import Button from '../../../../shared/ui/Button';
-import { getCountryName } from '../../../../shared/static/countries';
+import { getCountryCode, getCountryName } from '../../../../shared/static/countries';
 import ErrorMessage from '../../../../shared/ui/ErrorMessage';
 import ShippingAddressInfo from '../ShippingAddressInfo';
 import BillingAddressInfo from '../BillingAddressInfo';
-
+import { showSuccessMessage } from '../../../../shared/helpers/showSuccessMessage';
+import { updateCustomer } from '../../../../app/redux/asyncThunks/updateCustomer';
 
 export type AddressesInfoState = {
   email: string;
@@ -35,9 +37,9 @@ export type AddressesInfoState = {
 
 const AddressesInfo = () => {
   const [editMode, setEditMode] = useState(false);
-  const [error] = useState('');
+  const [error, setError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const customer = useAppSelector(selectCustomer);
   const { addresses, defaultBillingAddressId, defaultShippingAddressId } = customer!;
   const {
@@ -55,26 +57,25 @@ const AddressesInfo = () => {
     id: billingAddressId,
   } = addresses[1];
 
-  const { handleSubmit, control, watch, reset } =
-    useForm<AddressesInfoState>({
-      mode: 'onChange',
-      defaultValues: {
-        shippingAddress: {
-          country: getCountryName(shippingCountryCode),
-          city: shippingCity,
-          postalCode: shippingPostalCode,
-          streetNumber: shippingStreetNumber,
-        },
-        billingAddress: {
-          country: getCountryName(billingCountryCode),
-          city: billingCity,
-          postalCode: billingPostalCode,
-          streetNumber: billingStreetNumber,
-        },
-        shippingAsDefault: defaultShippingAddressId === shippingAddressId,
-        billingAsDefault: defaultBillingAddressId === billingAddressId,
+  const { handleSubmit, control, watch, reset } = useForm<AddressesInfoState>({
+    mode: 'onChange',
+    defaultValues: {
+      shippingAddress: {
+        country: getCountryName(shippingCountryCode),
+        city: shippingCity,
+        postalCode: shippingPostalCode,
+        streetNumber: shippingStreetNumber,
       },
-    });
+      billingAddress: {
+        country: getCountryName(billingCountryCode),
+        city: billingCity,
+        postalCode: billingPostalCode,
+        streetNumber: billingStreetNumber,
+      },
+      shippingAsDefault: defaultShippingAddressId === shippingAddressId,
+      billingAsDefault: defaultBillingAddressId === billingAddressId,
+    },
+  });
 
   const onSubmit: SubmitHandler<AddressesInfoState> = async (data, event) => {
     event?.preventDefault();
@@ -86,69 +87,57 @@ const AddressesInfo = () => {
       billingAsDefault,
     } = data;
 
-    // const billingCountry = getCountryCode(billing.country);
-    // const billingAddress = { ...billing, country: billingCountry };
+    const billingCountry = getCountryCode(billing.country);
+    const billingAddress = { ...billing, country: billingCountry };
 
-    // const shippingCountry = getCountryCode(shipping.country);
-    // const shippingAddress = { ...shipping, country: shippingCountry };
+    const shippingCountry = getCountryCode(shipping.country);
+    const shippingAddress = { ...shipping, country: shippingCountry };
 
-    // let addresses: AddressesInfoState['shippingAddress' | 'billingAddress'][] = [];
-    // const defaultShippingAddressIndex: number = 0;
-    // let defaultBillingAddressIndex: number = 0;
 
-    // if (!shippingAsBilling && !billingAsShipping) {
-    //   addresses = [shippingAddress, billingAddress];
-    //   defaultBillingAddressIndex = 1;
-    // }
+    const requestBody: Omit<MyCustomerUpdate, 'version'> = {
+      actions: [
+        {
+          action: 'changeAddress',
+          addressId: `{{${shippingAddressId}}}`,
+          address: shippingAddress,
+        },
+        {
+          action: 'changeAddress',
+          addressId: `{{${billingAddressId}}}`,
+          address: billingAddress,
+        },
+        ...(shippingAsDefault ? [{
+          action: 'setDefaultShippingAddress',
+          addressId: `{{${shippingAddressId}}}`,
+        } as const] : []),
+        ...(billingAsDefault ? [{
+          action: 'setDefaultBillingAddress',
+          addressId: `{{${billingAddressId}}}`,
+        } as const] : [])
+      ]
+    };
+    try {
+      setError('');
 
-    // if (shippingAsBilling) {
-    //   addresses = [billingAddress];
-    // }
+      const result = await dispatch(updateCustomer(requestBody));
 
-    // if (billingAsShipping) {
-    //   addresses = [shippingAddress];
-    // }
+      if (result.meta.requestStatus !== 'rejected') {
+        showSuccessMessage();
+      }
+    } catch (requestError) {
+      if (requestError instanceof Error && 'message' in requestError) {
+        setError(requestError.message);
+      }
+    }
 
-    // const newClient: Partial<CustomerDraft> = {
-    //   addresses,
-    //   defaultShippingAddress: shippingAsDefault ? defaultShippingAddressIndex : undefined,
-    //   defaultBillingAddress: billingAsDefault ? defaultBillingAddressIndex : undefined,
-    //   shippingAddresses: [defaultShippingAddressIndex],
-    //   billingAddresses: [defaultBillingAddressIndex],
-    // };
-
-    // try {
-    //   await signUp(newClient);
-    //   setSignUpError('');
-
-    //   const result = await dispatch(
-    //     loginCustomer({ email: newClient.email, password: newClient.password! }),
-    //   );
-
-    //   if (result.meta.requestStatus !== 'rejected') {
-    //     navigate('/');
-    //     showSuccessMessage();
-    //   }
-    // } catch (error) {
-    //   if (error instanceof Error && 'message' in error) {
-    //     setSignUpError(error.message);
-    //   }
-    // }
+    setEditMode(false);
   };
 
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
       <div className={styles.addressContainer}>
-        <ShippingAddressInfo
-          control={control}
-          watch={watch}
-          disabled={!editMode}
-        />
-        <BillingAddressInfo
-          control={control}
-          watch={watch}
-          disabled={!editMode}
-        />
+        <ShippingAddressInfo control={control} watch={watch} disabled={!editMode} />
+        <BillingAddressInfo control={control} watch={watch} disabled={!editMode} />
       </div>
       <div className={styles.controlButtonsContainer}>
         <Button
