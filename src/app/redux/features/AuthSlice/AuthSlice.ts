@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Customer } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
 import { loginCustomer } from '../../asyncThunks/loginCustomer';
+import { updateCustomer } from '../../asyncThunks/updateUser';
 
 type AuthState = {
   customer: Customer | null;
@@ -37,6 +38,18 @@ export const authSlice = createSlice({
         state.error = undefined;
       })
       .addCase(loginCustomer.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error.message;
+      })
+      .addCase(updateCustomer.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.customer = action.payload;
+        state.status = 'idle';
+        state.error = undefined;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
         state.status = 'error';
         state.error = action.error.message;
       });

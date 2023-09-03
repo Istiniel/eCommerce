@@ -14,6 +14,7 @@ interface Props {
   invalid?: boolean;
   nativeValidation?: boolean;
   disabled?: boolean;
+  defaultValue?: string
 }
 
 type InputRef = HTMLInputElement;
@@ -32,6 +33,7 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
     invalid = false,
     nativeValidation = true,
     disabled = false,
+    defaultValue
   } = props;
   const { t } = useTranslation();
 
@@ -57,6 +59,7 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           disabled={disabled}
+          defaultValue={defaultValue}
         />
         <p className={styles.errorMessage}>{t(error)}</p>
       </label>

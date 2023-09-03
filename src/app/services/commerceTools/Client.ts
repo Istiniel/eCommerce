@@ -1,6 +1,7 @@
 import {
   CustomerDraft,
   CustomerSignin,
+  MyCustomerUpdate,
   createApiBuilderFromCtpClient,
 } from '@commercetools/platform-sdk';
 import { anonimusClient, getAuthApi } from './BuildClient';
@@ -16,6 +17,11 @@ export const signUp = async (newClient: CustomerDraft) => {
 
 export const signIn = async (newClient: CustomerSignin) => {
   const authAPI = getAuthApi({ username: newClient.email, password: newClient.password });
-  const response = await authAPI.login().post({ body: newClient }).execute();
+  const response = await authAPI.login().post({ body: newClient }).execute()
   return response.body.customer;
+};
+
+export const updateCustomerInfo = async (newClient: MyCustomerUpdate, ID: string) => {
+  const response = await apiRoot.customers().withId({ ID }).post({ body: newClient }).execute();
+  return response;
 };

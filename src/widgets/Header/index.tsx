@@ -32,6 +32,7 @@ const Header = () => {
               />
             )}
             <NavLink href="/products" content="Shop" />
+            <NavLink href="/profile" content="Profile" />
           </div>
         </div>
       </Wrapper>
