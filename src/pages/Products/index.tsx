@@ -44,31 +44,39 @@ function Products() {
 
   return (
     <>
-      <div className={styles.filterRow}>
-        <div className={styles.inputRow}>
-          <div className={styles.inputWrapper}>
-            <Input
-              type="text"
-              name="Filter"
-              placeholder="Search"
-              error=""
-              value=""
-              onChange={() => {}}
-            />
+      <div className={styles.filterContainer}>
+        <div className={styles.filterRow}>
+          <div className={styles.inputRow}>
+            <div className={styles.inputWrapper}>
+              <Input
+                type="text"
+                name="Filter"
+                placeholder="Search"
+                error=""
+                value=""
+                onChange={() => {}}
+              />
+            </div>
+            <div className={styles.btnWrapper}>
+              <button className={styles.btn}>Apply</button>
+            </div>
           </div>
-          <div className={styles.btnWrapper}>
-            <button className={styles.btn}>Apply</button>
-          </div>
+          <Dropdown menu={{ items, onClick }}>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                Sort
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown>
         </div>
-        <Dropdown menu={{ items, onClick }}>
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              Sort
-              <DownOutlined />
-            </Space>
-          </a>
-        </Dropdown>
+        <div className={styles.categoriesContainer}>
+          <span>Bouqets</span>
+          <span>Live Plants</span>
+          <span>Dried Flowers</span>
+          <span>Aroma Candles</span>
+        </div>
       </div>
       <div className={styles.container}>
         <div className={styles.rightColumn}>
