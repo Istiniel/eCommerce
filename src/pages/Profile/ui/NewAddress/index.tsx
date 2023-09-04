@@ -21,11 +21,11 @@ const NewAddress = () => {
     mode: 'onChange',
     defaultValues: {
       asDefault: false,
-      country: "",
-      city: "",
-      postalCode: "",
-      streetNumber: "",
-      type: false
+      country: '',
+      city: '',
+      postalCode: '',
+      streetNumber: '',
+      type: false,
     },
   });
 
@@ -49,43 +49,32 @@ const NewAddress = () => {
         ...(data.asDefault && !data.type
           ? [
               {
-                action: 'setDefaultShippingAddress',
-                addressKey: `${countryCode}-${data.city}`
-              } as const,
-            ]
-          : []),
-        ...(!data.asDefault && !data.type
-          ? [
-              {
-                action: 'removeShippingAddressId',
-                addressKey: `${countryCode}-${data.city}`
-              } as const,
-              {
-                action: 'addShippingAddressId',
-                addressKey: `${countryCode}-${data.city}`
+                action: 'setDefaultBillingAddress',
+                addressKey: `${countryCode}-${data.city}`,
               } as const,
             ]
           : []),
         ...(data.asDefault && data.type
           ? [
               {
-                action: 'setDefaultBillingAddress',
-                addressKey: `${countryCode}-${data.city}`
+                action: 'setDefaultShippingAddress',
+                addressKey: `${countryCode}-${data.city}`,
               } as const,
             ]
           : []),
-        ...(!data.asDefault && data.type
+        ...(!data.type
           ? [
               {
-                action: 'removeBillingAddressId',
-                addressKey: `${countryCode}-${data.city}`
-              } as const,
-              {
                 action: 'addBillingAddressId',
-                addressKey: `${countryCode}-${data.city}`
+                addressKey: `${countryCode}-${data.city}`,
               } as const,
             ]
-          : []),
+          : [
+              {
+                action: 'addShippingAddressId',
+                addressKey: `${countryCode}-${data.city}`,
+              } as const,
+            ]),
       ],
     };
 
@@ -107,12 +96,10 @@ const NewAddress = () => {
   return (
     <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
       <div className={styles.addressContainer}>
-        <AddressInfo control={control} watch={watch} type='new' />
+        <AddressInfo control={control} watch={watch} type="new" />
       </div>
       <div className={styles.controlButtonsContainer}>
-        <Button type="submit">
-          Apply
-        </Button>
+        <Button type="submit">Apply</Button>
       </div>
       {!!error && <ErrorMessage message={error} />}
     </form>
