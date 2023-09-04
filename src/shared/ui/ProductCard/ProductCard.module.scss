@@ -28,10 +28,47 @@
 
 .cardImageContainer {
   border-bottom: 1px solid $color-neutral-1000;
+  max-width: 100%;
+  height: 348px;
+
+  @include maxWidthCustom(1250px) {
+    height: 300px;
+  }
+
+  @include maxWidthCustom(1080px) {
+    height: 260px;
+  }
+
+  @include maxWidthCustom(910px) {
+    height: 210px;
+  }
+
+  @include maxWidthCustom(820px) {
+    height: 348px;
+  }
+
+  @include maxWidthCustom(620px) {
+    height: 260px;
+  }
+
+  @include maxWidthCustom(520px) {
+    height: 210px;
+  }
+
+  @include maxWidthCustom(430px) {
+    height: 348px;
+  }
+
+  @include maxWidthCustom(320px) {
+    height: 270px;
+  }
 }
 
 .cardImage {
   transition: $slow-transition;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .cardTitle {
@@ -39,6 +76,15 @@
   text-align: center;
   padding: 16px 0;
   border-bottom: 1px solid $color-neutral-1000;
+}
+
+.pricesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid $color-neutral-1000;
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
 }
 
 .cardPrice,
@@ -58,13 +104,9 @@
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   text-align: left;
-}
-
-.pricesContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+  font-weight: $font-weight-thin;
+  line-height: 120%;
+  font-size: 14px;
 }
 
 .originalPrice {
