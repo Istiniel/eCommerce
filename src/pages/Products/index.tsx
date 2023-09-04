@@ -29,7 +29,6 @@ function Products() {
   useEffect(() => {
     const getCategories = async () => {
       const response = await fetchCategories();
-
       setCategories(response.results);
     };
 
