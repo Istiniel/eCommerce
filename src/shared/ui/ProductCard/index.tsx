@@ -30,6 +30,7 @@ const ProductCard: React.FC<Props> = (productInfo) => {
       </div>
       <h3 className={styles.cardTitle}>{title}</h3>
       <span className={styles.pricesContainer}>
+        price:
         <p
           className={classNames(
             { [styles.withDiscount]: discountedPrice },
@@ -37,12 +38,12 @@ const ProductCard: React.FC<Props> = (productInfo) => {
             styles.originalPrice,
           )}
         >
-          {originalPrice}
+          {originalPrice / 100}$
         </p>
         {discountedPrice && (
-          <p
-            className={classNames(styles.cardPrice, styles.discountedPrice)}
-          >{`(${discountedPrice})`}</p>
+          <p className={classNames(styles.cardPrice, styles.discountedPrice)}>{`(${
+            discountedPrice / 100
+          }$)`}</p>
         )}
       </span>
       <p className={styles.cardDescription}>{productDescription}</p>
