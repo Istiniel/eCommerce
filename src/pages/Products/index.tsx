@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { fetchProducts } from '../../app/redux/asyncThunks/fetchProducts';
 import { selectProducts } from '../../app/redux/features/ProductsSlice/ProductsSlice';
 import { Input } from '../../shared/ui/Input';
-import Button from '../../shared/ui/Button';
 
 const onClick: MenuProps['onClick'] = ({ key }) => {
   message.info(`Click on item ${key}`);
