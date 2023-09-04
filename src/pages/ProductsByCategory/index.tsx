@@ -32,7 +32,7 @@ function ProductsByCategory() {
         return;
       }
 
-      dispatch(fetchProductsExtra({ categoryId: searchParams.get('id') || '', sort: 1 }));
+      dispatch(fetchProductsExtra({ categoryId: searchParams.get('id') || '', sort: 0 }));
     };
 
     checkIfCategoryExists();
@@ -44,7 +44,13 @@ function ProductsByCategory() {
       key: '0',
       onClick: () => {
         setCurrentSortMethod(0);
-        dispatch(fetchProductsExtra({ sort: 0, text: searchString }));
+        dispatch(
+          fetchProductsExtra({
+            sort: 0,
+            text: searchString,
+            categoryId: searchParams.get('id') || '',
+          }),
+        );
       },
     },
     {
@@ -52,7 +58,13 @@ function ProductsByCategory() {
       key: '1',
       onClick: () => {
         setCurrentSortMethod(1);
-        dispatch(fetchProductsExtra({ sort: 1, text: searchString }));
+        dispatch(
+          fetchProductsExtra({
+            sort: 1,
+            text: searchString,
+            categoryId: searchParams.get('id') || '',
+          }),
+        );
       },
     },
     {
@@ -60,7 +72,13 @@ function ProductsByCategory() {
       key: '2',
       onClick: () => {
         setCurrentSortMethod(2);
-        dispatch(fetchProductsExtra({ sort: 2, text: searchString }));
+        dispatch(
+          fetchProductsExtra({
+            sort: 2,
+            text: searchString,
+            categoryId: searchParams.get('id') || '',
+          }),
+        );
       },
     },
     {
@@ -68,7 +86,13 @@ function ProductsByCategory() {
       key: '3',
       onClick: () => {
         setCurrentSortMethod(3);
-        dispatch(fetchProductsExtra({ sort: 3, text: searchString }));
+        dispatch(
+          fetchProductsExtra({
+            sort: 3,
+            text: searchString,
+            categoryId: searchParams.get('id') || '',
+          }),
+        );
       },
     },
   ];
@@ -85,6 +109,7 @@ function ProductsByCategory() {
                 fetchProductsExtra({
                   sort: currentSortMethod,
                   text: searchString,
+                  categoryId: searchParams.get('id') || '',
                 }),
               );
             }}
@@ -102,6 +127,7 @@ function ProductsByCategory() {
                   fetchProductsExtra({
                     sort: currentSortMethod,
                     text: event?.target?.value,
+                    categoryId: searchParams.get('id') || '',
                   }),
                 );
               }}
