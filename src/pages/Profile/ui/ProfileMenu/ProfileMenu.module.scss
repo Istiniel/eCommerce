@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   gap: 5rem;
-  
+
   @include maxWidth(medium) {
     flex-direction: column;
   }
@@ -38,8 +38,13 @@
   flex: 1 0 auto;
   max-width: 45rem;
 
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
   @include maxWidth(medium) {
     align-self: center;
     width: 100%;
+    gap: 2rem;
   }
 }

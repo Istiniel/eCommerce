@@ -1,49 +1,42 @@
-import {
-  Control,
-  Controller,
-  UseFormWatch,
-} from 'react-hook-form';
+import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import classNames from 'classnames';
 import { AutoComplete, Checkbox } from 'antd';
 import { useTranslation } from 'react-i18next';
-import styles from './BillingAddressInfo.module.scss';
-import type { AddressesInfoState } from '../AddressesInfo';
+import styles from './AddressInfo.module.scss';
+import type { AddressState } from '../Address';
 import { countries, getPostalCodePattern } from '../../../../shared/static/countries';
 import AuthInput from '../../../../shared/ui/AuthInput';
 
-interface BillingAddressProps {
-  control: Control<AddressesInfoState>;
-  watch: UseFormWatch<AddressesInfoState>;
+interface AddressProps {
+  control: Control<AddressState>;
+  watch: UseFormWatch<AddressState>;
   disabled?: boolean;
+  type: 'billing' | 'shipping'
 }
 
-function BillingAddress(props: BillingAddressProps) {
+function AddressInfo(props: AddressProps) {
   const { t } = useTranslation();
 
-  const { control, watch, disabled = false } = props;
+  const { control, watch, disabled = false, type } = props;
 
-
-  const {
-    billingAddress: { country: billingCountry },
-  } = watch();
-
+  const { country } = watch();
 
   return (
     <fieldset className={styles.container}>
-      <h2 className={styles.heading}>Billing</h2>
+      <h2 className={styles.heading}>{type === 'billing' ? 'Billing address' : 'Shipping address'}</h2>
       <div className={styles.countryContainer}>
         <span className={styles.countryTitle}>Country</span>
         <Controller
           control={control}
-          name="billingAddress.country"
+          name="country"
           rules={{
             required: 'emptyInput',
             validate: {
-                  country: (value) => {
-                    const isCountryExisted = countries.some((country) => country.value === value);
-                    return isCountryExisted ? true : 'noCountry';
-                  },
-                },
+              country: (value) => {
+                const isCountryExisted = countries.some((existedCountry) => existedCountry.value === value);
+                return isCountryExisted ? true : 'noCountry';
+              },
+            },
           }}
           render={({ field: { onChange, onBlur, value, ref }, fieldState: { invalid, error } }) => (
             <>
@@ -65,26 +58,26 @@ function BillingAddress(props: BillingAddressProps) {
         />
       </div>
       <AuthInput
-        name="billingAddress.city"
+        name="city"
         control={control}
         disabled={disabled}
         rules={{
           required: 'emptyInput',
-          validate:{
-                space: (value) => {
-                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-                },
-                special: (value) => {
-                  return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
-                },
-                numbers: (value) => {
-                  return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
-                },
-              },
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            special: (value) => {
+              return !/[!-/:-@[-`{-~]/.test(String(value)) ? true : 'noSpecialSymbols';
+            },
+            numbers: (value) => {
+              return !/[0-9]/.test(String(value)) ? true : 'noNumbers';
+            },
+          },
         }}
       />
       <AuthInput
-        name="billingAddress.streetNumber"
+        name="streetNumber"
         control={control}
         disabled={disabled}
         rules={{
@@ -93,40 +86,40 @@ function BillingAddress(props: BillingAddressProps) {
             value: 1,
             message: 'minInputLength',
           },
-          validate:{
-                space: (value) => {
-                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-                },
-              },
+          validate: {
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+          },
         }}
       />
       <AuthInput
-        name="billingAddress.postalCode"
+        name="postalCode"
         control={control}
         disabled={disabled}
         rules={{
           required: 'emptyInput',
           minLength: {
-                value: 1,
-                message: 'minInputLength',
-              },
+            value: 1,
+            message: 'minInputLength',
+          },
           validate: {
-                space: (value) => {
-                  return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
-                },
-                rule: (value) => {
-                  const pattern = getPostalCodePattern(billingCountry);
-                  if (pattern) {
-                    return pattern.test(String(value)) ? true : 'invalidPostalCode';
-                  }
-                  return true;
-                },
-              },
+            space: (value) => {
+              return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
+            },
+            rule: (value) => {
+              const pattern = getPostalCodePattern(country);
+              if (pattern) {
+                return pattern.test(String(value)) ? true : 'invalidPostalCode';
+              }
+              return true;
+            },
+          },
         }}
       />
       <Controller
         control={control}
-        name="billingAsDefault"
+        name="asDefault"
         render={({ field: { onChange, value } }) => (
           <Checkbox
             checked={value}
@@ -143,4 +136,4 @@ function BillingAddress(props: BillingAddressProps) {
   );
 }
 
-export default BillingAddress;
+export default AddressInfo;
