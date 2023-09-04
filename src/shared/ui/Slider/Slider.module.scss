@@ -14,7 +14,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     transition: 0.3s;
     user-select: none;
 	position: relative;
@@ -42,6 +41,7 @@
 @media screen and (hover:hover) {
 	.arrowLeft, .arrowRight {
 		opacity: 0;
+		cursor: pointer;
 	}
 	.wrapper:hover {
 		.arrowLeft, .arrowRight {
@@ -58,4 +58,5 @@
 
 .arrowLeft.fade, .arrowRight.fade {
 	opacity: 0 !important;
+	cursor: default;
 }
