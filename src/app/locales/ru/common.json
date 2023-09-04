@@ -48,5 +48,8 @@
   "invalidPostalCode": "invalid code",
   "defaultAddress": "default address",
   "currentPassword": "Previous password",
-  "newPassword": "New password"
+  "newPassword": "New password",
+  "city": "City",
+  "streetNumber": "Street",
+  "postalCode": "Postal code"
 }

@@ -1,43 +1,53 @@
-import {
-  Control,
-  Controller,
-  UseFormWatch,
-} from 'react-hook-form';
-import { AutoComplete, Checkbox } from 'antd';
+import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import classNames from 'classnames';
+import { AutoComplete, Checkbox, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
-import styles from './ShippingAddressInfo.module.scss';
-import type { AddressesInfoState } from '../AddressesInfo';
+import { useMemo } from 'react';
+import styles from './AddressInfo.module.scss';
+import type { AddressState } from '../Address';
 import { countries, getPostalCodePattern } from '../../../../shared/static/countries';
 import AuthInput from '../../../../shared/ui/AuthInput';
 
-interface ShippingAddressProps {
-  control: Control<AddressesInfoState>;
-  watch: UseFormWatch<AddressesInfoState>;
+interface AddressProps {
+  control: Control<AddressState>;
+  watch: UseFormWatch<AddressState>;
   disabled?: boolean;
+  type: 'billing' | 'shipping' | 'new';
 }
 
-function ShippingAddress(props: ShippingAddressProps) {
-  const { control, watch, disabled = false } = props;
+function AddressInfo(props: AddressProps) {
   const { t } = useTranslation();
 
-  const {
-    shippingAddress: { country: shippingCountry },
-  } = watch();
+  const { control, watch, disabled = false, type } = props;
+
+  const { country, type: addressType } = watch();
+
+  const headerTitle = useMemo(() => {
+    switch (type) {
+      case 'billing':
+        return 'Billing address';
+      case 'shipping':
+        return 'Shipping address';
+      default:
+        return 'New address';
+    }
+  }, [type]);
 
   return (
     <fieldset className={styles.container}>
-      <h2 className={styles.heading}>Shipping</h2>
+      <h2 className={styles.heading}>{headerTitle}</h2>
       <div className={styles.countryContainer}>
         <span className={styles.countryTitle}>Country</span>
         <Controller
           control={control}
-          name="shippingAddress.country"
+          name="country"
           rules={{
             required: 'emptyInput',
             validate: {
               country: (value) => {
-                const isCountryExisted = countries.some((country) => country.value === value);
+                const isCountryExisted = countries.some(
+                  (existedCountry) => existedCountry.value === value,
+                );
                 return isCountryExisted ? true : 'noCountry';
               },
             },
@@ -62,7 +72,7 @@ function ShippingAddress(props: ShippingAddressProps) {
         />
       </div>
       <AuthInput
-        name="shippingAddress.city"
+        name="city"
         control={control}
         disabled={disabled}
         rules={{
@@ -81,7 +91,7 @@ function ShippingAddress(props: ShippingAddressProps) {
         }}
       />
       <AuthInput
-        name="shippingAddress.streetNumber"
+        name="streetNumber"
         control={control}
         disabled={disabled}
         rules={{
@@ -98,7 +108,7 @@ function ShippingAddress(props: ShippingAddressProps) {
         }}
       />
       <AuthInput
-        name="shippingAddress.postalCode"
+        name="postalCode"
         control={control}
         disabled={disabled}
         rules={{
@@ -112,7 +122,7 @@ function ShippingAddress(props: ShippingAddressProps) {
               return !/\s+/g.test(String(value)) ? true : 'spaceValidation';
             },
             rule: (value) => {
-              const pattern = getPostalCodePattern(shippingCountry);
+              const pattern = getPostalCodePattern(country);
               if (pattern) {
                 return pattern.test(String(value)) ? true : 'invalidPostalCode';
               }
@@ -121,10 +131,21 @@ function ShippingAddress(props: ShippingAddressProps) {
           },
         }}
       />
-
+      {type === 'new' && (
+        <div className={styles.addressTypeContainer}>
+          <h3 className={styles.addressTypeTitle}>{addressType ? 'Shipping' : 'Billing'}</h3>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field: { onChange, value } }) => (
+              <Switch defaultChecked onChange={onChange} checked={value} />
+            )}
+          />
+        </div>
+      )}
       <Controller
         control={control}
-        name="shippingAsDefault"
+        name="asDefault"
         render={({ field: { onChange, value } }) => (
           <Checkbox
             checked={value}
@@ -141,4 +162,4 @@ function ShippingAddress(props: ShippingAddressProps) {
   );
 }
 
-export default ShippingAddress;
+export default AddressInfo;
