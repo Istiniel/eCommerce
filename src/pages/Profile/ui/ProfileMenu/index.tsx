@@ -10,6 +10,7 @@ import {
 } from '../../../../app/redux/features/AuthSlice/AuthSlice';
 import { useAppDispatch, useAppSelector } from '../../../../app/redux/hooks';
 import Address from '../Address';
+import NewAddress from '../NewAddress';
 
 type ProfileMenuVariant = 'personal' | 'addresses' | 'password' | 'addAddress';
 
@@ -68,7 +69,7 @@ const ProfileMenu = () => {
             return (
               <Address
                 id={id!}
-                type={customer?.billingAddressIds?.includes(id!) ? 'billing' : 'shipping'}
+                initialType={customer?.billingAddressIds?.includes(id!) ? 'billing' : 'shipping'}
                 asDefault={
                   customer?.defaultBillingAddressId === id ||
                   customer?.defaultShippingAddressId === id
@@ -82,7 +83,7 @@ const ProfileMenu = () => {
           })}
         {currentTab === 'personal' && <PersonalInfo />}
         {currentTab === 'password' && <PasswordInfo />}
-        {currentTab === 'addAddress' && <h2>Add new address</h2>}
+        {currentTab === 'addAddress' && <NewAddress />}
       </div>
     </div>
   );

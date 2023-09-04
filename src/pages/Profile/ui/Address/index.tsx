@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { MyCustomerUpdate } from '@commercetools/platform-sdk';
+import { RiDeleteBinLine } from 'react-icons/ri';
 import styles from './Address.module.scss';
 import { useAppDispatch } from '../../../../app/redux/hooks';
 import Button from '../../../../shared/ui/Button';
@@ -17,20 +18,47 @@ export type AddressState = {
   city: string;
   postalCode: string;
   streetNumber: string;
+  type?: boolean;
 };
 
 interface AddressProps extends AddressState {
   id: string;
-  type: 'shipping' | 'billing';
+  initialType: 'shipping' | 'billing';
 }
 
 const Address: React.FC<AddressProps> = (props) => {
-  const { asDefault, city, country, postalCode, streetNumber, id, type } = props;
+  const { asDefault, city, country, postalCode, streetNumber, id, initialType: type } = props;
+  const [showInfo, setShowInfo] = useState(false);
   const dispatch = useAppDispatch();
 
   const [editMode, setEditMode] = useState(false);
   const [error, setError] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+
+  const removeAddress = useCallback(async () => {
+    const requestBody: Omit<MyCustomerUpdate, 'version'> = {
+      actions: [
+        {
+          action: 'removeAddress',
+          addressId: id,
+        } as const,
+      ],
+    };
+
+    try {
+      setError('');
+
+      const result = await dispatch(updateCustomer(requestBody));
+
+      if (result.meta.requestStatus !== 'rejected') {
+        showSuccessMessage();
+      }
+    } catch (requestError) {
+      if (requestError instanceof Error && 'message' in requestError) {
+        setError(requestError.message);
+      }
+    }
+  }, [dispatch, id]);
 
   const { handleSubmit, control, watch, reset } = useForm<AddressState>({
     mode: 'onChange',
@@ -114,37 +142,55 @@ const Address: React.FC<AddressProps> = (props) => {
     }
 
     setEditMode(false);
+    setShowInfo(false);
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
-      <div className={styles.addressContainer}>
-        <AddressInfo control={control} watch={watch} disabled={!editMode} type={type} />
-      </div>
-      <div className={styles.controlButtonsContainer}>
+    <>
+      <div className={styles.addressTogglerContainer}>
         <Button
-          className={classNames({ [styles.disabled]: editMode })}
-          type="button"
-          onClick={() => setEditMode(true)}
-        >
-          Edit
-        </Button>
-        <Button className={classNames({ [styles.disabled]: !editMode })} type="submit">
-          Apply
-        </Button>
-        <Button
-          className={classNames({ [styles.disabled]: !editMode })}
-          type="button"
+          buttonType="outlined"
+          className={styles.toggleAddressInfoButton}
           onClick={() => {
-            setEditMode(false);
-            reset();
+            setShowInfo((prevState) => !prevState);
           }}
         >
-          Dismiss
+          {`${getCountryName(country)} - ${city}`}
         </Button>
+        <RiDeleteBinLine className={styles.deleteIcon} onClick={removeAddress} />
       </div>
-      {!!error && <ErrorMessage message={error} />}
-    </form>
+      {showInfo && (
+        <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
+          <div className={styles.addressContainer}>
+            <AddressInfo control={control} watch={watch} disabled={!editMode} type={type} />
+          </div>
+          <div className={styles.controlButtonsContainer}>
+            <Button
+              className={classNames({ [styles.disabled]: editMode })}
+              type="button"
+              onClick={() => setEditMode(true)}
+            >
+              Edit
+            </Button>
+            <Button className={classNames({ [styles.disabled]: !editMode })} type="submit">
+              Apply
+            </Button>
+            <Button
+              className={classNames({ [styles.disabled]: !editMode })}
+              type="button"
+              onClick={() => {
+                setEditMode(false);
+                setShowInfo(false);
+                reset();
+              }}
+            >
+              Dismiss
+            </Button>
+          </div>
+          {!!error && <ErrorMessage message={error} />}
+        </form>
+      )}
+    </>
   );
 };
 

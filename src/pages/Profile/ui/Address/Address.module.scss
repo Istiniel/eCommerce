@@ -25,3 +25,30 @@
 
   width: 100%;
 }
+
+.toggleAddressInfoButton {
+  justify-content: flex-start;
+}
+
+.addressTogglerContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem
+}
+
+.deleteIcon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $color-neutral-500;
+  width: 3rem;
+  height: 3rem;
+
+  @include onHover() {
+    cursor: pointer;
+    color: $color-primary-500;
+  }
+}

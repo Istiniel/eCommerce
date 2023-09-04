@@ -1,7 +1,8 @@
 import { Control, Controller, UseFormWatch } from 'react-hook-form';
 import classNames from 'classnames';
-import { AutoComplete, Checkbox } from 'antd';
+import { AutoComplete, Checkbox, Switch } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 import styles from './AddressInfo.module.scss';
 import type { AddressState } from '../Address';
 import { countries, getPostalCodePattern } from '../../../../shared/static/countries';
@@ -11,7 +12,7 @@ interface AddressProps {
   control: Control<AddressState>;
   watch: UseFormWatch<AddressState>;
   disabled?: boolean;
-  type: 'billing' | 'shipping'
+  type: 'billing' | 'shipping' | 'new';
 }
 
 function AddressInfo(props: AddressProps) {
@@ -19,11 +20,22 @@ function AddressInfo(props: AddressProps) {
 
   const { control, watch, disabled = false, type } = props;
 
-  const { country } = watch();
+  const { country, type: addressType } = watch();
+
+  const headerTitle = useMemo(() => {
+    switch (type) {
+      case 'billing':
+        return 'Billing address';
+      case 'shipping':
+        return 'Shipping address';
+      default:
+        return 'New address';
+    }
+  }, [type]);
 
   return (
     <fieldset className={styles.container}>
-      <h2 className={styles.heading}>{type === 'billing' ? 'Billing address' : 'Shipping address'}</h2>
+      <h2 className={styles.heading}>{headerTitle}</h2>
       <div className={styles.countryContainer}>
         <span className={styles.countryTitle}>Country</span>
         <Controller
@@ -33,7 +45,9 @@ function AddressInfo(props: AddressProps) {
             required: 'emptyInput',
             validate: {
               country: (value) => {
-                const isCountryExisted = countries.some((existedCountry) => existedCountry.value === value);
+                const isCountryExisted = countries.some(
+                  (existedCountry) => existedCountry.value === value,
+                );
                 return isCountryExisted ? true : 'noCountry';
               },
             },
@@ -117,6 +131,18 @@ function AddressInfo(props: AddressProps) {
           },
         }}
       />
+      {type === 'new' && (
+        <div className={styles.addressTypeContainer}>
+          <h3 className={styles.addressTypeTitle}>{addressType ? 'Shipping' : 'Billing'}</h3>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field: { onChange, value } }) => (
+              <Switch defaultChecked onChange={onChange} checked={value} />
+            )}
+          />
+        </div>
+      )}
       <Controller
         control={control}
         name="asDefault"
