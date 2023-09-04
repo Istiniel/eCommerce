@@ -15,6 +15,10 @@
     color: $color-neutral-000;
   }
 
+  @include maxWidthCustom(1250px) {
+    padding: 2rem 2.8rem;
+  }
+
   @include maxWidthCustom(1025px) {
     padding: 2.8rem 2.8rem;
   }
