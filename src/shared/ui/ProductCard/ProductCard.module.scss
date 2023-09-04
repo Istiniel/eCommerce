@@ -3,6 +3,10 @@
   border-bottom: 1px solid $color-neutral-1000;
   border-left: 1px solid $color-neutral-1000;
 
+  &:last-of-type {
+    border-right: 1px solid $color-neutral-1000;
+  }
+
   @include maxWidthCustom(820px) {
     &:nth-child(odd) {
       border-left: none;
