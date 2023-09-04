@@ -1,4 +1,5 @@
-.container {
+.productsContainer {
+  padding-bottom: 5rem;
   display: flex;
   border-top: 1px solid $color-neutral-1000;
 
@@ -39,19 +40,22 @@
   }
 }
 
-.inputRow {
+.submitSearchForm {
   display: flex;
-  column-gap: 2rem;
+  gap: 2rem;
   align-items: center;
-  margin-bottom: -23px;
 }
 
-.btn {
+.searchInput {
+  margin-bottom: 0;
+}
+
+.searchSubmitButton {
   flex-basis: 50%;
-  padding: 1.2rem 3.2rem;
+  padding: 1.5rem 3.5rem;
 
   @include font-style($font-sans, $font-size-base, $color-neutral-000);
-  line-height: 120%;
+  line-height: 160%;
   background-color: #121212;
   text-transform: uppercase;
 }
@@ -130,4 +134,35 @@
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
+}
+
+.category {
+  transition: $fast-transition;
+
+  @include onHover() {
+    cursor: pointer;
+    color: $color-accent-600
+  }
+
+  &.active {
+    color: $color-accent-600
+  }
+}
+
+.dropDownContainer {
+  padding: 1rem;
+  @include onHover() {
+    cursor: pointer;
+  }
+}
+
+.sortByPrefix {
+  font-weight: $font-weight-normal;
+}
+
+.noMatches {
+  padding: 2rem;
+  @include font-style('Gilroy', $font-size-large, $color-neutral-1000, $font-weight-medium);
+  line-height: 120%;
+  text-align: center;
 }
