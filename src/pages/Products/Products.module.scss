@@ -24,19 +24,33 @@
 }
 
 .titleWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 80px;
+  height: 668px;
   background-image: url(../../app/assets/images/flowers-bg4.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
 
   border-bottom: 1px solid $color-neutral-1000;
 
+  @include maxWidthCustom(1050px) {
+    height: 500px;
+  }
+
+  @include maxWidthCustom(820px) {
+    height: 430px;
+  }
+
   @include maxWidthCustom(565px) {
     padding: 80px 40px;
+    height: 230px;
   }
 
   @include maxWidth(xSmall) {
     padding: 40px 16px;
+    height: 180px;
   }
 }
 
