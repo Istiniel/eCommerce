@@ -73,17 +73,17 @@ const Product = () => {
           <span className={styles.pricesContainer}>
             <p
               className={classNames(
-                { [styles.withDiscount]: discountedPrice },
+                { [styles.withDiscount]: (discountedPrice) },
                 styles.cardPrice,
                 styles.originalPrice,
               )}
             >
-              {originalPrice}
+              {`${originalPrice / 100}$`}
             </p>
             {discountedPrice && (
               <p
                 className={classNames(styles.cardPrice, styles.discountedPrice)}
-              >{`(${discountedPrice})`}</p>
+              >{`(${discountedPrice / 100})$`}</p>
             )}
           </span>
         </h1>
