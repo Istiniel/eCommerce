@@ -10,11 +10,22 @@
 .filterRow {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   align-items: center;
   column-gap: 3.2rem;
   padding: 20px 28px;
   border-top: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(565px) {
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    row-gap: 2rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 20px 16px;
+  }
 }
 
 .inputRow {
