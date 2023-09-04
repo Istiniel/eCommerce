@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Customer } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
 import { loginCustomer } from '../../asyncThunks/loginCustomer';
+import { updateCustomer } from '../../asyncThunks/updateCustomer';
+import { changePassword } from '../../asyncThunks/changePassword';
 
 type AuthState = {
   customer: Customer | null;
@@ -25,6 +27,9 @@ export const authSlice = createSlice({
     setCustomer: (state, action: PayloadAction<Customer | null>) => {
       state.customer = action.payload;
     },
+    clearErrorMessage: (state) => {
+      state.error = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,12 +44,37 @@ export const authSlice = createSlice({
       .addCase(loginCustomer.rejected, (state, action) => {
         state.status = 'error';
         state.error = action.error.message;
+      })
+      .addCase(updateCustomer.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateCustomer.fulfilled, (state, action) => {
+        state.customer = action.payload;
+        state.status = 'idle';
+        state.error = undefined;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error.message;
+      })
+      .addCase(changePassword.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.customer = action.payload;
+        state.status = 'idle';
+        state.error = undefined;
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error.message;
       });
   },
 });
 
-export const { setCustomer } = authSlice.actions;
+export const { setCustomer, clearErrorMessage } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCustomer = (state: RootState) => state.authSlice.customer;
 export const selectSignInError = (state: RootState) => state.authSlice.error;
+export const selectError = (state: RootState) => state.authSlice.error;

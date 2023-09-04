@@ -93,7 +93,7 @@ function BillingAddress(props: BillingAddressProps) {
         }}
       />
       <AuthInput
-        name="billingAddress.street"
+        name="billingAddress.streetNumber"
         control={control}
         disabled={billingAsShipping}
         rules={{
@@ -112,7 +112,7 @@ function BillingAddress(props: BillingAddressProps) {
         }}
       />
       <AuthInput
-        name="billingAddress.postal"
+        name="billingAddress.postalCode"
         control={control}
         disabled={billingAsShipping}
         rules={{

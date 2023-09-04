@@ -10,10 +10,14 @@ interface Props {
   error: string;
   placeholder?: string;
   value: string;
-  onChange: VoidFunction;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   invalid?: boolean;
   nativeValidation?: boolean;
   disabled?: boolean;
+  defaultValue?: string;
+  showPasswordToggler?: boolean;
+  noLabel?: boolean;
+  labelClassName?: string;
 }
 
 type InputRef = HTMLInputElement;
@@ -32,20 +36,24 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
     invalid = false,
     nativeValidation = true,
     disabled = false,
+    defaultValue,
+    showPasswordToggler = true,
+    noLabel = false,
+    labelClassName,
   } = props;
   const { t } = useTranslation();
 
   return (
     <div className={styles.container}>
-      <label htmlFor={name} className={styles.label}>
-        <span className={styles.title}>{t(name)}</span>
+      <label
+        htmlFor={name}
+        className={classNames(labelClassName || labelClassName, styles.label)}
+      >
+        {!noLabel && <span className={styles.title}>{t(name)}</span>}
         <input
           className={classNames(
-            { [styles.invalid]: invalid,
-              [styles.active]: isFocused,
-              [styles.disabled]: disabled
-            },
-              styles.input,
+            { [styles.invalid]: invalid, [styles.active]: isFocused, [styles.disabled]: disabled },
+            styles.input,
           )}
           formNoValidate={nativeValidation}
           name={name}
@@ -57,10 +65,11 @@ export const Input = React.forwardRef<InputRef, Props>((props, ref) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           disabled={disabled}
+          defaultValue={defaultValue}
         />
         <p className={styles.errorMessage}>{t(error)}</p>
       </label>
-      {type === 'password' && (
+      {type === 'password' && showPasswordToggler && (
         <Checkbox
           className={styles.showPassword}
           onChange={() => {

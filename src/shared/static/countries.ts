@@ -11,6 +11,10 @@ export function getCountryCode(countryName: string) {
   return countries.find((country) => country.value === countryName)?.code || countryName;
 }
 
+export function getCountryName(countryCode: string) {
+  return countries.find((country) => country.code === countryCode)?.value || countryCode;
+}
+
 export function getPostalCodePattern(countryName: string) {
   return countries.find((country) => country.value === countryName)?.postalPattern
 }

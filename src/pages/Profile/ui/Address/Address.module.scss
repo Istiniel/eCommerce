@@ -1,0 +1,54 @@
+.controlButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem
+}
+
+.disabled {
+  @extend %disabled;
+  background-color: $color-neutral-400;
+
+  @include onHover() {
+    cursor: auto;
+  }
+}
+
+.addressContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 1rem;
+
+  @include maxWidth(small) {
+    flex-direction: column;
+  }
+
+  width: 100%;
+}
+
+.toggleAddressInfoButton {
+  justify-content: flex-start;
+}
+
+.addressTogglerContainer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem
+}
+
+.deleteIcon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $color-neutral-500;
+  width: 3rem;
+  height: 3rem;
+
+  @include onHover() {
+    cursor: pointer;
+    color: $color-primary-500;
+  }
+}
