@@ -74,16 +74,22 @@
   }
 }
 
-.cartIcon {
-  transition: $fast-transition;
+.cartIconContainer {
   position: absolute;
   right: 1rem;
   bottom: 1rem;
 
+  padding: 0.5rem;
+  background: rgba($color: black, $alpha: 0.4);
+  border-radius: 100rem;
+}
+
+.cartIcon {
+  transition: $fast-transition;
   width: 4rem;
   height: 4rem;
 
-  color: $color-accent-700;
+  color: $color-neutral-000;
 
   @include onHover() {
     color: $color-accent-600;

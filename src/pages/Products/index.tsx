@@ -1,91 +1,139 @@
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Category } from '@commercetools/platform-sdk';
 import classNames from 'classnames';
 import styles from './Products.module.scss';
 import ProductCard from '../../shared/ui/ProductCard';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
-import { fetchProducts } from '../../app/redux/asyncThunks/fetchProducts';
-import { selectProducts } from '../../app/redux/features/ProductsSlice/ProductsSlice';
+import {
+  selectIsLimit,
+  selectProducts,
+} from '../../app/redux/features/ProductsSlice/ProductsSlice';
 import { Input } from '../../shared/ui/Input';
-import { fetchCategories } from '../../app/services/commerceTools/Client';
-import { fetchProductsExtra } from '../../app/redux/asyncThunks/fetchProductsExtra';
 import { getSortMethodByKey } from '../../shared/helpers/getSortMethodByKey';
+import ProductCardSkeleton from '../../shared/ui/ProductCard/ProductCardSkeleton';
+import LoadingSpinner from '../../shared/ui/LoadingSpinner';
+import useFetchItemsOnScroll from './useFetchItemsOnScroll';
+import { MAX_ITEMS_PER_PAGE } from '../../shared/static/MAX_ITEMS_PER_PAGE';
+import { fetchProducts } from '../../app/redux/asyncThunks/fetchProducts';
+import { fetchCategories } from '../../app/redux/asyncThunks/fetchCategories';
 
 function Products() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectProducts);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const categories = useAppSelector((state) => state.productsSlice.categories);
+  const isLimit = useAppSelector(selectIsLimit);
   const [currentSortMethod, setCurrentSortMethod] = useState(0);
   const [searchString, setSearchString] = useState('');
+  const [showProducts, setShowProducts] = useState(false);
+  const searchTimer = useRef<NodeJS.Timeout | undefined>(undefined);
+  const loaderIconContainer = useRef<HTMLDivElement>(null);
+  const [isPaginating, setIsPaginating] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    const timerId = searchTimer?.current;
+    clearTimeout(timerId);
+    setShowProducts(false);
+
+    dispatch(fetchProducts({ sort: 0, text: '' }));
+
+    const searchTimerId = setTimeout(() => {
+      setShowProducts(true);
+    }, 1200);
+    searchTimer.current = searchTimerId;
   }, [dispatch]);
 
   useEffect(() => {
-    const getCategories = async () => {
-      const response = await fetchCategories();
-      setCategories(response.results);
-    };
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
-    getCategories();
-  }, []);
+  useFetchItemsOnScroll({
+    loaderIconContainer,
+    isPaginating,
+    setIsPaginating,
+    currentSortMethod,
+    searchString,
+    page,
+    setPage,
+  });
+
+  const handleSortProducts = useCallback(
+    (sortMethod: number) => {
+      const timerId = searchTimer?.current;
+      clearTimeout(timerId);
+      setShowProducts(false);
+
+      setCurrentSortMethod(sortMethod);
+      dispatch(fetchProducts({ text: searchString, sort: sortMethod }));
+
+      const searchTimerId = setTimeout(() => {
+        setShowProducts(true);
+      }, 1200);
+      searchTimer.current = searchTimerId;
+    },
+    [dispatch, searchString],
+  );
+
+  const handleFetchByText = useCallback(
+    (event: React.SyntheticEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const timerId = searchTimer?.current;
+      clearTimeout(timerId);
+      setShowProducts(false);
+
+      dispatch(fetchProducts({ sort: currentSortMethod, text: searchString }));
+
+      const searchTimerId = setTimeout(() => {
+        setShowProducts(true);
+      }, 1200);
+      searchTimer.current = searchTimerId;
+    },
+    [currentSortMethod, dispatch, searchString],
+  );
 
   const items: MenuProps['items'] = [
     {
       label: 'Name ↑',
       key: '0',
       onClick: () => {
-        setCurrentSortMethod(0);
-        dispatch(fetchProductsExtra({ text: searchString, sort: 0 }));
+        handleSortProducts(0);
       },
     },
     {
       label: 'Added ↑',
       key: '1',
       onClick: () => {
-        setCurrentSortMethod(1);
-        dispatch(fetchProductsExtra({ text: searchString, sort: 1 }));
+        handleSortProducts(1);
       },
     },
     {
       label: 'Price ↑',
       key: '2',
       onClick: () => {
-        setCurrentSortMethod(2);
-        dispatch(fetchProductsExtra({ text: searchString, sort: 2 }));
+        handleSortProducts(2);
       },
     },
     {
       label: 'Price ↓',
       key: '3',
       onClick: () => {
-        setCurrentSortMethod(3);
-        dispatch(fetchProductsExtra({ text: searchString, sort: 3 }));
+        handleSortProducts(3);
       },
     },
   ];
+
+  const onSearchHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchString(event?.target?.value);
+  };
 
   return (
     <>
       <div className={styles.filterContainer}>
         <div className={styles.filterRow}>
-          <form
-            className={styles.submitSearchForm}
-            onSubmit={(event: React.SyntheticEvent<HTMLFormElement>) => {
-              event.preventDefault();
-              dispatch(
-                fetchProductsExtra({
-                  sort: currentSortMethod,
-                  text: searchString,
-                }),
-              );
-            }}
-          >
+          <form className={styles.submitSearchForm} onSubmit={handleFetchByText}>
             <Input
               labelClassName={styles.searchInput}
               type="text"
@@ -93,15 +141,7 @@ function Products() {
               placeholder="Search"
               error=""
               value={searchString}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setSearchString(event?.target?.value);
-                dispatch(
-                  fetchProductsExtra({
-                    sort: currentSortMethod,
-                    text: event?.target?.value,
-                  }),
-                );
-              }}
+              onChange={onSearchHandle}
               noLabel
             />
             <button className={styles.searchSubmitButton} type="submit">
@@ -117,45 +157,57 @@ function Products() {
             </span>
           </Dropdown>
         </div>
-        <div className={styles.categoriesContainer}>
-          {categories.map((category) => (
-            <span
-              onMouseDown={() => {
-                navigate(`/products/${category.name['en-US']}?id=${category.id}`);
-              }}
-              key={category.id}
-              className={classNames(styles.category)}
-            >
-              {category.name['en-US']}
-            </span>
-          ))}
-        </div>
       </div>
       <div className={styles.productsContainer}>
         <div className={styles.rightColumn}>
           <div className={styles.titleWrapper}>
+            <div className={styles.categoriesContainer}>
+              {categories.map((category) => (
+                <span
+                  onMouseDown={() => {
+                    navigate(`/products/${category.name['en-US']}?id=${category.id}`);
+                  }}
+                  key={category.id}
+                  className={classNames(styles.category)}
+                >
+                  {category.name['en-US']}
+                </span>
+              ))}
+            </div>
             <h1 className={styles.title}>Fresh Flowers</h1>
           </div>
         </div>
         <div className={styles.leftColumn}>
           <ul className={styles.cardContainer}>
-            {products.map((product) => {
-              return (
-                <ProductCard
-                  {...product}
-                  key={product.id}
-                  onMouseDown={() => {
-                    navigate(
-                      `/products/${
-                        categories.find((category) => category.id === product.categories[0]?.id)
-                          ?.name['en-US'] ?? 'no category'
-                      }/${product.name['en-US']}?id=${product.id}`,
-                    );
-                  }}
-                />
-              );
-            })}
-
+            {!showProducts &&
+              new Array(Math.max(products.length, MAX_ITEMS_PER_PAGE)).fill(
+                <ProductCardSkeleton />,
+              )}
+            {showProducts && (
+              <>
+                {products.map((product) => {
+                  return (
+                    <ProductCard
+                      {...product}
+                      key={product.id}
+                      onMouseDown={() => {
+                        navigate(
+                          `/products/${
+                            categories.find((category) => category.id === product.categories[0]?.id)
+                              ?.name['en-US'] ?? 'no category'
+                          }/${product.name['en-US']}?id=${product.id}`,
+                        );
+                      }}
+                    />
+                  );
+                })}
+                {!isLimit && (
+                  <div className={styles.loadingIconContainer} ref={loaderIconContainer}>
+                    <LoadingSpinner size={62} />
+                  </div>
+                )}
+              </>
+            )}
             {products.length === 0 && <h3 className={styles.noMatches}>No matches</h3>}
           </ul>
         </div>

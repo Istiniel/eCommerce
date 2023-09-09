@@ -1,0 +1,88 @@
+.card {
+  flex-basis: 50%;
+
+  @include maxWidthCustom(820px) {
+  }
+
+  @include maxWidthCustom(430px) {
+    flex-basis: 100%;
+  }
+
+  @include onHover() {
+    cursor: pointer;
+
+    & .cardImage {
+      filter: blur(2px) brightness(90%);
+    }
+  }
+
+  user-select: none;
+  & * {
+    user-select: none;
+  }
+}
+
+.cardImageContainer {
+  margin: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+  max-width: 100%;
+  height: 348px;
+
+  @include skeleton-background;
+  background-color: $color-neutral-300;
+  animation: shine 1s infinite linear;
+
+  @include maxWidthCustom(1250px) {
+    height: 300px;
+  }
+
+  @include maxWidthCustom(1080px) {
+    height: 260px;
+  }
+
+  @include maxWidthCustom(910px) {
+    height: 210px;
+  }
+
+  @include maxWidthCustom(820px) {
+    height: 348px;
+  }
+
+  @include maxWidthCustom(620px) {
+    height: 260px;
+  }
+
+  @include maxWidthCustom(520px) {
+    height: 210px;
+  }
+
+  @include maxWidthCustom(430px) {
+    height: 348px;
+  }
+
+  @include maxWidthCustom(320px) {
+    height: 270px;
+  }
+}
+
+.skeletonBar {
+  border-radius: 0.5rem;
+  margin: 1rem;
+  width: auto;
+  height: 38px;
+
+  @include skeleton-background;
+  background-color: $color-neutral-300;
+  animation: shine 1s infinite linear;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100px;
+  }
+  40%,
+  100% {
+    background-position: 350px;
+  }
+}
