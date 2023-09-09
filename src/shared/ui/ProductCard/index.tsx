@@ -1,5 +1,6 @@
 import { Price, ProductProjection } from '@commercetools/platform-sdk';
 import classNames from 'classnames';
+import { BsCart2 } from 'react-icons/bs';
 import styles from './ProductCard.module.scss';
 
 interface Props extends ProductProjection {
@@ -23,10 +24,18 @@ const ProductCard: React.FC<Props> = (productInfo) => {
   const originalPrice = generalPrice.value.centAmount;
   const discountedPrice = generalPrice.discounted?.value.centAmount;
 
+  const addToCard = (event: React.SyntheticEvent) => {
+    event.stopPropagation();
+  }
+
   return (
     <li className={styles.card} onMouseDown={onMouseDown}>
       <div className={styles.cardImageContainer}>
         <img src={images![0].url} alt="rose delight" className={styles.cardImage} />
+        <BsCart2
+          className={styles.cartIcon}
+          onMouseDown={addToCard}
+        />
       </div>
       <h3 className={styles.cardTitle}>{title}</h3>
       <span className={styles.pricesContainer}>
