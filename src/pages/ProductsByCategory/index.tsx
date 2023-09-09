@@ -50,6 +50,8 @@ function ProductsByCategory() {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
+
+      setPage(1)
       dispatch(fetchCategories());
       dispatch(
         fetchProducts({
@@ -82,6 +84,7 @@ function ProductsByCategory() {
       clearTimeout(timerId);
       setShowProducts(false);
 
+      setPage(1)
       dispatch(
         fetchProducts({
           sort: currentSortMethod,
@@ -180,7 +183,10 @@ function ProductsByCategory() {
               {categories.map((existedCategory) => (
                 <span
                   onMouseDown={() => {
-                    navigate(`/products/${existedCategory.name['en-US']}?id=${existedCategory.id}`);
+                    navigate(
+                      `/products/${existedCategory.name['en-US']}?id=${existedCategory.id}`,
+                      { replace: true },
+                    );
                   }}
                   key={existedCategory.id}
                   className={classNames(

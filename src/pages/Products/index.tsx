@@ -37,7 +37,7 @@ function Products() {
     const timerId = searchTimer?.current;
     clearTimeout(timerId);
     setShowProducts(false);
-
+    setPage(1);
     dispatch(fetchProducts({ sort: 0, text: '' }));
 
     const searchTimerId = setTimeout(() => {
@@ -66,6 +66,7 @@ function Products() {
       clearTimeout(timerId);
       setShowProducts(false);
 
+      setPage(1);
       setCurrentSortMethod(sortMethod);
       dispatch(fetchProducts({ text: searchString, sort: sortMethod }));
 
@@ -83,7 +84,7 @@ function Products() {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
-
+      setPage(1);
       dispatch(fetchProducts({ sort: currentSortMethod, text: searchString }));
 
       const searchTimerId = setTimeout(() => {
