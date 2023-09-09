@@ -17,6 +17,7 @@ import { MAX_ITEMS_PER_PAGE } from '../../shared/static/MAX_ITEMS_PER_PAGE';
 import useFetchItemsOnScroll from '../Products/useFetchItemsOnScroll';
 import LoadingSpinner from '../../shared/ui/LoadingSpinner';
 import { fetchProducts } from '../../app/redux/asyncThunks/fetchProducts';
+import { fetchCategories } from '../../app/redux/asyncThunks/fetchCategories';
 
 function ProductsByCategory() {
   const navigate = useNavigate();
@@ -45,15 +46,14 @@ function ProductsByCategory() {
   }, [categories, category, searchParams]);
 
   useEffect(() => {
-    const checkIfCategoryExists = async () => {
+    const fetchProductsIfCategoryExists = async () => {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
-
+      dispatch(fetchCategories());
       dispatch(
         fetchProducts({
-          sort: 0,
-          text: '',
+          sort: currentSortMethod,
           categoryId,
         }),
       );
@@ -65,30 +65,14 @@ function ProductsByCategory() {
       searchTimer.current = searchTimerId;
     };
 
-    checkIfCategoryExists();
-  }, [categoryId, dispatch]);
+    fetchProductsIfCategoryExists();
+  }, [categoryId, currentSortMethod, dispatch]);
 
   const handleSortProducts = useCallback(
     (sortMethod: number) => {
-      const timerId = searchTimer?.current;
-      clearTimeout(timerId);
-      setShowProducts(false);
-
       setCurrentSortMethod(sortMethod);
-      dispatch(
-        fetchProducts({
-          text: searchString,
-          sort: sortMethod,
-          categoryId,
-        }),
-      );
-
-      const searchTimerId = setTimeout(() => {
-        setShowProducts(true);
-      }, 1200);
-      searchTimer.current = searchTimerId;
     },
-    [categoryId, dispatch, searchString],
+    [setCurrentSortMethod],
   );
 
   const handleFetchByText = useCallback(
