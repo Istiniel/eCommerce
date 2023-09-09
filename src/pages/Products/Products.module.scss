@@ -61,8 +61,16 @@
 }
 
 .categoriesContainer {
+  width: 100%;
+  background: rgba(black, 0.4);
+  padding: 2rem 1rem;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+
   display: flex;
-  column-gap: 2rem;
+  justify-content: space-around;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
@@ -83,10 +91,10 @@
 }
 
 .titleWrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80px;
   height: 668px;
   background-image: url(../../app/assets/images/flowers-bg4.jpeg);
   background-repeat: no-repeat;
@@ -114,6 +122,8 @@
 }
 
 .title {
+  display: block;
+  width: 100%;
   @include font-style('Gilroy', $font-size-large, $color-neutral-000, $font-weight-medium);
   line-height: 120%;
   text-align: center;
@@ -137,6 +147,7 @@
 }
 
 .category {
+  color: $color-neutral-000;
   transition: $fast-transition;
 
   @include onHover() {
@@ -165,4 +176,12 @@
   @include font-style('Gilroy', $font-size-large, $color-neutral-1000, $font-weight-medium);
   line-height: 120%;
   text-align: center;
+}
+
+.loadingIconContainer {
+  padding: 3rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

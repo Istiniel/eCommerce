@@ -47,7 +47,7 @@ export const fetchProductInfo = async (ID: string) => {
   return response;
 };
 
-export const fetchCategories = async () => {
+export const fetchCategoriesInfo = async () => {
   const response = await apiRoot.categories().get().execute()
   return response.body;
 };
@@ -56,13 +56,15 @@ export interface FetchProductsInfo {
   categoryId?: string,
   sort?: number,
   text?: string
+  offset?: number
 }
 
-export const fetchProductsInfoExtra = async ({ categoryId, sort, text }: FetchProductsInfo) => {
+export const fetchProductsInfoExtra = async ({ categoryId, sort, text, offset = 0 }: FetchProductsInfo) => {
   const response = await apiRoot.productProjections().search().get({
     queryArgs: {
       fuzzy: !!text,
-      limit: 100,
+      limit: 6,
+      offset,
       "filter.query": [categoryId ? `categories.id:subtree("${categoryId}")` : ''],
       sort: [sort ? `${getSortMethodByKey(sort).code}` : ''],
       'text.en-US': text
