@@ -67,7 +67,7 @@ export const fetchProductsInfoExtra = async ({ categoryId, sort, text, offset = 
       offset,
       "filter.query": [categoryId ? `categories.id:subtree("${categoryId}")` : ''],
       sort: [sort ? `${getSortMethodByKey(sort).code}` : ''],
-      'text.en-US': text
+      ...(text ? {'text.en-US': text} : {})
     }
   }).execute()
   return response;
