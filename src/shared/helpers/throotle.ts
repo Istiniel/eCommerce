@@ -4,7 +4,6 @@ export function throttle(func: Function, timeout: number) {
 
   let timer: NodeJS.Timeout | null;
 
-
   return function perform() {
     if (timer) return
 
