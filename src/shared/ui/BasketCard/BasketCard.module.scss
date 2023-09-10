@@ -1,0 +1,30 @@
+.card {
+  // width: 100%;
+  display: flex;
+  column-gap: 1.6rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid #d2d2d7;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 100%;
+}
+
+.cardImageContainer {
+  max-width: 180px;
+  object-fit: cover;
+  border: 1px solid $color-neutral-1000;
+}
+
+.title,
+.price {
+  @include font-style($font-sans, 18px, $color-neutral-900, $font-weight-partly-medium);
+  line-height: 130%;
+}
+
+.quantity {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-normal);
+}
