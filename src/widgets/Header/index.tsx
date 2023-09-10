@@ -17,7 +17,7 @@ const Header = () => {
         <div className={styles.container}>
           <div className={styles.leftContainer}>
             <NavLink href="/" content="Home" />
-            <NavLink href="/#contacts" content="Contacts" />
+            <NavLink href="/products" content="Shop" />
             <NavLink href="/about" content="About us" />
           </div>
           <div className={styles.rightContainer}>
@@ -31,7 +31,7 @@ const Header = () => {
                 content="Sign out"
               />
             )}
-            <NavLink href="/products" content="Shop" />
+
             {customer && <NavLink href="/profile" content="Profile" />}
             <NavLink href="/basket" content="Basket" />
           </div>
