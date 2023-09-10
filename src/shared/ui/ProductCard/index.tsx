@@ -29,7 +29,7 @@ const ProductCard: React.FC<Props> = (productInfo) => {
   };
 
   return (
-    <li className={styles.card} onMouseDown={onMouseDown}>
+    <div className={styles.card} onMouseDown={onMouseDown}>
       <div className={styles.cardImageContainer}>
         <img src={images![0].url} alt="rose delight" className={styles.cardImage} />
         <div className={styles.cartIconContainer}>
@@ -55,7 +55,7 @@ const ProductCard: React.FC<Props> = (productInfo) => {
         )}
       </span>
       <p className={styles.cardDescription}>{productDescription}</p>
-    </li>
+    </div>
   );
 };
 

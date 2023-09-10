@@ -30,19 +30,18 @@ function Products() {
   const [showProducts, setShowProducts] = useState(false);
   const searchTimer = useRef<NodeJS.Timeout | undefined>(undefined);
   const loaderIconContainer = useRef<HTMLDivElement>(null);
-  const [isPaginating, setIsPaginating] = useState(false);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     const timerId = searchTimer?.current;
     clearTimeout(timerId);
     setShowProducts(false);
-
+    setPage(1);
     dispatch(fetchProducts({ sort: 0, text: '' }));
 
     const searchTimerId = setTimeout(() => {
       setShowProducts(true);
-    }, 1200);
+    }, 850);
     searchTimer.current = searchTimerId;
   }, [dispatch]);
 
@@ -52,8 +51,6 @@ function Products() {
 
   useFetchItemsOnScroll({
     loaderIconContainer,
-    isPaginating,
-    setIsPaginating,
     currentSortMethod,
     searchString,
     page,
@@ -66,6 +63,7 @@ function Products() {
       clearTimeout(timerId);
       setShowProducts(false);
 
+      setPage(1);
       setCurrentSortMethod(sortMethod);
       dispatch(fetchProducts({ text: searchString, sort: sortMethod }));
 
@@ -83,7 +81,7 @@ function Products() {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
-
+      setPage(1);
       dispatch(fetchProducts({ sort: currentSortMethod, text: searchString }));
 
       const searchTimerId = setTimeout(() => {
@@ -159,7 +157,7 @@ function Products() {
         </div>
       </div>
       <div className={styles.productsContainer}>
-        <div className={styles.rightColumn}>
+        <div className={styles.leftColumn}>
           <div className={styles.titleWrapper}>
             <div className={styles.categoriesContainer}>
               {categories.map((category) => (
@@ -177,39 +175,39 @@ function Products() {
             <h1 className={styles.title}>Fresh Flowers</h1>
           </div>
         </div>
-        <div className={styles.leftColumn}>
-          <ul className={styles.cardContainer}>
-            {!showProducts &&
-              new Array(Math.max(products.length, MAX_ITEMS_PER_PAGE)).fill(
-                <ProductCardSkeleton />,
+        <div className={styles.rightColumn}>
+          {!showProducts &&
+            new Array(Math.max(products.length, MAX_ITEMS_PER_PAGE))
+              .fill(undefined)
+              .map((_, index) => {
+                return <ProductCardSkeleton key={index} />;
+              })}
+          {showProducts && (
+            <>
+              {products.map((product) => {
+                return (
+                  <ProductCard
+                    {...product}
+                    key={`${product.id}-${product.name['en-US']}`}
+                    onMouseDown={() => {
+                      navigate(
+                        `/products/${
+                          categories.find((category) => category.id === product.categories[0]?.id)
+                            ?.name['en-US'] ?? 'no category'
+                        }/${product.name['en-US']}?id=${product.id}`,
+                      );
+                    }}
+                  />
+                );
+              })}
+              {!isLimit && (
+                <div className={styles.loadingIconContainer} ref={loaderIconContainer}>
+                  <LoadingSpinner size={62} />
+                </div>
               )}
-            {showProducts && (
-              <>
-                {products.map((product) => {
-                  return (
-                    <ProductCard
-                      {...product}
-                      key={product.id}
-                      onMouseDown={() => {
-                        navigate(
-                          `/products/${
-                            categories.find((category) => category.id === product.categories[0]?.id)
-                              ?.name['en-US'] ?? 'no category'
-                          }/${product.name['en-US']}?id=${product.id}`,
-                        );
-                      }}
-                    />
-                  );
-                })}
-                {!isLimit && (
-                  <div className={styles.loadingIconContainer} ref={loaderIconContainer}>
-                    <LoadingSpinner size={62} />
-                  </div>
-                )}
-              </>
-            )}
-            {products.length === 0 && <h3 className={styles.noMatches}>No matches</h3>}
-          </ul>
+            </>
+          )}
+          {products.length === 0 && <h3 className={styles.noMatches}>No matches</h3>}
         </div>
       </div>
     </>

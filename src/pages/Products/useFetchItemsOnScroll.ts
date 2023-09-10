@@ -7,15 +7,13 @@ import { MAX_ITEMS_PER_PAGE } from "../../shared/static/MAX_ITEMS_PER_PAGE";
 
 type Props = {
   loaderIconContainer: RefObject<HTMLDivElement>,
-  isPaginating: boolean,
-  setIsPaginating: Dispatch<SetStateAction<boolean>>,
   currentSortMethod: number,
   searchString: string, page: number,
   setPage: Dispatch<SetStateAction<number>>,
   categoryId?: string
 }
 
-const useFetchItemsOnScroll = ({ loaderIconContainer, isPaginating, setIsPaginating, currentSortMethod, searchString, page, setPage, categoryId }: Props) => {
+const useFetchItemsOnScroll = ({ loaderIconContainer, currentSortMethod, searchString, page, setPage, categoryId }: Props) => {
   const dispatch = useAppDispatch();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,26 +24,19 @@ const useFetchItemsOnScroll = ({ loaderIconContainer, isPaginating, setIsPaginat
 
       if (boundingRect) {
         if (boundingRect.bottom < document.documentElement.clientHeight) {
-          if (!isPaginating) {
-            setIsPaginating(true);
-            setTimeout(() => {
-              dispatch(
-                fetchProductsExtra({
-                  sort: currentSortMethod,
-                  text: searchString,
-                  offset: page * MAX_ITEMS_PER_PAGE,
-                  categoryId
-                }),
-              );
-
-              setPage((prevPage) => prevPage + 1);
-              setIsPaginating(false);
-            }, 1000);
-          }
+          dispatch(
+            fetchProductsExtra({
+              sort: currentSortMethod,
+              text: searchString,
+              offset: page * MAX_ITEMS_PER_PAGE,
+              categoryId
+            }),
+          );
+          setPage((prevPage) => prevPage + 1);
         }
       }
-    }, 2000),
-    [currentSortMethod, dispatch, isPaginating, page, searchString],
+    }, 1500),
+    [loaderIconContainer, dispatch, currentSortMethod, searchString, page, categoryId, setPage],
   );
 
   useEffect(() => {

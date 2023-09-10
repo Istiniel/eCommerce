@@ -32,7 +32,6 @@ function ProductsByCategory() {
   const [showProducts, setShowProducts] = useState(false);
   const searchTimer = useRef<NodeJS.Timeout | undefined>(undefined);
   const loaderIconContainer = useRef<HTMLDivElement>(null);
-  const [isPaginating, setIsPaginating] = useState(false);
   const [page, setPage] = useState(1);
 
   const categoryId = useMemo(() => {
@@ -50,6 +49,8 @@ function ProductsByCategory() {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
+
+      setPage(1);
       dispatch(fetchCategories());
       dispatch(
         fetchProducts({
@@ -81,7 +82,7 @@ function ProductsByCategory() {
       const timerId = searchTimer?.current;
       clearTimeout(timerId);
       setShowProducts(false);
-
+      setPage(1);
       dispatch(
         fetchProducts({
           sort: currentSortMethod,
@@ -92,7 +93,7 @@ function ProductsByCategory() {
 
       const searchTimerId = setTimeout(() => {
         setShowProducts(true);
-      }, 1200);
+      }, 850);
       searchTimer.current = searchTimerId;
     },
     [categoryId, currentSortMethod, dispatch, searchString],
@@ -135,8 +136,6 @@ function ProductsByCategory() {
 
   useFetchItemsOnScroll({
     loaderIconContainer,
-    isPaginating,
-    setIsPaginating,
     currentSortMethod,
     searchString,
     page,
@@ -174,13 +173,16 @@ function ProductsByCategory() {
         </div>
       </div>
       <div className={styles.productsContainer}>
-        <div className={styles.rightColumn}>
+        <div className={styles.leftColumn}>
           <div className={styles.titleWrapper}>
             <div className={styles.categoriesContainer}>
               {categories.map((existedCategory) => (
                 <span
                   onMouseDown={() => {
-                    navigate(`/products/${existedCategory.name['en-US']}?id=${existedCategory.id}`);
+                    navigate(
+                      `/products/${existedCategory.name['en-US']}?id=${existedCategory.id}`,
+                      { replace: true },
+                    );
                   }}
                   key={existedCategory.id}
                   className={classNames(
@@ -195,34 +197,34 @@ function ProductsByCategory() {
             <h1 className={styles.title}>{category}</h1>
           </div>
         </div>
-        <div className={styles.leftColumn}>
-          <ul className={styles.cardContainer}>
-            {!showProducts &&
-              new Array(Math.max(products.length, MAX_ITEMS_PER_PAGE)).fill(
-                <ProductCardSkeleton />,
+        <div className={styles.rightColumn}>
+          {!showProducts &&
+            new Array(Math.max(products.length, MAX_ITEMS_PER_PAGE))
+              .fill(undefined)
+              .map((_, index) => {
+                return <ProductCardSkeleton key={index} />;
+              })}
+          {showProducts && (
+            <>
+              {products.map((product) => {
+                return (
+                  <ProductCard
+                    {...product}
+                    key={`${product.id}-${product.name['en-US']}`}
+                    onMouseDown={() => {
+                      navigate(`/products/${category}/${product.name['en-US']}?id=${product.id}`);
+                    }}
+                  />
+                );
+              })}
+              {!isLimit && (
+                <div className={styles.loadingIconContainer} ref={loaderIconContainer}>
+                  <LoadingSpinner size={62} />
+                </div>
               )}
-            {showProducts && (
-              <>
-                {products.map((product) => {
-                  return (
-                    <ProductCard
-                      {...product}
-                      key={product.id}
-                      onMouseDown={() => {
-                        navigate(`/products/${category}/${product.name['en-US']}?id=${product.id}`);
-                      }}
-                    />
-                  );
-                })}
-                {!isLimit && (
-                  <div className={styles.loadingIconContainer} ref={loaderIconContainer}>
-                    <LoadingSpinner size={62} />
-                  </div>
-                )}
-              </>
-            )}
-            {products.length === 0 && <h3 className={styles.noMatches}>No matches</h3>}
-          </ul>
+            </>
+          )}
+          {products.length === 0 && <h3 className={styles.noMatches}>No matches</h3>}
         </div>
       </div>
     </>
