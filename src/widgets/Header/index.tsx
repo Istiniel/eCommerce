@@ -33,6 +33,7 @@ const Header = () => {
             )}
             <NavLink href="/products" content="Shop" />
             {customer && <NavLink href="/profile" content="Profile" />}
+            <NavLink href="/basket" content="Basket" />
           </div>
         </div>
       </Wrapper>
