@@ -29,7 +29,9 @@ const Basket = () => {
                 onChange={() => {}}
                 noLabel
               />
-              <Button buttonType="solid">Apply</Button>
+              <Button buttonType="solid" className={styles.promoSubmitButton}>
+                Apply
+              </Button>
             </form>
           </div>
           <div className={styles.subTotalContainer}>
@@ -40,7 +42,9 @@ const Basket = () => {
             <span>Total</span>
             <span>100$</span>
           </div>
-          <Button buttonType="outlined">Checkout</Button>
+          <Button buttonType="outlined" className={styles.checkoutButton}>
+            Checkout
+          </Button>
         </div>
       </div>
     </section>
