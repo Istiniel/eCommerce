@@ -12,6 +12,10 @@
     border-bottom: 1px solid #d2d2d7;
   }
 
+  @include maxWidthCustom(820px) {
+    border-bottom: 1px solid #d2d2d7;
+  }
+
   @include maxWidthCustom(530px) {
     flex-direction: column-reverse;
     gap: 2rem;
@@ -24,6 +28,7 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-basis: 100%;
+  gap: 1rem;
 }
 
 .cardImageContainer {
@@ -42,15 +47,31 @@
   @include maxWidthCustom(1084px) {
     flex-direction: column;
   }
+
+  @include maxWidthCustom(530px) {
+    flex-direction: row;
+  }
+
+  @include maxWidth(xSmall) {
+    flex-direction: column;
+  }
 }
 
 .title {
   @include font-style($font-sans, 36px, $color-neutral-900, $font-weight-partly-medium);
   line-height: 110%;
+
+  @include maxWidth(xSmall) {
+    font-size: 32px;
+  }
 }
 .price {
-  @include font-style($font-sans, 42px, $color-neutral-900, $font-weight-medium);
+  @include font-style($font-sans, 40px, $color-neutral-900, $font-weight-medium);
   line-height: 110%;
+
+  @include maxWidth(xSmall) {
+    font-size: 36px;
+  }
 }
 
 .title {
@@ -62,7 +83,7 @@
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
-  gap: 1.5rem;
+  gap: 2rem;
 
   @include maxWidthCustom(530px) {
     justify-content: unset;
@@ -81,10 +102,6 @@
 }
 
 .deleteIcon {
-  // position: absolute;
-  //right: 1rem;
-  //top: 50%;
-  //transform: translateY(-50%);
   color: $color-neutral-500;
   width: 4rem;
   height: 4rem;
