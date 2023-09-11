@@ -33,6 +33,9 @@ const Summary = () => {
       <Button buttonType="outlined" className={styles.checkoutButton}>
         Checkout
       </Button>
+      <Button buttonType="solid" className={styles.checkoutButton}>
+        Clear
+      </Button>
     </div>
   );
 };

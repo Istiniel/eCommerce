@@ -28,6 +28,7 @@
 .leftColumn,
 .rightColumn {
   padding: 4rem;
+  padding-top: 2rem;
   @include maxWidthCustom(1014px) {
     padding-left: 28px;
   }
@@ -35,6 +36,12 @@
   @include maxWidthCustom(430px) {
     padding-left: 16px;
   }
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {

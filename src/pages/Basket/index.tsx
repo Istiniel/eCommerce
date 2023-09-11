@@ -1,5 +1,5 @@
 import styles from './Basket.module.scss';
-import BasketCard from '../../shared/ui/BasketCard';
+import BasketCard from './ui/BasketCard';
 import Summary from './ui/Summary';
 
 const Basket = () => {
