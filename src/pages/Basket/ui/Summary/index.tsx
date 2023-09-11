@@ -23,11 +23,11 @@ const Summary = () => {
         </form>
       </div>
       <div className={styles.subTotalContainer}>
-        <span>Subtotal</span>
+        <span>Subtotal:</span>
         <span>100$</span>
       </div>
       <div className={styles.totalContainer}>
-        <span>Total</span>
+        <span>Total:</span>
         <span>100$</span>
       </div>
       <Button buttonType="outlined" className={styles.checkoutButton}>
