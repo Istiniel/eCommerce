@@ -58,7 +58,12 @@
 }
 
 .title {
-  @include font-style($font-sans, 36px, $color-neutral-900, $font-weight-partly-medium);
+  @include font-style(
+    $font-sans,
+    $font-size-heading-mobile,
+    $color-neutral-900,
+    $font-weight-partly-medium
+  );
   line-height: 110%;
 
   @include maxWidth(xSmall) {
