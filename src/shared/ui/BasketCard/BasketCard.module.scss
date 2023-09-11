@@ -3,7 +3,10 @@
   display: flex;
   column-gap: 1.6rem;
   padding-bottom: 2.4rem;
-  border-bottom: 1px solid #d2d2d7;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #d2d2d7;
+  }
 }
 
 .infoRow {
