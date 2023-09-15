@@ -60,7 +60,7 @@
 .title {
   @include font-style(
     $font-sans,
-    $font-size-heading-mobile,
+    30px,
     $color-neutral-900,
     $font-weight-partly-medium
   );
@@ -71,12 +71,8 @@
   }
 }
 .price {
-  @include font-style($font-sans, 40px, $color-neutral-900, $font-weight-medium);
+  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
   line-height: 110%;
-
-  @include maxWidth(xSmall) {
-    font-size: 36px;
-  }
 }
 
 .title {
