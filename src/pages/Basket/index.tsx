@@ -42,7 +42,9 @@ const Basket = () => {
             {!loadingThreshold && !cartItems?.length && (
               <>
                 <h3 className={styles.emptyBasket}>Pick pretty flowers</h3>
-                <LinkButton href="/products">back to shop</LinkButton>
+                <div className={styles.backButtonConatiner}>
+                  <LinkButton href="/products">back to shop</LinkButton>
+                </div>
               </>
             )}
             {loadingThreshold && <LoadingSpinner size={75} />}

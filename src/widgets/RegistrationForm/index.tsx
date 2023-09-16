@@ -264,9 +264,22 @@ const RegistrationForm = () => {
           required: 'emptyInput',
           validate: {
             birthDate: (value) => {
-              const date = new Date(String(value));
+              /* const date = new Date(String(value));
               const age = new Date().getFullYear() - date.getFullYear();
               return age >= 13 ? true : 'ageValidation';
+              */
+              const birthDate = new Date(String(value));
+              const currentDate = new Date();
+
+              const yearsDiff = currentDate.getFullYear() - birthDate.getFullYear();
+              const monthsDiff = currentDate.getMonth() - birthDate.getMonth();
+              const daysDiff = currentDate.getDate() - birthDate.getDate();
+
+              // Если месяц и день рождения еще не наступили в этом году
+              if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+                return yearsDiff - 1 >= 13 ? true : 'ageValidation';
+              }
+              return yearsDiff >= 13 ? true : 'ageValidation';
             },
           },
         }}
