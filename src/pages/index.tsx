@@ -17,6 +17,7 @@ import ProductsByCategory from './ProductsByCategory';
 import Basket from './Basket';
 
 export function getRoutes() {
+
   return (
     <>
       <Route path="/" element={<SharedLayout />}>

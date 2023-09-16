@@ -79,3 +79,8 @@
   flex-direction: column;
   row-gap: 2.4rem;
 }
+
+.emptyBasket {
+  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
+  line-height: 110%;
+}

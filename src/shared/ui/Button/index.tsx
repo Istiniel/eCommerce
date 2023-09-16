@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 
 interface Props {
   children: React.ReactNode;
-  onClick?: VoidFunction;
+  onClick?: (e?: React.SyntheticEvent) => void;
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   buttonType?: 'solid' | 'outlined';
   className?: string
