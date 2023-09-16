@@ -86,7 +86,7 @@
 }
 
 .emptyBasket {
-  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
+  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-normal);
   line-height: 110%;
 }
 
