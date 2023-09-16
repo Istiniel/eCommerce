@@ -20,15 +20,6 @@
   @include font-style($font-sans, $font-size-medium, $color-neutral-000, $font-weight-medium);
   line-height: 120%;
 
-  @include maxWidthCustom(1164px) {
-  }
-
-  @include maxWidthCustom(1084px) {
-  }
-
-  @include maxWidthCustom(920px) {
-  }
-
   @include maxWidthCustom(820px) {
     flex-basis: 100%;
   }
