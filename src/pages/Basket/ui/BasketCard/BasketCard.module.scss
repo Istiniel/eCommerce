@@ -29,15 +29,27 @@
   align-items: flex-start;
   flex-basis: 100%;
   gap: 1rem;
+
+  @include maxWidthCustom(530px) {
+    gap: 3rem;
+  }
 }
 
 .cardImageContainer {
-  max-height: 220px;
-  min-height: 200px;
-  min-width: 220px;
-  width: 220px;
+  max-width: 220px;
+  width: 100%;
+  height: 220px;
   border: 1px solid $color-neutral-1000;
-  overflow: hidden;
+
+  @include maxWidthCustom(530px) {
+    max-width: 100%;
+    height: 430px;
+  }
+
+  @include maxWidth(xSmall) {
+    max-width: 100%;
+    height: 300px;
+  }
 }
 
 .productImage {
@@ -46,14 +58,13 @@
   object-fit: cover;
 }
 
-.titleContainer {
+.infoTopContainer {
   display: flex;
   width: 100%;
   gap: 1rem;
   justify-content: space-between;
 
   @include maxWidthCustom(1084px) {
-    flex-direction: column;
   }
 
   @include maxWidthCustom(530px) {
@@ -61,33 +72,70 @@
   }
 
   @include maxWidth(xSmall) {
-    flex-direction: column;
+    //flex-direction: column;
+    gap: 2rem;
   }
 }
 
-.title {
-  @include font-style(
-    $font-sans,
-    30px,
-    $color-neutral-900,
-    $font-weight-partly-medium
-  );
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title,
+.cardTotalPrice {
+  @include font-style($font-sans, 28px, $color-neutral-900, $font-weight-partly-medium);
   line-height: 110%;
+
+  @include maxWidthCustom(1084px) {
+    font-size: 24px;
+  }
+
+  @include maxWidthCustom(820px) {
+    font-size: 26px;
+  }
+
+  @include maxWidthCustom(620px) {
+    font-size: 24px;
+  }
 
   @include maxWidth(xSmall) {
-    font-size: 32px;
+    font-size: 24px;
   }
 }
-.price {
-  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
-  line-height: 110%;
+
+.cardTotalPrice {
+  font-weight: $font-weight-medium;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 1rem;
+  @include font-style($font-sans, 22px, $color-neutral-900, $font-weight-medium);
+
+  @include maxWidth(xSmall) {
+    font-size: 18px;
+  }
+}
+
+.originalPrice {
+  &.withDiscount {
+    font-size: 16px;
+    text-decoration: line-through;
+    font-weight: $font-weight-normal;
+  }
+}
+
+.discountedPrice {
+  color: $color-accent-600;
 }
 
 .title {
   display: inline-block;
 }
 
-.priceContainer {
+.infoBotoomContainer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -95,7 +143,7 @@
   gap: 2rem;
 
   @include maxWidthCustom(530px) {
-    justify-content: unset;
+    //justify-content: unset;
   }
 }
 
