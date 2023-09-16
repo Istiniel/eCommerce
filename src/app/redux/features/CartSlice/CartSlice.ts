@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Cart } from '@commercetools/platform-sdk';
+import { Cart, DiscountCode, Price } from '@commercetools/platform-sdk';
 import type { RootState } from '../../store';
 import { createCart } from '../../asyncThunks/createCart';
 import { updateCart } from '../../asyncThunks/updateCart';
 import { deleteCart } from '../../asyncThunks/deleteCart';
+import { fetchDiscountCodes } from '../../asyncThunks/fetchDiscountCodes';
 
 type CartState = {
   cart: Cart | null;
@@ -12,7 +13,8 @@ type CartState = {
   totalPrice: number;
   error: string | undefined;
   isLimit: boolean;
-  activeLineItem: string
+  activeLineItem: string;
+  discountCodes: DiscountCode[]
 };
 
 const initialState: CartState = {
@@ -22,7 +24,8 @@ const initialState: CartState = {
   totalPrice: 0,
   error: undefined,
   isLimit: false,
-  activeLineItem: ''
+  activeLineItem: '',
+  discountCodes: []
 };
 
 export const cartSlice = createSlice({
@@ -43,6 +46,18 @@ export const cartSlice = createSlice({
 
         state.cart = cart;
         state.totalPrice = cart.totalPrice.centAmount / 100;
+        state.subtotalPrice = cart.lineItems.reduce((acc, item) => {
+          const {
+            variant: { prices },
+            quantity,
+          } = item;
+
+          const [generalPrice] = prices as Price[];
+          const originalPrice = generalPrice.value.centAmount;
+          const discountedPrice = generalPrice.discounted?.value.centAmount;
+          const priceInDollars = (discountedPrice || originalPrice) / 100;
+          return acc + priceInDollars * quantity
+        }, 0);
         state.status = 'idle';
         state.error = undefined;
       })
@@ -59,6 +74,18 @@ export const cartSlice = createSlice({
         state.cart = cart;
         if (cart) {
           state.totalPrice = cart.totalPrice.centAmount / 100;
+          state.subtotalPrice = cart.lineItems.reduce((acc, item) => {
+            const {
+              variant: { prices },
+              quantity,
+            } = item;
+
+            const [generalPrice] = prices as Price[];
+            const originalPrice = generalPrice.value.centAmount;
+            const discountedPrice = generalPrice.discounted?.value.centAmount;
+            const priceInDollars = (discountedPrice || originalPrice) / 100;
+            return acc + priceInDollars * quantity
+          }, 0);
         }
         state.status = 'idle';
         state.error = undefined;
@@ -81,6 +108,19 @@ export const cartSlice = createSlice({
         state.status = 'error';
         state.error = action.error.message;
       })
+      .addCase(fetchDiscountCodes.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchDiscountCodes.fulfilled, (state, action) => {
+        const { payload: discounts } = action;
+        state.discountCodes = discounts
+        state.status = 'idle';
+        state.error = undefined;
+      })
+      .addCase(fetchDiscountCodes.rejected, (state, action) => {
+        state.status = 'error';
+        state.error = action.error.message;
+      })
   },
 });
 
@@ -93,7 +133,9 @@ export const selectLineItems = (state: RootState) => state.cartSlice.cart?.lineI
 export const selectAcativeLineItem = (state: RootState) => state.cartSlice.activeLineItem;
 export const selectIsItemInCart = (state: RootState, id: string) => {
   return state.cartSlice.cart?.lineItems.some(({ productId }) => productId === id)
-}
+};
 export const selectCartItem = (state: RootState, id: string) => {
   return state.cartSlice.cart?.lineItems.find(({ productId }) => productId === id)
-}
+};
+export const selectDiscounts = (state: RootState) => state.cartSlice.discountCodes;
+export const selectError = (state: RootState) => state.cartSlice.error;

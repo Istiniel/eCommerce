@@ -6,6 +6,7 @@ import NavLink from '../../shared/ui/NavLink';
 import Wrapper from '../../shared/ui/Wrapper';
 import styles from './Header.module.scss';
 import { loginCustomer } from '../../app/redux/asyncThunks/loginCustomer';
+import { deleteCart } from '../../app/redux/asyncThunks/deleteCart';
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ const Header = () => {
               <NavButton
                 callback={async () => {
                   await dispatch(loginCustomer(null));
+                  await dispatch(deleteCart());
                   navigate('/signin', { replace: true });
                 }}
                 content="Sign out"

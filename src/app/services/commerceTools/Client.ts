@@ -98,3 +98,8 @@ export const deleteCartSubject = async (ID: string, version: number) => {
   const response = await apiRoot.carts().withId({ ID }).delete({ queryArgs: { version } }).execute()
   return response.body;
 }
+
+export const getDiscountCodes = async () => {
+  const response = await apiRoot.discountCodes().get().execute()
+  return response.body;
+}

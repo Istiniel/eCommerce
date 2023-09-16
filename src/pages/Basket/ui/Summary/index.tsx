@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
   selectSubtotalPrice,
   selectTotalPrice,
@@ -8,15 +8,33 @@ import Button from '../../../../shared/ui/Button';
 import { Input } from '../../../../shared/ui/Input';
 import styles from './Summary.module.scss';
 import { deleteCart } from '../../../../app/redux/asyncThunks/deleteCart';
+import { updateCart } from '../../../../app/redux/asyncThunks/updateCart';
+import { showFailureMessage } from '../../../../shared/helpers/showFailureMessage';
 
 const Summary = () => {
   const totalPrice = useAppSelector(selectTotalPrice);
   const subtotalPrice = useAppSelector(selectSubtotalPrice);
+  const [promoValue, setPromoValue] = useState('');
   const dispatch = useAppDispatch();
 
   const handleDeleteCart = useCallback(() => {
     dispatch(deleteCart());
   }, [dispatch]);
+
+  const applyPromoCode = useCallback(async () => {
+    const updateCartBody = {
+      action: 'addDiscountCode',
+      code: promoValue,
+    } as const;
+
+    const result = await dispatch(updateCart({ actions: [updateCartBody] }));
+
+    if (result.meta.requestStatus === 'rejected') {
+      if ('error' in result) {
+        showFailureMessage(result?.error?.message);
+      }
+    }
+  }, [dispatch, promoValue]);
 
   return (
     <div className={styles.orderSummaryContainer}>
@@ -28,11 +46,13 @@ const Summary = () => {
             name="searchFilter"
             placeholder="Promo code"
             error=""
-            value=""
-            onChange={() => {}}
+            value={promoValue}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setPromoValue(event.target.value);
+            }}
             noLabel
           />
-          <Button buttonType="solid" className={styles.promoSubmitButton}>
+          <Button buttonType="solid" className={styles.promoSubmitButton} onClick={applyPromoCode}>
             Apply
           </Button>
         </form>
