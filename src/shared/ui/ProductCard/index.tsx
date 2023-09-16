@@ -37,7 +37,6 @@ const ProductCard: React.FC<Props> = (productInfo) => {
     return selectIsItemInCart(state, id);
   });
 
-
   let productDescription = '';
   if (description) {
     productDescription = description['en-US'];
@@ -96,9 +95,9 @@ const ProductCard: React.FC<Props> = (productInfo) => {
           {originalPrice / 100}$
         </p>
         {discountedPrice && (
-          <p className={classNames(styles.cardPrice, styles.discountedPrice)}>{`(${
+          <p className={classNames(styles.cardPrice, styles.discountedPrice)}>{`${
             discountedPrice / 100
-          }$)`}</p>
+          }$`}</p>
         )}
       </span>
       <p className={styles.cardDescription}>{productDescription}</p>

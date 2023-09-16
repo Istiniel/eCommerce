@@ -31,7 +31,7 @@ const Product = () => {
   const isItemInCart = useAppSelector((state) =>
     selectIsItemInCart(state, searchParams.get('id') || ''),
   );
-  const [productCount, setProductCount] = useState(1)
+  const [productCount, setProductCount] = useState(1);
 
   useEffect(() => {
     dispatch(fetchProduct(searchParams.get('id')!));
@@ -62,7 +62,7 @@ const Product = () => {
     const requestBody = {
       action: 'addLineItem',
       productId: id,
-      quantity: productCount
+      quantity: productCount,
     } as const;
 
     if (!cart) {
@@ -115,9 +115,9 @@ const Product = () => {
               {`${originalPrice / 100}$`}
             </p>
             {discountedPrice && (
-              <p className={classNames(styles.cardPrice, styles.discountedPrice)}>{`(${
+              <p className={classNames(styles.cardPrice, styles.discountedPrice)}>{`${
                 discountedPrice / 100
-              })$`}</p>
+              }$`}</p>
             )}
           </span>
         </h1>
