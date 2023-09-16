@@ -2,43 +2,65 @@
   @extend %flexwrap;
 }
 
-.promoCodes {
-  background-color: $color-neutral-700;
-  padding: 1rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  width: 100%;
+.sectionPromo {
   border-top: 1px solid $color-neutral-1000;
-
+  justify-content: end;
+}
+.promoCodes {
   display: flex;
+  flex-wrap: wrap;
+  flex-basis: 50%;
   justify-content: flex-end;
   align-items: center;
   gap: 2rem;
 
+  background-color: $color-neutral-900;
+  padding: 1rem 4rem;
+
   @include font-style($font-sans, $font-size-medium, $color-neutral-000, $font-weight-medium);
   line-height: 120%;
+
+  @include maxWidthCustom(1164px) {
+  }
+
+  @include maxWidthCustom(1084px) {
+  }
+
+  @include maxWidthCustom(920px) {
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-basis: 100%;
+  }
+
+  @include maxWidthCustom(565px) {
+    padding: 10px 28px;
+  }
+
+  @include maxWidth(xSmall) {
+    padding: 10px 16px;
+  }
 }
 
 .promoCode {
   transition: $fast-transition;
 
   &:first-of-type {
-    color: rgba(#FFE171, 0.75)
+    color: rgba(#ffe171, 0.75);
   }
 
   &:last-of-type {
-    color: rgba(#FFB896, 0.75)
+    color: rgba(#ffb896, 0.75);
   }
   @include onHover() {
     cursor: pointer;
 
     &:first-of-type {
-      color: rgba(#FFE171, 1)
+      color: rgba(#ffe171, 1);
     }
 
     &:last-of-type {
-      color: rgba(#FFB896, 1)
-
+      color: rgba(#ffb896, 1);
     }
   }
 }

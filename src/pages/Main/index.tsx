@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 import styles from './Main.module.scss';
 import { Input } from '../../shared/ui/Input';
 import Button from '../../shared/ui/Button';
@@ -61,7 +62,7 @@ const Main = () => {
 
   return (
     <>
-      <section className={styles.section}>
+      <section className={classNames(styles.section, styles.sectionPromo)}>
         <div className={styles.promoCodes}>
           promo:
           {discounts.map((discount) => {
