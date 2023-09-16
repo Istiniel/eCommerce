@@ -111,4 +111,8 @@
 .cartButton {
   max-width: 320px;
   height: 6.6rem;
+
+  @include maxWidthCustom(768px) {
+    max-width: 100%;
+  }
 }
