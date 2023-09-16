@@ -89,3 +89,7 @@
   @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
   line-height: 110%;
 }
+
+.backButtonConatiner {
+  max-width: 38rem;
+}
