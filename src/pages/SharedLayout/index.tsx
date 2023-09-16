@@ -1,4 +1,5 @@
 import { Outlet, useNavigation } from 'react-router-dom';
+
 import Wrapper from '../../shared/ui/Wrapper';
 import Footer from '../../widgets/Footer';
 import Header from '../../widgets/Header';

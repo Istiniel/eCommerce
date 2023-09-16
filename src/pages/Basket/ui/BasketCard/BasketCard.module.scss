@@ -1,0 +1,123 @@
+.card {
+  display: flex;
+  column-gap: 2rem;
+  padding-bottom: 2.4rem;
+
+  &:first-of-type {
+    padding-top: 2.4rem;
+    border-top: 1px solid #d2d2d7;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #d2d2d7;
+  }
+
+  @include maxWidthCustom(820px) {
+    border-bottom: 1px solid #d2d2d7;
+  }
+
+  @include maxWidthCustom(530px) {
+    flex-direction: column-reverse;
+    gap: 2rem;
+  }
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-basis: 100%;
+  gap: 1rem;
+}
+
+.cardImageContainer {
+  max-height: 220px;
+  min-height: 200px;
+  min-width: 220px;
+  width: 220px;
+  border: 1px solid $color-neutral-1000;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.titleContainer {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
+
+  @include maxWidthCustom(1084px) {
+    flex-direction: column;
+  }
+
+  @include maxWidthCustom(530px) {
+    flex-direction: row;
+  }
+
+  @include maxWidth(xSmall) {
+    flex-direction: column;
+  }
+}
+
+.title {
+  @include font-style(
+    $font-sans,
+    30px,
+    $color-neutral-900,
+    $font-weight-partly-medium
+  );
+  line-height: 110%;
+
+  @include maxWidth(xSmall) {
+    font-size: 32px;
+  }
+}
+.price {
+  @include font-style($font-sans, 30px, $color-neutral-900, $font-weight-medium);
+  line-height: 110%;
+}
+
+.title {
+  display: inline-block;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  gap: 2rem;
+
+  @include maxWidthCustom(530px) {
+    justify-content: unset;
+  }
+}
+
+.quantityContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.quantity {
+  @include font-style($font-sans, 18px, $color-neutral-900, $font-weight-normal);
+}
+
+.deleteIcon {
+  color: $color-neutral-500;
+  width: 3rem;
+  height: 3rem;
+  min-width: 3rem;
+
+  @include onHover() {
+    cursor: pointer;
+    color: $color-primary-500;
+  }
+}

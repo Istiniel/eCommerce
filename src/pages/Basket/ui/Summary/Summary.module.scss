@@ -1,0 +1,58 @@
+.orderSummaryContainer {
+  max-width: 35rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.4rem;
+}
+
+.orderSummaryContainer {
+  border: 1px solid $color-neutral-1000;
+  padding: 2rem;
+}
+
+.submitPromoForm,
+.subTotalContainer,
+.totalContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2.4rem;
+
+  @include font-style($font-sans, 18px, $color-neutral-900, $font-weight-normal);
+
+  border-bottom: 1px solid #d2d2d7;
+}
+
+.totalContainer {
+  font-weight: $font-weight-bold;
+}
+
+.submitPromoForm {
+  flex-direction: column;
+}
+
+.promoInput {
+  margin-bottom: 0;
+}
+
+/*
+.promoSubmitButton,
+.checkoutButton {
+  padding: 1.5rem 3.5rem;
+  @include font-style($font-sans, $font-size-base, $color-neutral-000);
+  background-color: #121212;
+  text-transform: uppercase;
+}
+
+.checkoutButton {
+  background-color: $color-neutral-000;
+  color: $color-neutral-1000;
+  border: 1px solid $color-neutral-1000;
+}
+*/
+
+.checkoutButton,
+.promoSubmitButton {
+  padding: 1.5rem 3.5rem;
+}

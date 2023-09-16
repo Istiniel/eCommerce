@@ -5,6 +5,7 @@ import AppProvider from './providers';
 import './styles/App.scss';
 
 function App() {
+
   return (
     <AppProvider>
       <ToastContainer

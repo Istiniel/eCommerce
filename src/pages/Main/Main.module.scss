@@ -2,6 +2,47 @@
   @extend %flexwrap;
 }
 
+.promoCodes {
+  background-color: $color-neutral-700;
+  padding: 1rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  width: 100%;
+  border-top: 1px solid $color-neutral-1000;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+
+  @include font-style($font-sans, $font-size-medium, $color-neutral-000, $font-weight-medium);
+  line-height: 120%;
+}
+
+.promoCode {
+  transition: $fast-transition;
+
+  &:first-of-type {
+    color: rgba(#FFE171, 0.75)
+  }
+
+  &:last-of-type {
+    color: rgba(#FFB896, 0.75)
+  }
+  @include onHover() {
+    cursor: pointer;
+
+    &:first-of-type {
+      color: rgba(#FFE171, 1)
+    }
+
+    &:last-of-type {
+      color: rgba(#FFB896, 1)
+
+    }
+  }
+}
+
 .column {
   flex-basis: 50%;
   @extend %flexcolumn;
