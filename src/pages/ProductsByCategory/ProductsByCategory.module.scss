@@ -1,9 +1,35 @@
+.rightColumn {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  max-width: 56rem;
+  min-width: 56rem;
+
+  @include maxWidthCustom(1050px) {
+    min-width: 50rem;
+  }
+
+  @include maxWidthCustom(950px) {
+    min-width: unset;
+    max-width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include maxWidthCustom(700px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include maxWidth(xSmall) {
+    grid-template-columns: 100%;
+  }
+}
+
 .productsContainer {
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
   display: flex;
   border-top: 1px solid $color-neutral-1000;
 
-  @include maxWidthCustom(820px) {
+  @include maxWidthCustom(950px) {
+    padding-bottom: 5rem;
     flex-direction: column;
   }
 }
@@ -61,14 +87,21 @@
 }
 
 .categoriesContainer {
+  width: 100%;
+  background: rgba(black, 0.4);
+  padding: 2rem 1rem;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+
   display: flex;
-  column-gap: 2rem;
+  justify-content: space-around;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
-.rightColumn,
 .leftColumn {
-  flex-basis: 50%;
+  flex: 1 0 auto;
 }
 
 .link {
@@ -83,10 +116,10 @@
 }
 
 .titleWrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80px;
   height: 668px;
   background-image: url(../../app/assets/images/flowers-bg4.jpeg);
   background-repeat: no-repeat;
@@ -108,12 +141,15 @@
   }
 
   @include maxWidth(xSmall) {
+    align-items: flex-end;
     padding: 40px 16px;
     height: 180px;
   }
 }
 
 .title {
+  display: block;
+  width: 100%;
   @include font-style('Gilroy', $font-size-large, $color-neutral-000, $font-weight-medium);
   line-height: 120%;
   text-align: center;
@@ -131,21 +167,24 @@
   }
 }
 
-.cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
+// .cardContainer {
+//   display: flex;
+//   flex-wrap: wrap;
+// }
 
 .category {
+  color: $color-neutral-000;
   transition: $fast-transition;
 
   @include onHover() {
     cursor: pointer;
-    color: $color-accent-600
+    color: $color-accent-300;
   }
 
   &.active {
-    color: $color-accent-600
+    color: $color-accent-300;
+    user-select: none;
+    cursor: unset;
   }
 }
 
@@ -165,4 +204,25 @@
   @include font-style('Gilroy', $font-size-large, $color-neutral-1000, $font-weight-medium);
   line-height: 120%;
   text-align: center;
+}
+
+.loadingIconContainer {
+  grid-column: span 2;
+  padding: 3rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include maxWidthCustom(950px) {
+    grid-column: span 3;
+  }
+
+  @include maxWidthCustom(700px) {
+    grid-column: span 2;
+  }
+
+  @include maxWidth(xSmall) {
+    grid-column: 1 / 1;
+  }
 }

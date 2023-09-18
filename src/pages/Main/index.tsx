@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 import styles from './Main.module.scss';
 import { Input } from '../../shared/ui/Input';
 import Button from '../../shared/ui/Button';
@@ -9,7 +12,10 @@ import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
 import contactImage from '../../app/assets/images/contactImage.webp';
 import useAnchorLink from '../../shared/hooks/useAnchorLink';
 import InfoBlock from '../../shared/ui/InfoBlock';
-
+import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
+import { fetchDiscountCodes } from '../../app/redux/asyncThunks/fetchDiscountCodes';
+import { selectDiscounts } from '../../app/redux/features/CartSlice/CartSlice';
+import LoadingSpinner from '../../shared/ui/LoadingSpinner';
 
 const data = [
   {
@@ -47,9 +53,49 @@ const data = [
 
 const Main = () => {
   useAnchorLink();
+  const dispatch = useAppDispatch();
+  const discounts = useAppSelector(selectDiscounts);
+  // const statusOfLoading = useAppSelector((state) => state.cartSlice.status);
+  const navigate = useNavigate();
+
+  const [loadingThreshold, setLoadingThreshold] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchDiscountCodes());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setLoadingThreshold(true);
+    const timeriD = setTimeout(() => {
+      setLoadingThreshold(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeriD);
+    };
+  }, []);
 
   return (
     <>
+      <section className={classNames(styles.section, styles.sectionPromo)}>
+        <div className={styles.promoCodes}>
+          promo: {loadingThreshold && <LoadingSpinner size={25} />}
+          {!loadingThreshold &&
+            discounts.map((discount) => {
+              return (
+                <p
+                  className={styles.promoCode}
+                  onMouseDown={() => {
+                    navigate('/products');
+                  }}
+                  key={discount.id}
+                >
+                  {discount?.name?.['en-US']}
+                </p>
+              );
+            })}
+        </div>
+      </section>
       <section className={styles.section}>
         <div className={styles.column}>
           <div className={styles.titleWrapper}>

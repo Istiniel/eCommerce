@@ -1,4 +1,5 @@
 import {
+  CartUpdateAction,
   CustomerChangePassword,
   CustomerDraft,
   CustomerSignin,
@@ -47,7 +48,7 @@ export const fetchProductInfo = async (ID: string) => {
   return response;
 };
 
-export const fetchCategories = async () => {
+export const fetchCategoriesInfo = async () => {
   const response = await apiRoot.categories().get().execute()
   return response.body;
 };
@@ -56,19 +57,49 @@ export interface FetchProductsInfo {
   categoryId?: string,
   sort?: number,
   text?: string
+  offset?: number
 }
 
-export const fetchProductsInfoExtra = async ({ categoryId, sort, text }: FetchProductsInfo) => {
+export const fetchProductsInfoExtra = async ({ categoryId, sort, text, offset = 0 }: FetchProductsInfo) => {
   const response = await apiRoot.productProjections().search().get({
     queryArgs: {
       fuzzy: !!text,
-      limit: 100,
+      limit: 6,
+      offset,
       "filter.query": [categoryId ? `categories.id:subtree("${categoryId}")` : ''],
-      sort: [sort ? `${getSortMethodByKey(sort).code}` : ''],
-      'text.en-US': text
+      ...(sort ? { sort: getSortMethodByKey(sort).code } : {}),
+      ...(text ? { 'text.en-US': text } : {})
     }
   }).execute()
   return response;
 };
 
+export const createCartSubject = async (currency: string = 'USD') => {
+  const response = await apiRoot.carts().post({ body: { currency } }).execute()
+  return response.body;
+}
 
+export const getCartSubject = async () => {
+  const response = await apiRoot.carts().get().execute()
+  return response.body;
+}
+
+export interface UpdateCartDto {
+  version: number,
+  actions: CartUpdateAction[]
+}
+
+export const updateCartSubject = async (ID: string, cartInfo: UpdateCartDto) => {
+  const response = await apiRoot.carts().withId({ ID }).post({ body: cartInfo }).execute()
+  return response.body;
+}
+
+export const deleteCartSubject = async (ID: string, version: number) => {
+  const response = await apiRoot.carts().withId({ ID }).delete({ queryArgs: { version } }).execute()
+  return response.body;
+}
+
+export const getDiscountCodes = async () => {
+  const response = await apiRoot.discountCodes().get().execute()
+  return response.body;
+}

@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './AboutUs.module.scss';
 import Button from '../../shared/ui/Button';
-import instagramIcon from '../../app/assets/icons/social/Instagram.svg';
-import pinterestIcon from '../../app/assets/icons/social/Pinterest.svg';
-import telegramIcon from '../../app/assets/icons/social/Telegram.svg';
-import AboutImage1 from '../../app/assets/images/about.jpg'
-import AboutImage2 from '../../app/assets/images/about2.jpg'
-import AboutImage3 from '../../app/assets/images/about3.jpg'
-import AboutImage4 from '../../app/assets/images/about4.jpg'
+import rssIcon from '../../app/assets/icons/social/rss.png';
+import AboutImage1 from '../../app/assets/images/code.jpg'
+import AboutImage2 from '../../app/assets/images/ist.jpg'
+import AboutImage3 from '../../app/assets/images/shokh.png'
+import AboutImage4 from '../../app/assets/images/dk.png'
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -16,83 +14,66 @@ const AboutUs = () => {
     <div className={styles.wrapper}>
       <div className={styles.container}>
         <div className={styles.contentBox}>
-          <h1>Our story</h1>
+          <h1>About us</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae ab nesciunt, non
-            necessitatibus eos praesentium laborum adipisci, iusto, assumenda repellendus repellat
-            cum culpa earum vitae officiis neque recusandae? Mollitia, cupiditate.
+            This app was created by Rolling Stones School students. If you want to learn how to create modern web applications, follow the link below.
           </p>
-          <div className={styles.socialBox}>
-            <a href="https://instagram.com">
-              <div className={styles.socialContainer}>
-                <img src={instagramIcon} alt="instagram" />
-              </div>
-            </a>
-            <a href="https://pinterest.com">
-              <div className={styles.socialContainer}>
-                <img src={pinterestIcon} alt="pinterest" />
-              </div>
-            </a>
-            <a href="https://telegram.org">
-              <div className={styles.socialContainer}>
-                <img src={telegramIcon} alt="telegram" />
-              </div>
+          <div className={styles.rssLogo}>
+            <a href="https://rs.school">
+              <img src={rssIcon} alt='rss' />
             </a>
           </div>
         </div>
         <div className={styles.imgBox}>
-          <img src={AboutImage1} alt="founder" />
+          <img src={AboutImage1} alt="js-code" />
         </div>
       </div>
 
       <div className={styles.splitter}>
-        <p>Our story</p>
-        <h2>Our Founder&apos;s Passion</h2>
+        <h2>Introducing our development team</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. In dicta tempora deserunt
-          exercitationem labore odit commodi, voluptatibus excepturi quos cumque eius architecto,
-          dignissimos, consequatur vitae perferendis deleniti nobis! Minus, vero.
+          Our team is passionate about the world of web development, and we&lsquo;re excited to share your ambitions and our desire to become exceptional developers with you.
+          We believe that web development is not just a profession but also an art. It&lsquo;s an opportunity to create beautiful, functional, and innovative solutions.
+          Allow us to introduce the members of our development team:
         </p>
       </div>
 
       <div className={styles.container}>
         <div className={styles.imgBox}>
-          <img src={AboutImage2} alt="roses" />
+          <img src={AboutImage2} alt="Istiniel's avatar" />
         </div>
         <div className={styles.contentBox}>
-          <h2>Expertly Crafted Bouquets</h2>
+          <h2>Istiniel</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam sed molestiae possimus
-            ab fugit unde explicabo ipsam culpa, deleniti eos. Neque et quibusdam eligendi deserunt
-            hic atque alias, dignissimos suscipit?
+            Our team lead.<br />
+            <span className={styles.boldText}>Contributions:</span> Project management, Routing, Registration/Login page, a lot of work with redux and CommerceTools<br />
+            <span className={styles.boldText}>Github:</span> <a href='https://github.com/Istiniel'>https://github.com/Istiniel</a>
           </p>
         </div>
       </div>
 
       <div className={styles.container}>
         <div className={styles.contentBox}>
-          <h2>Bouquets, Gifts & Ambiance</h2>
+          <h2>shoxakrshn</h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste alias architecto labore,
-            reprehenderit vero corrupti impedit earum culpa velit repellat qui enim blanditiis
-            quibusdam hic incidunt quaerat sequi officiis doloremque!
+            <span className={styles.boldText}>Contributions:</span> Home page, products page, basket page.<br />
+            <span className={styles.boldText}>Github:</span> <a href='https://github.com/shoxakrshn'>https://github.com/shoxakrshn</a>
           </p>
         </div>
         <div className={styles.imgBox}>
-          <img src={AboutImage3} alt="interior" />
+          <img src={AboutImage3} alt="shoxakrshn's avatar" />
         </div>
       </div>
 
       <div className={styles.container}>
         <div className={styles.imgBox}>
-          <img src={AboutImage4} alt="bouquet" />
+          <img src={AboutImage4} alt="dkon70's avatar" />
         </div>
         <div className={styles.contentBox}>
-          <h2>Making Every Day Special</h2>
+          <h2>dkon70</h2>
           <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita minus eligendi
-            quibusdam repellat, similique, porro omnis rerum dignissimos doloremque possimus
-            reiciendis deleniti, sed debitis reprehenderit quo! Illum, beatae animi. Quibusdam?
+            <span className={styles.boldText}>Contributions:</span> Product card, 404 page, about us page.<br />
+            <span className={styles.boldText}>Github:</span> <a href='https://github.com/dkon70'>https://github.com/dkon70</a>
           </p>
         </div>
       </div>

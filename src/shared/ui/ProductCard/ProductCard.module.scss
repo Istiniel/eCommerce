@@ -1,24 +1,51 @@
 .card {
-  flex-basis: 50%;
   border-bottom: 1px solid $color-neutral-1000;
-  border-left: 1px solid $color-neutral-1000;
 
-  &:last-of-type {
+  &:nth-child(2n + 1) {
     border-right: 1px solid $color-neutral-1000;
+    border-left: 1px solid $color-neutral-1000;
   }
 
-  @include maxWidthCustom(820px) {
-    &:nth-child(odd) {
-      border-left: none;
+  @include maxWidthCustom(950px) {
+    &:nth-child(2n + 1) {
+      border-right: unset;
+      border-left: unset;
+    }
+
+    &:nth-child(3n + 2) {
+      border-right: 1px solid $color-neutral-1000;
+      border-left: 1px solid $color-neutral-1000;
+    }
+
+    &:nth-child(2n + 1):last-child {
+      border-right: 1px solid $color-neutral-1000;
+    }
+  }
+
+  @include maxWidthCustom(700px) {
+    &:nth-child(3n + 2) {
+      border-right: unset;
+      border-left: unset;
+    }
+
+    &:nth-child(2n + 1) {
+      border-right: 1px solid $color-neutral-1000;
+    }
+  }
+
+  @include maxWidth(xSmall) {
+    &:nth-child(2n + 1):last-child {
+      border-right: unset;
+    }
+
+    &:nth-child(2n + 1) {
+      border-right: unset;
     }
   }
 
   @include maxWidthCustom(430px) {
     flex-basis: 100%;
     border-left: none;
-    &:last-child {
-      border-bottom: none;
-    }
   }
 
   @include onHover() {
@@ -28,43 +55,39 @@
       filter: blur(2px) brightness(90%);
     }
   }
+
+  user-select: none;
+  & * {
+    user-select: none;
+  }
 }
 
 .cardImageContainer {
+  position: relative;
   border-bottom: 1px solid $color-neutral-1000;
   max-width: 100%;
   height: 348px;
+}
 
-  @include maxWidthCustom(1250px) {
-    height: 300px;
-  }
+.cartIconContainer {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
 
-  @include maxWidthCustom(1080px) {
-    height: 260px;
-  }
+  padding: 0.5rem;
+  background: rgba($color: black, $alpha: 0.4);
+  border-radius: 100rem;
+}
 
-  @include maxWidthCustom(910px) {
-    height: 210px;
-  }
+.cartIcon {
+  transition: $fast-transition;
+  width: 4rem;
+  height: 4rem;
 
-  @include maxWidthCustom(820px) {
-    height: 348px;
-  }
+  color: $color-neutral-000;
 
-  @include maxWidthCustom(620px) {
-    height: 260px;
-  }
-
-  @include maxWidthCustom(520px) {
-    height: 210px;
-  }
-
-  @include maxWidthCustom(430px) {
-    height: 348px;
-  }
-
-  @include maxWidthCustom(320px) {
-    height: 270px;
+  @include onHover() {
+    color: $color-accent-600;
   }
 }
 
@@ -78,8 +101,12 @@
 .cardTitle {
   @include font-style($font-sans, $font-size-medium, $color-neutral-900, $font-weight-bold);
   text-align: center;
-  padding: 16px 0;
+  padding: 16px;
   border-bottom: 1px solid $color-neutral-1000;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pricesContainer {
@@ -119,6 +146,7 @@
   &.withDiscount {
     text-decoration: line-through;
     font-weight: $font-weight-normal;
+    font-size: 14px;
   }
 }
 

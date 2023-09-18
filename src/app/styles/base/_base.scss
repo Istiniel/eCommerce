@@ -53,15 +53,15 @@ main .wrapper {
   }
 }
 
-::-webkit-scrollbar {
-  background-color: transparent;
-  width: 5px;
-  height: 5px;
-}
+// ::-webkit-scrollbar {
+//   // background-color: transparent;
+//   // width: 5px;
+//   height: 5px;
+// }
 
-::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-}
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 3px;
+// }
 
 .overflow-hidden {
   overflow: hidden;

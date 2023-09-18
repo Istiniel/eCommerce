@@ -7,10 +7,12 @@ import {
 } from '@reduxjs/toolkit';
 import AuthReducer from './features/AuthSlice/AuthSlice';
 import ProductsReducer from './features/ProductsSlice/ProductsSlice';
+import CartReducer from './features/CartSlice/CartSlice';
 
 const rootReducer = combineReducers({
   authSlice: AuthReducer,
-  productsSlice: ProductsReducer
+  productsSlice: ProductsReducer,
+  cartSlice: CartReducer
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {

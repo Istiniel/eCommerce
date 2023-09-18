@@ -1,23 +1,31 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import styles from './ProductCounter.module.scss';
 
 interface InputStepperProps {
-  value?: number;
   maxItems?: number;
+  counter: number;
+  setCounter: Dispatch<SetStateAction<number>>;
+  onChange?: (count: number) => void;
 }
 
-const ProductCounter = ({ value = 1, maxItems = 99 }: InputStepperProps) => {
-  const [counter, setCounter] = useState(value);
-
+const ProductCounter = ({ maxItems = 99, counter, setCounter, onChange }: InputStepperProps) => {
   const minusButtonHandler = () => {
     if (counter > 1) {
       setCounter(counter - 1);
+    }
+
+    if (onChange) {
+      onChange(counter - 1);
     }
   };
 
   const plusButtonHandler = () => {
     if (counter < maxItems) {
       setCounter(counter + 1);
+    }
+
+    if (onChange) {
+      onChange(counter + 1);
     }
   };
 
