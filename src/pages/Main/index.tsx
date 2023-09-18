@@ -15,6 +15,7 @@ import InfoBlock from '../../shared/ui/InfoBlock';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { fetchDiscountCodes } from '../../app/redux/asyncThunks/fetchDiscountCodes';
 import { selectDiscounts } from '../../app/redux/features/CartSlice/CartSlice';
+import LoadingSpinner from '../../shared/ui/LoadingSpinner';
 
 const data = [
   {
@@ -54,6 +55,7 @@ const Main = () => {
   useAnchorLink();
   const dispatch = useAppDispatch();
   const discounts = useAppSelector(selectDiscounts);
+  const isLoading = useAppSelector((state) => state.cartSlice.status);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,20 +66,21 @@ const Main = () => {
     <>
       <section className={classNames(styles.section, styles.sectionPromo)}>
         <div className={styles.promoCodes}>
-          promo:
-          {discounts.map((discount) => {
-            return (
-              <p
-                className={styles.promoCode}
-                onMouseDown={() => {
-                  navigate('/products');
-                }}
-                key={discount.id}
-              >
-                {discount?.name?.['en-US']}
-              </p>
-            );
-          })}
+          promo: {isLoading === 'loading' && <LoadingSpinner size={25} />}
+          {isLoading === 'idle' &&
+            discounts.map((discount) => {
+              return (
+                <p
+                  className={styles.promoCode}
+                  onMouseDown={() => {
+                    navigate('/products');
+                  }}
+                  key={discount.id}
+                >
+                  {discount?.name?.['en-US']}
+                </p>
+              );
+            })}
         </div>
       </section>
       <section className={styles.section}>
