@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './Main.module.scss';
@@ -55,19 +55,32 @@ const Main = () => {
   useAnchorLink();
   const dispatch = useAppDispatch();
   const discounts = useAppSelector(selectDiscounts);
-  const statusOfLoading = useAppSelector((state) => state.cartSlice.status);
+  // const statusOfLoading = useAppSelector((state) => state.cartSlice.status);
   const navigate = useNavigate();
+
+  const [loadingThreshold, setLoadingThreshold] = useState(true);
 
   useEffect(() => {
     dispatch(fetchDiscountCodes());
   }, [dispatch]);
 
+  useEffect(() => {
+    setLoadingThreshold(true);
+    const timeriD = setTimeout(() => {
+      setLoadingThreshold(false);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeriD);
+    };
+  }, []);
+
   return (
     <>
       <section className={classNames(styles.section, styles.sectionPromo)}>
         <div className={styles.promoCodes}>
-          promo: {statusOfLoading === 'loading' && <LoadingSpinner size={25} />}
-          {statusOfLoading === 'idle' &&
+          promo: {loadingThreshold && <LoadingSpinner size={25} />}
+          {!loadingThreshold &&
             discounts.map((discount) => {
               return (
                 <p
