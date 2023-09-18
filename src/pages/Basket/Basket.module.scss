@@ -92,4 +92,8 @@
 
 .backButtonConatiner {
   max-width: 38rem;
+
+  @include maxWidthCustom(820px) {
+    max-width: 100%;
+  }
 }
