@@ -55,7 +55,7 @@ const Main = () => {
   useAnchorLink();
   const dispatch = useAppDispatch();
   const discounts = useAppSelector(selectDiscounts);
-  const isLoading = useAppSelector((state) => state.cartSlice.status);
+  const statusOfLoading = useAppSelector((state) => state.cartSlice.status);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,8 +66,8 @@ const Main = () => {
     <>
       <section className={classNames(styles.section, styles.sectionPromo)}>
         <div className={styles.promoCodes}>
-          promo: {isLoading === 'loading' && <LoadingSpinner size={25} />}
-          {isLoading === 'idle' &&
+          promo: {statusOfLoading === 'loading' && <LoadingSpinner size={25} />}
+          {statusOfLoading === 'idle' &&
             discounts.map((discount) => {
               return (
                 <p
