@@ -1,6 +1,6 @@
 import { Cart } from '@commercetools/platform-sdk';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createCartSubject, getCartSubject } from '../../services/commerceTools/Client';
+import { createCartSubject } from '../../services/commerceTools/Client';
 import type { RootState } from '../store';
 
 export const createCart = createAsyncThunk(
@@ -12,12 +12,6 @@ export const createCart = createAsyncThunk(
     if (currentCart !== null) return currentCart;
 
     let result: Cart | null = null;
-
-    const existedCarts = (await getCartSubject()).results;
-
-    if (existedCarts.length > 0) {
-      return existedCarts[0]
-    }
 
     result = await createCartSubject();
     return result;
