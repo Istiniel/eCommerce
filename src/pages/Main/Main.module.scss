@@ -13,15 +13,17 @@
   justify-content: flex-end;
   align-items: center;
   gap: 2rem;
+  border-left: 1px solid $color-neutral-1000;
 
-  background-color: $color-neutral-900;
+  // background-color: $color-neutral-900;
   padding: 1rem 4rem;
 
-  @include font-style($font-sans, $font-size-medium, $color-neutral-000, $font-weight-medium);
+  @include font-style($font-sans, $font-size-medium, $color-neutral-900, $font-weight-medium);
   line-height: 120%;
 
   @include maxWidthCustom(820px) {
     flex-basis: 100%;
+    border-left: none;
   }
 
   @include maxWidthCustom(565px) {
@@ -37,21 +39,21 @@
   transition: $fast-transition;
 
   &:first-of-type {
-    color: rgba(#ffe171, 0.75);
+    color: rgba(#43a86f, 0.9);
   }
 
   &:last-of-type {
-    color: rgba(#ffb896, 0.75);
+    color: rgba(#f79a6d, 0.9);
   }
   @include onHover() {
     cursor: pointer;
 
     &:first-of-type {
-      color: rgba(#ffe171, 1);
+      color: rgba(#43a86f, 1);
     }
 
     &:last-of-type {
-      color: rgba(#ffb896, 1);
+      color: rgba(#f98a55, 1);
     }
   }
 }
