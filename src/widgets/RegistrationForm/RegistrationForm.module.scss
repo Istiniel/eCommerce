@@ -1,0 +1,90 @@
+.form {
+  margin: 0 auto;
+  margin-top: 4rem;
+  margin-bottom: 7.1rem;
+  max-width: 60rem;
+
+  padding: 6rem;
+  background-color: $color-neutral-000;
+
+  border: 2px solid $color-neutral-1000;
+
+  @include maxWidthCustom(642px) {
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: 1px solid $color-neutral-1000;
+    padding: 4rem;
+  }
+
+  @include maxWidthCustom(430px) {
+    padding: 2rem;
+  }
+}
+
+.formTitle {
+  padding-bottom: 2rem;
+
+  font-family: $font-sans;
+  color: $color-neutral-1000;
+  @include font($font-size-large, $font-height-base, $font-weight-medium);
+
+  @include maxWidthCustom(430px) {
+    font-size: 3.4rem;
+  }
+}
+
+.addressContainer {
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  @include maxWidthCustom(642px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  @include maxWidthCustom(642px) {
+    gap: 3rem;
+  }
+}
+
+.addressTitle {
+  margin-top: 4rem;
+  display: block;
+  @include font-style(
+    $font-sans,
+    $font-size-large-mobile,
+    $color-neutral-900,
+    $font-weight-partly-medium
+  );
+
+  @include maxWidthCustom(642px) {
+    font-size: $font-size-medium-mobile;
+  }
+}
+
+.address {
+  padding: 1rem 0;
+  display: inline-block;
+  text-transform: lowercase;
+  color: $color-neutral-500;
+  font-size: $font-size-medium;
+
+  @include onHover() {
+    cursor: pointer;
+  }
+
+  &.active {
+    color: $color-neutral-1000;
+    user-select: none;
+    pointer-events: none;
+    text-decoration: underline;
+    @include onHover() {
+      cursor: auto;
+    }
+  }
+}

@@ -1,0 +1,188 @@
+@use './variables' as *;
+@use './mediaquerys' as *;
+
+@mixin font-style($family: $font-serif, $size: $font-size-base, $color: $c-white, $weight: 400) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin block-style($bg: $c-almost-black, $b-radius: 5px) {
+  display: flex;
+  background: $bg;
+  border-radius: $b-radius;
+  border: 1px solid $c-white-transparent;
+  height: 100%;
+  width: 100%;
+}
+
+@mixin button-style(
+  $bg-color: $c-gray,
+  $height: fit-content,
+  $width: fit-content,
+  $b-radius: $b-radius,
+  $padding: 8px 10px
+) {
+  box-sizing: border-box;
+  background-color: $bg-color;
+  height: $height;
+  width: $width;
+  padding: $padding;
+  border: none;
+  border-radius: $b-radius;
+  cursor: pointer;
+  transition: $fast-transition;
+
+  &:hover {
+    background-color: lighten($bg-color, 10%);
+  }
+
+  &:active {
+    background-color: darken($bg-color, 10%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @include maxWidth(small) {
+    font-size: $font-size-base;
+  }
+}
+
+@mixin bg-img-style(
+  $image: '../../assets/icons/start-btn_ico.png',
+  $size: cover,
+  $position: center,
+  $repeat: no-repeat
+) {
+  background-image: url($image);
+  background-size: $size;
+  background-position: $position;
+  background-repeat: $repeat;
+}
+
+@mixin flex-columns($basis: 33%) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  > * {
+    flex-basis: $basis;
+  }
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+    border-radius: 3px;
+  }
+  @if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  } @else if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@mixin grid($columns: 2, $rows: 1, $col-size: 1fr, $row-size: auto, $gap: 20px) {
+  display: grid;
+  grid-template-columns: repeat($columns, $col-size);
+  grid-template-rows: repeat($rows, $row-size);
+  grid-gap: $gap;
+}
+
+@mixin glass-effect($color: $c-dark-transparent, $blur: 14px) {
+  background-color: $color;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+@mixin animation-slide($name: slide-down, $start: -100px, $end: 0) {
+  animation: $name 0.5s ease-in-out 0s 1 normal forwards;
+  opacity: 0;
+  position: relative;
+  top: $start;
+  @keyframes #{$name} {
+    0% {
+      opacity: 0;
+      top: $start;
+    }
+    100% {
+      opacity: 1;
+      top: $end;
+    }
+  }
+}
+
+@mixin bottomline_expand($color: white) {
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: $color;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@mixin onHover() {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  &:active {
+    @content;
+  }
+}
+
+@mixin font($size, $height: $size, $weight: 400) {
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
+}
+
+$base-color: #ddd;
+$shine-color: #e8e8e8;
+$animation-duration: 1.6s;
+$avatar-offset: 52 + 16;
+
+@mixin skeleton-background() {
+  background-image: linear-gradient(90deg, $base-color 0px, $shine-color 40px, $base-color 80px);
+  background-size: 600px;
+}

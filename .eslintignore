@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.eslintrc.cjs
+env.d.ts
+vite.config.ts
+setupTests.ts
+testServer.ts

@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 5rem;
+
+  @include maxWidth(medium) {
+    flex-direction: column;
+  }
+}
+
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include maxWidth(medium) {
+    flex-direction: row;
+  }
+
+  @include maxWidth(small) {
+    flex-direction: column;
+    width: 100%;
+    align-self: center;
+    max-width: 45rem;
+  }
+}
+
+.disabled {
+  @extend %disabled;
+  background-color: $color-neutral-400;
+
+  @include onHover() {
+    cursor: auto;
+  }
+}
+
+.editContainer {
+  flex: 1 0 auto;
+  max-width: 45rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  @include maxWidth(medium) {
+    align-self: center;
+    width: 100%;
+    gap: 2rem;
+  }
+}

@@ -1,0 +1,75 @@
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+
+  background-color: $color-neutral-000;
+  transition: $fast-transition;
+  outline: 1px solid $color-neutral-500;
+  outline-offset: -1px;
+
+  font-family: $font-sans;
+  color: $color-neutral-800;
+  @include font($font-size-base, $font-height-large, $font-weight-normal);
+  letter-spacing: 0.05em;
+
+  &.active {
+    transition: none;
+    outline: 2px solid $color-neutral-1000;
+    outline-offset: -2px;
+  }
+
+  &.invalid {
+    outline: 2px solid $color-primary-400;
+    outline-offset: -2px;
+  }
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
+  &.disabled {
+    background-color: $input-disabled;
+    @include onHover() {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: 2.3rem;
+  position: relative;
+
+  .title {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: 0;
+  transform: translateY(110%);
+  color: $color-primary-400;
+
+  font-family: $font-sans;
+  color: $color-primary-400;
+  @include font($font-size-small, $font-height-base, $font-weight-medium);
+  letter-spacing: 0.05em;
+}
+
+.showPassword {
+  padding-bottom: 1.5rem;
+
+  font-family: $font-sans;
+  color: $color-neutral-800;
+  @include font($font-size-base, $font-height-large, $font-weight-normal);
+  letter-spacing: 0.05em;
+
+  & * {
+    border-radius: unset !important;
+  }
+}

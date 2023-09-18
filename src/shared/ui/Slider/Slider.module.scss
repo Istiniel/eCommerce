@@ -1,0 +1,62 @@
+.wrapper {
+	display: flex;
+	position: relative;
+	@include minWidth(medium) {
+		width: 480px;
+		height: 480px;
+	}
+
+}
+
+.arrowLeft, .arrowRight {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    user-select: none;
+	position: relative;
+	z-index: 10;
+}
+
+.arrowsWrapper {
+	position: absolute;
+	z-index: 10;
+	display: flex;
+	width: 100%;
+}
+
+.arrows {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	transition: 1s;
+	top: calc(50% - 25px);
+	left: 0;
+}
+
+@media screen and (hover:hover) {
+	.arrowLeft, .arrowRight {
+		opacity: 0;
+		cursor: pointer;
+	}
+	.wrapper:hover {
+		.arrowLeft, .arrowRight {
+			opacity: 1;
+		}
+	}
+}
+
+.imgBox {
+	display: inline-block;
+	object-fit: cover;
+	width: 100%;
+}
+
+.arrowLeft.fade, .arrowRight.fade {
+	opacity: 0 !important;
+	cursor: default;
+}

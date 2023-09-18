@@ -1,0 +1,37 @@
+%transition {
+  transition: all ease-in-out 0.3s;
+}
+
+%flexcolumn {
+  display: flex;
+  flex-direction: column;
+}
+
+%aligncenter {
+  display: flex;
+  align-items: center;
+}
+
+%spacebetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+%flexwrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+%truncated {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+%disabled {
+  user-select: none;
+  pointer-events: none;
+}

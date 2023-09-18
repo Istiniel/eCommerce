@@ -1,0 +1,38 @@
+@use 'sass:map';
+@use '../abstracts/variables' as *;
+
+$breakpoints: (
+  xSmall: $break-xs,
+  small: $break-sm,
+  medium: $break-md,
+  large: $break-lg,
+  xLarge: $break-xl,
+);
+
+@mixin minWidth($key) {
+  $size: map.get($breakpoints, $key);
+
+  @media (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin maxWidth($key) {
+  $size: map.get($breakpoints, $key);
+
+  @media (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin minWidthCustom($width) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+@mixin maxWidthCustom($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}

@@ -1,0 +1,30 @@
+.wrapper {
+  border-top: 1px solid $color-neutral-1000;
+  padding-top: 200px;
+  padding-bottom: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  @include font-style($font-sans, $font-size-giant, $color-neutral-1000, $font-weight-bold);
+  text-align: center;
+}
+
+.notFound {
+  font-size: $font-size-large;
+  text-align: center;
+  margin-top: 100px;
+}
+
+@media screen and (max-width: 540px) {
+  .notFound {
+    font-size: $font-size-large;
+  }
+}
+
+@media screen and (max-width: 418px) {
+  .notFound {
+    font-size: $font-size-medium;
+  }
+}

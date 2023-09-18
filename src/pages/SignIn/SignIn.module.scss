@@ -1,0 +1,10 @@
+.header {
+  color: rgb(91, 74, 104);
+
+  font-family: $font-sans;
+  @include font($font-size-heading, $font-height-heading, $font-weight-bold);
+
+  @include maxWidth(small) {
+    color: tomato;
+  }
+}

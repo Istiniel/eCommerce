@@ -1,0 +1,131 @@
+.footer {
+  font-family: $font-sans;
+  @include font($font-size-base, 1.5rem, $font-weight-bold);
+  color: white;
+}
+
+.container {
+  // @extend %flexwrap;
+  display: flex;
+
+  color: $color-neutral-1000;
+  border: 1px solid $color-neutral-1000;
+
+  @include maxWidthCustom(820px) {
+    border-bottom: none;
+    flex-wrap: wrap;
+  }
+
+  @include maxWidthCustom(555px) {
+    flex-direction: column;
+  }
+}
+
+.column {
+  @extend %flexcolumn;
+  flex-basis: 25%;
+
+  row-gap: 2.4rem;
+  padding: 4rem;
+
+  &:not(:first-child) {
+    border-left: 1px solid $color-neutral-1000;
+  }
+
+  @include maxWidthCustom(1164px) {
+    padding: 30px;
+  }
+
+  @include maxWidthCustom(1084px) {
+    padding: 25px;
+  }
+
+  @include maxWidthCustom(820px) {
+    flex-basis: 50%;
+    padding: 4rem;
+    border-bottom: 1px solid $color-neutral-1000;
+
+    &:nth-child(3) {
+      border-left: none;
+    }
+  }
+
+  @include maxWidthCustom(635px) {
+    padding: 25px;
+  }
+
+  @include maxWidthCustom(575px) {
+    padding: 20px;
+  }
+
+  @include maxWidthCustom(555px) {
+    border-bottom: 1px solid $color-neutral-1000;
+    &:not(:first-child) {
+      border-left: none;
+    }
+  }
+
+  @include maxWidth(xSmall) {
+    row-gap: 1.6rem;
+    padding-left: 1.6rem;
+  }
+}
+
+.orderText {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900);
+  line-height: 140%;
+}
+
+.order__form {
+  @extend %flexcolumn;
+}
+
+.input {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900);
+  border: 1px solid #d2d2d7;
+  padding: 1.95rem 0 1.95rem 1.6rem;
+
+  &:focus-visible {
+    outline-color: #121212;
+  }
+}
+
+.btn {
+  @include font-style($font-sans, $font-size-base, $color-neutral-000);
+  line-height: 120%;
+  background-color: #121212;
+  text-transform: uppercase;
+  padding: 1.95rem 0;
+}
+
+.title {
+  @include font-style($font-sans, 2.1rem, $color-neutral-500, $font-weight-partly-medium);
+  line-height: 120%;
+
+  @include maxWidth(xSmall) {
+    font-size: 18px;
+  }
+}
+
+.subtitle {
+  @include font-style($font-sans, $font-size-small, $color-neutral-500);
+  line-height: 120%;
+  margin-bottom: 0.8rem;
+}
+
+.link {
+  @include font-style($font-sans, $font-size-base, $color-neutral-900, $font-weight-partly-medium);
+  line-height: 120%;
+
+  &:not(:last-child) {
+    margin-bottom: 0.8rem;
+  }
+
+  @include maxWidth(xSmall) {
+    font-size: 14px;
+  }
+}
+
+.social {
+  @extend %spacebetween;
+}
