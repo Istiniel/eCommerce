@@ -39,21 +39,21 @@
   transition: $fast-transition;
 
   &:first-of-type {
-    color: rgba(#ffe171, 0.75);
+    color: rgba(#face2d, 0.9);
   }
 
   &:last-of-type {
-    color: rgba(#ffb896, 0.75);
+    color: rgba(#f79a6d, 0.9);
   }
   @include onHover() {
     cursor: pointer;
 
     &:first-of-type {
-      color: rgba(#ffe171, 1);
+      color: rgba(#face2d, 1);
     }
 
     &:last-of-type {
-      color: rgba(#ffb896, 1);
+      color: rgba(#f98a55, 1);
     }
   }
 }
