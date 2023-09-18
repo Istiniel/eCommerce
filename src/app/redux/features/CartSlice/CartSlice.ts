@@ -14,7 +14,7 @@ type CartState = {
   error: string | undefined;
   isLimit: boolean;
   activeLineItem: string;
-  discountCodes: DiscountCode[]
+  discountCodes: DiscountCode[];
 };
 
 const initialState: CartState = {
